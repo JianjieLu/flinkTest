@@ -1,0 +1,124 @@
+SN: 2953028
+DEVICE IP: 100.65.23.240
+TIME: 1740710396950
+COUNT: 2
+Car ID: 8665
+Car Number:
+Type: 0
+Scope: [0, 0]
+Speed: 33.94437 m/s
+Wayno: 2
+Tpointno: 15299
+Boolean: 0
+Direct: 1
+===============
+Car ID: 8666
+Car Number:
+Type: 1
+Scope: [0, 0]
+Speed: 17.745817 m/s
+Wayno: 3
+Tpointno: 14486
+Boolean: 0
+Direct: 1
+===============
+
+SN: 2953029
+DEVICE IP: 100.65.23.240
+TIME: 1740710397150
+COUNT: 2
+Car ID: 8665
+Car Number:
+Type: 0
+Scope: [0, 0]
+Speed: 33.921432 m/s
+Wayno: 2
+Tpointno: 15302
+Boolean: 0
+Direct: 1
+===============
+Car ID: 8666
+Car Number:
+Type: 1
+Scope: [0, 0]
+Speed: 17.773125 m/s
+Wayno: 3
+Tpointno: 14489
+Boolean: 0
+Direct: 1
+===============
+
+SN: 2953030
+DEVICE IP: 100.65.23.240
+TIME: 1740710397350
+COUNT: 1
+Car ID: 8666
+Car Number:
+Type: 1
+Scope: [0, 0]
+Speed: 17.774786 m/s
+Wayno: 3
+Tpointno: 14490
+Boolean: 0
+Direct: 1
+===============
+
+SN: 2953031
+DEVICE IP: 100.65.23.240
+TIME: 1740710397550
+COUNT: 1
+Car ID: 8666
+Car Number:
+Type: 1
+Scope: [0, 0]
+Speed: 17.776184 m/s
+Wayno: 3
+Tpointno: 14492
+Boolean: 0
+Direct: 1
+===============
+
+SN: 2953032
+DEVICE IP: 100.65.23.240
+TIME: 1740710397750
+COUNT: 1
+Car ID: 8666
+Car Number:
+Type: 1
+Scope: [0, 0]
+Speed: 17.788815 m/s
+Wayno: 3
+Tpointno: 14498
+Boolean: 0
+Direct: 1
+===============
+
+SN: 2953033
+DEVICE IP: 100.65.23.240
+TIME: 1740710397950
+COUNT: 1
+Car ID: 8666
+Car Number:
+Type: 1
+Scope: [0, 0]
+Speed: 17.80878 m/s
+Wayno: 3
+Tpointno: 14498
+Boolean: 0
+Direct: 1
+===============
+
+SN: 2953034
+DEVICE IP: 100.65.23.240
+TIME: 1740710398150
+COUNT: 1
+Car ID: 8666
+Car Number:
+Type: 1
+Scope: [0, 0]
+Speed: 17.809122 m/s
+Wayno: 3
+Tpointno: 14501
+Boolean: 0
+Direct: 1
+===============

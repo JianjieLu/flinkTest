@@ -1,0 +1,7792 @@
+[
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+145.5",
+        "locationNum": 145.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.92119598388672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+146",
+        "locationNum": 146.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.92119026184082,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+146.5",
+        "locationNum": 146.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921186447143555,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+147",
+        "locationNum": 147.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921180725097656,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+147.5",
+        "locationNum": 147.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.92117691040039,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+148",
+        "locationNum": 148.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921173095703125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+148.5",
+        "locationNum": 148.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921167373657227,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+149",
+        "locationNum": 149.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.92116355895996,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+149.5",
+        "locationNum": 149.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921159744262695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+150",
+        "locationNum": 150.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921154022216797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+150.5",
+        "locationNum": 150.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.92115020751953,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+151",
+        "locationNum": 151.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921146392822266,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+151.5",
+        "locationNum": 151.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921140670776367,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+152",
+        "locationNum": 152.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.9211368560791,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+152.5",
+        "locationNum": 152.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921133041381836,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+153",
+        "locationNum": 153.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921127319335938,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+153.5",
+        "locationNum": 153.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.921123504638672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+154",
+        "locationNum": 154.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921117782592773,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+154.5",
+        "locationNum": 154.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921113967895508,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+155",
+        "locationNum": 155.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921110153198242,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+155.5",
+        "locationNum": 155.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921104431152344,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+156",
+        "locationNum": 156.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921100616455078,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+156.5",
+        "locationNum": 156.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921096801757812,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+157",
+        "locationNum": 157.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921091079711914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+157.5",
+        "locationNum": 157.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92108726501465,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+158",
+        "locationNum": 158.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921083450317383,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+158.5",
+        "locationNum": 158.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921077728271484,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+159",
+        "locationNum": 159.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92107391357422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+159.5",
+        "locationNum": 159.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92106819152832,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+160",
+        "locationNum": 160.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921064376831055,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+160.5",
+        "locationNum": 160.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92106056213379,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+161",
+        "locationNum": 161.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92105484008789,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+161.5",
+        "locationNum": 161.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921051025390625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+162",
+        "locationNum": 162.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92104721069336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+162.5",
+        "locationNum": 162.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92104148864746,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+163",
+        "locationNum": 163.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.921037673950195,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+163.5",
+        "locationNum": 163.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92103385925293,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+164",
+        "locationNum": 164.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92102813720703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+164.5",
+        "locationNum": 164.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.921024322509766,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+165",
+        "locationNum": 165.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.9210205078125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+165.5",
+        "locationNum": 165.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.9210147857666,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+166",
+        "locationNum": 166.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.921010971069336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+166.5",
+        "locationNum": 166.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.921005249023438,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+167",
+        "locationNum": 167.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.921001434326172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+167.5",
+        "locationNum": 167.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920997619628906,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+168",
+        "locationNum": 168.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920991897583008,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+168.5",
+        "locationNum": 168.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920988082885742,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+169",
+        "locationNum": 169.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920984268188477,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+169.5",
+        "locationNum": 169.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920978546142578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+170",
+        "locationNum": 170.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920974731445312,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+170.5",
+        "locationNum": 170.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920970916748047,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+171",
+        "locationNum": 171.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92096519470215,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+171.5",
+        "locationNum": 171.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920961380004883,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+172",
+        "locationNum": 172.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920957565307617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+172.5",
+        "locationNum": 172.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92095184326172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+173",
+        "locationNum": 173.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920948028564453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+173.5",
+        "locationNum": 173.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920942306518555,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+174",
+        "locationNum": 174.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92093849182129,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+174.5",
+        "locationNum": 174.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920934677124023,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+175",
+        "locationNum": 175.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920928955078125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+175.5",
+        "locationNum": 175.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92092514038086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+176",
+        "locationNum": 176.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920921325683594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+176.5",
+        "locationNum": 176.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920915603637695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+177",
+        "locationNum": 177.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92091178894043,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+177.5",
+        "locationNum": 177.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920907974243164,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+178",
+        "locationNum": 178.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920902252197266,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+178.5",
+        "locationNum": 178.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.9208984375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+179",
+        "locationNum": 179.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.9208927154541,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+179.5",
+        "locationNum": 179.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920888900756836,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+180",
+        "locationNum": 180.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92088508605957,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+180.5",
+        "locationNum": 180.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920879364013672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+181",
+        "locationNum": 181.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920875549316406,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+181.5",
+        "locationNum": 181.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92087173461914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+182",
+        "locationNum": 182.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920866012573242,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+182.5",
+        "locationNum": 182.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920862197875977,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+183",
+        "locationNum": 183.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92085838317871,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+183.5",
+        "locationNum": 183.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920852661132812,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+184",
+        "locationNum": 184.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920848846435547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+184.5",
+        "locationNum": 184.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92084312438965,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+185",
+        "locationNum": 185.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920839309692383,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+185.5",
+        "locationNum": 185.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920835494995117,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+186",
+        "locationNum": 186.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92082977294922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+186.5",
+        "locationNum": 186.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920825958251953,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+187",
+        "locationNum": 187.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920822143554688,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+187.5",
+        "locationNum": 187.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92081642150879,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+188",
+        "locationNum": 188.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920812606811523,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+188.5",
+        "locationNum": 188.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920806884765625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+189",
+        "locationNum": 189.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92080307006836,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+189.5",
+        "locationNum": 189.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920799255371094,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+190",
+        "locationNum": 190.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920793533325195,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+190.5",
+        "locationNum": 190.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92078971862793,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+191",
+        "locationNum": 191.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920785903930664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+191.5",
+        "locationNum": 191.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920780181884766,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+192",
+        "locationNum": 192.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.9207763671875,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+192.5",
+        "locationNum": 192.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920772552490234,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+193",
+        "locationNum": 193.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920766830444336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+193.5",
+        "locationNum": 193.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92076301574707,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+194",
+        "locationNum": 194.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920757293701172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+194.5",
+        "locationNum": 194.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920753479003906,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+195",
+        "locationNum": 195.0,
+        "longitude": 114.04431915283203,
+        "latitude": 30.92074966430664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+195.5",
+        "locationNum": 195.5,
+        "longitude": 114.04431915283203,
+        "latitude": 30.920743942260742,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+196",
+        "locationNum": 196.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920740127563477,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+196.5",
+        "locationNum": 196.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92073631286621,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+197",
+        "locationNum": 197.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920730590820312,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+197.5",
+        "locationNum": 197.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920726776123047,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+198",
+        "locationNum": 198.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92072296142578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+198.5",
+        "locationNum": 198.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920717239379883,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+199",
+        "locationNum": 199.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920713424682617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+199.5",
+        "locationNum": 199.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92070960998535,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+200",
+        "locationNum": 200.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920703887939453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+200.5",
+        "locationNum": 200.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920700073242188,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+201",
+        "locationNum": 201.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92069435119629,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+201.5",
+        "locationNum": 201.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920690536499023,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+202",
+        "locationNum": 202.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920686721801758,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+202.5",
+        "locationNum": 202.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92068099975586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+203",
+        "locationNum": 203.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920677185058594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+203.5",
+        "locationNum": 203.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920673370361328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+204",
+        "locationNum": 204.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.92066764831543,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+204.5",
+        "locationNum": 204.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920663833618164,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+205",
+        "locationNum": 205.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.9206600189209,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+205.5",
+        "locationNum": 205.5,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920654296875,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+206",
+        "locationNum": 206.0,
+        "longitude": 114.0443115234375,
+        "latitude": 30.920650482177734,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+206.5",
+        "locationNum": 206.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92064666748047,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+207",
+        "locationNum": 207.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92064094543457,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+207.5",
+        "locationNum": 207.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.920637130737305,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+208",
+        "locationNum": 208.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.920631408691406,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+208.5",
+        "locationNum": 208.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92062759399414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+209",
+        "locationNum": 209.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.920623779296875,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+209.5",
+        "locationNum": 209.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.920618057250977,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+210",
+        "locationNum": 210.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92061424255371,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+210.5",
+        "locationNum": 210.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.920610427856445,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+211",
+        "locationNum": 211.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.920604705810547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+211.5",
+        "locationNum": 211.5,
+        "longitude": 114.04430389404297,
+        "latitude": 30.92060089111328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+212",
+        "locationNum": 212.0,
+        "longitude": 114.04430389404297,
+        "latitude": 30.920597076416016,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+212.5",
+        "locationNum": 212.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.920591354370117,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+213",
+        "locationNum": 213.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.92058753967285,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+213.5",
+        "locationNum": 213.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.920583724975586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+214",
+        "locationNum": 214.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.920578002929688,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+214.5",
+        "locationNum": 214.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.920574188232422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+215",
+        "locationNum": 215.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.920570373535156,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+215.5",
+        "locationNum": 215.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.920564651489258,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+216",
+        "locationNum": 216.0,
+        "longitude": 114.04429626464844,
+        "latitude": 30.920560836791992,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+216.5",
+        "locationNum": 216.5,
+        "longitude": 114.04429626464844,
+        "latitude": 30.920557022094727,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+217",
+        "locationNum": 217.0,
+        "longitude": 114.0442886352539,
+        "latitude": 30.920551300048828,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+217.5",
+        "locationNum": 217.5,
+        "longitude": 114.0442886352539,
+        "latitude": 30.920547485351562,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+218",
+        "locationNum": 218.0,
+        "longitude": 114.0442886352539,
+        "latitude": 30.920543670654297,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+218.5",
+        "locationNum": 218.5,
+        "longitude": 114.0442886352539,
+        "latitude": 30.9205379486084,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+219",
+        "locationNum": 219.0,
+        "longitude": 114.0442886352539,
+        "latitude": 30.920534133911133,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+219.5",
+        "locationNum": 219.5,
+        "longitude": 114.0442886352539,
+        "latitude": 30.920530319213867,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+220",
+        "locationNum": 220.0,
+        "longitude": 114.0442886352539,
+        "latitude": 30.92052459716797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+220.5",
+        "locationNum": 220.5,
+        "longitude": 114.0442886352539,
+        "latitude": 30.920520782470703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+221",
+        "locationNum": 221.0,
+        "longitude": 114.04428100585938,
+        "latitude": 30.920516967773438,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+221.5",
+        "locationNum": 221.5,
+        "longitude": 114.04428100585938,
+        "latitude": 30.92051124572754,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+222",
+        "locationNum": 222.0,
+        "longitude": 114.04428100585938,
+        "latitude": 30.920507431030273,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+222.5",
+        "locationNum": 222.5,
+        "longitude": 114.04428100585938,
+        "latitude": 30.920503616333008,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+223",
+        "locationNum": 223.0,
+        "longitude": 114.04428100585938,
+        "latitude": 30.92049789428711,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+223.5",
+        "locationNum": 223.5,
+        "longitude": 114.04428100585938,
+        "latitude": 30.920494079589844,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+224",
+        "locationNum": 224.0,
+        "longitude": 114.04428100585938,
+        "latitude": 30.920490264892578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+224.5",
+        "locationNum": 224.5,
+        "longitude": 114.04427337646484,
+        "latitude": 30.920486450195312,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+225",
+        "locationNum": 225.0,
+        "longitude": 114.04427337646484,
+        "latitude": 30.920480728149414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+225.5",
+        "locationNum": 225.5,
+        "longitude": 114.04427337646484,
+        "latitude": 30.92047691345215,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+226",
+        "locationNum": 226.0,
+        "longitude": 114.04427337646484,
+        "latitude": 30.920473098754883,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+226.5",
+        "locationNum": 226.5,
+        "longitude": 114.04427337646484,
+        "latitude": 30.920467376708984,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+227",
+        "locationNum": 227.0,
+        "longitude": 114.04427337646484,
+        "latitude": 30.92046356201172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+227.5",
+        "locationNum": 227.5,
+        "longitude": 114.04427337646484,
+        "latitude": 30.920459747314453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+228",
+        "locationNum": 228.0,
+        "longitude": 114.04426574707031,
+        "latitude": 30.920454025268555,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+228.5",
+        "locationNum": 228.5,
+        "longitude": 114.04426574707031,
+        "latitude": 30.92045021057129,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+229",
+        "locationNum": 229.0,
+        "longitude": 114.04426574707031,
+        "latitude": 30.920446395874023,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+229.5",
+        "locationNum": 229.5,
+        "longitude": 114.04426574707031,
+        "latitude": 30.920442581176758,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+230",
+        "locationNum": 230.0,
+        "longitude": 114.04426574707031,
+        "latitude": 30.92043685913086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+230.5",
+        "locationNum": 230.5,
+        "longitude": 114.04425811767578,
+        "latitude": 30.920433044433594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+231",
+        "locationNum": 231.0,
+        "longitude": 114.04425811767578,
+        "latitude": 30.920429229736328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+231.5",
+        "locationNum": 231.5,
+        "longitude": 114.04425811767578,
+        "latitude": 30.92042350769043,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+232",
+        "locationNum": 232.0,
+        "longitude": 114.04425811767578,
+        "latitude": 30.920419692993164,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+232.5",
+        "locationNum": 232.5,
+        "longitude": 114.04425811767578,
+        "latitude": 30.9204158782959,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+233",
+        "locationNum": 233.0,
+        "longitude": 114.04425048828125,
+        "latitude": 30.920412063598633,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+233.5",
+        "locationNum": 233.5,
+        "longitude": 114.04425048828125,
+        "latitude": 30.920406341552734,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+234",
+        "locationNum": 234.0,
+        "longitude": 114.04425048828125,
+        "latitude": 30.92040252685547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+234.5",
+        "locationNum": 234.5,
+        "longitude": 114.04425048828125,
+        "latitude": 30.920398712158203,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+235",
+        "locationNum": 235.0,
+        "longitude": 114.04425048828125,
+        "latitude": 30.920394897460938,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+235.5",
+        "locationNum": 235.5,
+        "longitude": 114.04424285888672,
+        "latitude": 30.92038917541504,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+236",
+        "locationNum": 236.0,
+        "longitude": 114.04424285888672,
+        "latitude": 30.920385360717773,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+236.5",
+        "locationNum": 236.5,
+        "longitude": 114.04424285888672,
+        "latitude": 30.920381546020508,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+237",
+        "locationNum": 237.0,
+        "longitude": 114.04424285888672,
+        "latitude": 30.920377731323242,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+237.5",
+        "locationNum": 237.5,
+        "longitude": 114.04424285888672,
+        "latitude": 30.920372009277344,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+238",
+        "locationNum": 238.0,
+        "longitude": 114.04423522949219,
+        "latitude": 30.920368194580078,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+238.5",
+        "locationNum": 238.5,
+        "longitude": 114.04423522949219,
+        "latitude": 30.920364379882812,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+239",
+        "locationNum": 239.0,
+        "longitude": 114.04423522949219,
+        "latitude": 30.920360565185547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+239.5",
+        "locationNum": 239.5,
+        "longitude": 114.04423522949219,
+        "latitude": 30.92035484313965,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+240",
+        "locationNum": 240.0,
+        "longitude": 114.04422760009766,
+        "latitude": 30.920351028442383,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+240.5",
+        "locationNum": 240.5,
+        "longitude": 114.04422760009766,
+        "latitude": 30.920347213745117,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+241",
+        "locationNum": 241.0,
+        "longitude": 114.04422760009766,
+        "latitude": 30.92034339904785,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+241.5",
+        "locationNum": 241.5,
+        "longitude": 114.04422760009766,
+        "latitude": 30.920339584350586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+242",
+        "locationNum": 242.0,
+        "longitude": 114.04421997070312,
+        "latitude": 30.920333862304688,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+242.5",
+        "locationNum": 242.5,
+        "longitude": 114.04421997070312,
+        "latitude": 30.920330047607422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+243",
+        "locationNum": 243.0,
+        "longitude": 114.04421997070312,
+        "latitude": 30.920326232910156,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+243.5",
+        "locationNum": 243.5,
+        "longitude": 114.04421997070312,
+        "latitude": 30.92032241821289,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+244",
+        "locationNum": 244.0,
+        "longitude": 114.0442123413086,
+        "latitude": 30.920318603515625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+244.5",
+        "locationNum": 244.5,
+        "longitude": 114.0442123413086,
+        "latitude": 30.920312881469727,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+245",
+        "locationNum": 245.0,
+        "longitude": 114.0442123413086,
+        "latitude": 30.92030906677246,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+245.5",
+        "locationNum": 245.5,
+        "longitude": 114.0442123413086,
+        "latitude": 30.920305252075195,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+246",
+        "locationNum": 246.0,
+        "longitude": 114.04420471191406,
+        "latitude": 30.92030143737793,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+246.5",
+        "locationNum": 246.5,
+        "longitude": 114.04420471191406,
+        "latitude": 30.920297622680664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+247",
+        "locationNum": 247.0,
+        "longitude": 114.04420471191406,
+        "latitude": 30.9202938079834,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+247.5",
+        "locationNum": 247.5,
+        "longitude": 114.04420471191406,
+        "latitude": 30.9202880859375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+248",
+        "locationNum": 248.0,
+        "longitude": 114.04419708251953,
+        "latitude": 30.920284271240234,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+248.5",
+        "locationNum": 248.5,
+        "longitude": 114.04419708251953,
+        "latitude": 30.92028045654297,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+249",
+        "locationNum": 249.0,
+        "longitude": 114.04419708251953,
+        "latitude": 30.920276641845703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+249.5",
+        "locationNum": 249.5,
+        "longitude": 114.044189453125,
+        "latitude": 30.920272827148438,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+250",
+        "locationNum": 250.0,
+        "longitude": 114.044189453125,
+        "latitude": 30.920269012451172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+250.5",
+        "locationNum": 250.5,
+        "longitude": 114.044189453125,
+        "latitude": 30.920263290405273,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+251",
+        "locationNum": 251.0,
+        "longitude": 114.044189453125,
+        "latitude": 30.920259475708008,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+251.5",
+        "locationNum": 251.5,
+        "longitude": 114.04418182373047,
+        "latitude": 30.920255661010742,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+252",
+        "locationNum": 252.0,
+        "longitude": 114.04418182373047,
+        "latitude": 30.920251846313477,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+252.5",
+        "locationNum": 252.5,
+        "longitude": 114.04418182373047,
+        "latitude": 30.92024803161621,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+253",
+        "locationNum": 253.0,
+        "longitude": 114.04417419433594,
+        "latitude": 30.920244216918945,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+253.5",
+        "locationNum": 253.5,
+        "longitude": 114.04417419433594,
+        "latitude": 30.92024040222168,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+254",
+        "locationNum": 254.0,
+        "longitude": 114.04417419433594,
+        "latitude": 30.920236587524414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+254.5",
+        "locationNum": 254.5,
+        "longitude": 114.0441665649414,
+        "latitude": 30.920230865478516,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+255",
+        "locationNum": 255.0,
+        "longitude": 114.0441665649414,
+        "latitude": 30.92022705078125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+255.5",
+        "locationNum": 255.5,
+        "longitude": 114.0441665649414,
+        "latitude": 30.920223236083984,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+256",
+        "locationNum": 256.0,
+        "longitude": 114.04415893554688,
+        "latitude": 30.92021942138672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+256.5",
+        "locationNum": 256.5,
+        "longitude": 114.04415893554688,
+        "latitude": 30.920215606689453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+257",
+        "locationNum": 257.0,
+        "longitude": 114.04415893554688,
+        "latitude": 30.920211791992188,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+257.5",
+        "locationNum": 257.5,
+        "longitude": 114.04415130615234,
+        "latitude": 30.920207977294922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+258",
+        "locationNum": 258.0,
+        "longitude": 114.04415130615234,
+        "latitude": 30.920204162597656,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+258.5",
+        "locationNum": 258.5,
+        "longitude": 114.04415130615234,
+        "latitude": 30.92020034790039,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+259",
+        "locationNum": 259.0,
+        "longitude": 114.04414367675781,
+        "latitude": 30.920196533203125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+259.5",
+        "locationNum": 259.5,
+        "longitude": 114.04414367675781,
+        "latitude": 30.92019271850586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+260",
+        "locationNum": 260.0,
+        "longitude": 114.04414367675781,
+        "latitude": 30.920188903808594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+260.5",
+        "locationNum": 260.5,
+        "longitude": 114.04413604736328,
+        "latitude": 30.920185089111328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+261",
+        "locationNum": 261.0,
+        "longitude": 114.04413604736328,
+        "latitude": 30.920181274414062,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+261.5",
+        "locationNum": 261.5,
+        "longitude": 114.04413604736328,
+        "latitude": 30.920177459716797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+262",
+        "locationNum": 262.0,
+        "longitude": 114.04412841796875,
+        "latitude": 30.9201717376709,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+262.5",
+        "locationNum": 262.5,
+        "longitude": 114.04412841796875,
+        "latitude": 30.920167922973633,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+263",
+        "locationNum": 263.0,
+        "longitude": 114.04412841796875,
+        "latitude": 30.920164108276367,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+263.5",
+        "locationNum": 263.5,
+        "longitude": 114.04412078857422,
+        "latitude": 30.9201602935791,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+264",
+        "locationNum": 264.0,
+        "longitude": 114.04412078857422,
+        "latitude": 30.920156478881836,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+264.5",
+        "locationNum": 264.5,
+        "longitude": 114.04412078857422,
+        "latitude": 30.92015266418457,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+265",
+        "locationNum": 265.0,
+        "longitude": 114.04411315917969,
+        "latitude": 30.920148849487305,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+265.5",
+        "locationNum": 265.5,
+        "longitude": 114.04411315917969,
+        "latitude": 30.92014503479004,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+266",
+        "locationNum": 266.0,
+        "longitude": 114.04410552978516,
+        "latitude": 30.920141220092773,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+266.5",
+        "locationNum": 266.5,
+        "longitude": 114.04410552978516,
+        "latitude": 30.920137405395508,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+267",
+        "locationNum": 267.0,
+        "longitude": 114.04410552978516,
+        "latitude": 30.920133590698242,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+267.5",
+        "locationNum": 267.5,
+        "longitude": 114.04409790039062,
+        "latitude": 30.920129776000977,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+268",
+        "locationNum": 268.0,
+        "longitude": 114.04409790039062,
+        "latitude": 30.92012596130371,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+268.5",
+        "locationNum": 268.5,
+        "longitude": 114.04409790039062,
+        "latitude": 30.920122146606445,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+269",
+        "locationNum": 269.0,
+        "longitude": 114.0440902709961,
+        "latitude": 30.920120239257812,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+269.5",
+        "locationNum": 269.5,
+        "longitude": 114.0440902709961,
+        "latitude": 30.920116424560547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+270",
+        "locationNum": 270.0,
+        "longitude": 114.04408264160156,
+        "latitude": 30.92011260986328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+270.5",
+        "locationNum": 270.5,
+        "longitude": 114.04408264160156,
+        "latitude": 30.920108795166016,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+271",
+        "locationNum": 271.0,
+        "longitude": 114.04408264160156,
+        "latitude": 30.92010498046875,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+271.5",
+        "locationNum": 271.5,
+        "longitude": 114.04407501220703,
+        "latitude": 30.920101165771484,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+272",
+        "locationNum": 272.0,
+        "longitude": 114.04407501220703,
+        "latitude": 30.92009735107422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+272.5",
+        "locationNum": 272.5,
+        "longitude": 114.04407501220703,
+        "latitude": 30.920093536376953,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+273",
+        "locationNum": 273.0,
+        "longitude": 114.0440673828125,
+        "latitude": 30.920089721679688,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+273.5",
+        "locationNum": 273.5,
+        "longitude": 114.0440673828125,
+        "latitude": 30.920085906982422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+274",
+        "locationNum": 274.0,
+        "longitude": 114.04405975341797,
+        "latitude": 30.920082092285156,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+274.5",
+        "locationNum": 274.5,
+        "longitude": 114.04405975341797,
+        "latitude": 30.92007827758789,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+275",
+        "locationNum": 275.0,
+        "longitude": 114.04405212402344,
+        "latitude": 30.920074462890625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+275.5",
+        "locationNum": 275.5,
+        "longitude": 114.04405212402344,
+        "latitude": 30.92007064819336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+276",
+        "locationNum": 276.0,
+        "longitude": 114.04405212402344,
+        "latitude": 30.920068740844727,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+276.5",
+        "locationNum": 276.5,
+        "longitude": 114.0440444946289,
+        "latitude": 30.92006492614746,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+277",
+        "locationNum": 277.0,
+        "longitude": 114.0440444946289,
+        "latitude": 30.920061111450195,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+277.5",
+        "locationNum": 277.5,
+        "longitude": 114.04403686523438,
+        "latitude": 30.92005729675293,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+278",
+        "locationNum": 278.0,
+        "longitude": 114.04403686523438,
+        "latitude": 30.920053482055664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+278.5",
+        "locationNum": 278.5,
+        "longitude": 114.04402923583984,
+        "latitude": 30.9200496673584,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+279",
+        "locationNum": 279.0,
+        "longitude": 114.04402923583984,
+        "latitude": 30.920047760009766,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+279.5",
+        "locationNum": 279.5,
+        "longitude": 114.04402923583984,
+        "latitude": 30.9200439453125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+280",
+        "locationNum": 280.0,
+        "longitude": 114.04402160644531,
+        "latitude": 30.920040130615234,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+280.5",
+        "locationNum": 280.5,
+        "longitude": 114.04402160644531,
+        "latitude": 30.92003631591797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+281",
+        "locationNum": 281.0,
+        "longitude": 114.04401397705078,
+        "latitude": 30.920032501220703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+281.5",
+        "locationNum": 281.5,
+        "longitude": 114.04401397705078,
+        "latitude": 30.92003059387207,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+282",
+        "locationNum": 282.0,
+        "longitude": 114.04400634765625,
+        "latitude": 30.920026779174805,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+282.5",
+        "locationNum": 282.5,
+        "longitude": 114.04400634765625,
+        "latitude": 30.92002296447754,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+283",
+        "locationNum": 283.0,
+        "longitude": 114.04399871826172,
+        "latitude": 30.920019149780273,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+283.5",
+        "locationNum": 283.5,
+        "longitude": 114.04399871826172,
+        "latitude": 30.92001724243164,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+284",
+        "locationNum": 284.0,
+        "longitude": 114.04399108886719,
+        "latitude": 30.920013427734375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+284.5",
+        "locationNum": 284.5,
+        "longitude": 114.04399108886719,
+        "latitude": 30.92000961303711,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+285",
+        "locationNum": 285.0,
+        "longitude": 114.04399108886719,
+        "latitude": 30.920005798339844,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+285.5",
+        "locationNum": 285.5,
+        "longitude": 114.04398345947266,
+        "latitude": 30.92000389099121,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+286",
+        "locationNum": 286.0,
+        "longitude": 114.04398345947266,
+        "latitude": 30.920000076293945,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+286.5",
+        "locationNum": 286.5,
+        "longitude": 114.04397583007812,
+        "latitude": 30.91999626159668,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+287",
+        "locationNum": 287.0,
+        "longitude": 114.04397583007812,
+        "latitude": 30.919992446899414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+287.5",
+        "locationNum": 287.5,
+        "longitude": 114.0439682006836,
+        "latitude": 30.91999053955078,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+288",
+        "locationNum": 288.0,
+        "longitude": 114.0439682006836,
+        "latitude": 30.919986724853516,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+288.5",
+        "locationNum": 288.5,
+        "longitude": 114.04396057128906,
+        "latitude": 30.91998291015625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+289",
+        "locationNum": 289.0,
+        "longitude": 114.04396057128906,
+        "latitude": 30.919981002807617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+289.5",
+        "locationNum": 289.5,
+        "longitude": 114.04395294189453,
+        "latitude": 30.91997718811035,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+290",
+        "locationNum": 290.0,
+        "longitude": 114.04395294189453,
+        "latitude": 30.919973373413086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+290.5",
+        "locationNum": 290.5,
+        "longitude": 114.0439453125,
+        "latitude": 30.91996955871582,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+291",
+        "locationNum": 291.0,
+        "longitude": 114.0439453125,
+        "latitude": 30.919967651367188,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+291.5",
+        "locationNum": 291.5,
+        "longitude": 114.04393768310547,
+        "latitude": 30.919963836669922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+292",
+        "locationNum": 292.0,
+        "longitude": 114.04393768310547,
+        "latitude": 30.919960021972656,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+292.5",
+        "locationNum": 292.5,
+        "longitude": 114.04393005371094,
+        "latitude": 30.919958114624023,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+293",
+        "locationNum": 293.0,
+        "longitude": 114.04393005371094,
+        "latitude": 30.919954299926758,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+293.5",
+        "locationNum": 293.5,
+        "longitude": 114.0439224243164,
+        "latitude": 30.919950485229492,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+294",
+        "locationNum": 294.0,
+        "longitude": 114.0439224243164,
+        "latitude": 30.91994857788086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+294.5",
+        "locationNum": 294.5,
+        "longitude": 114.04391479492188,
+        "latitude": 30.919944763183594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+295",
+        "locationNum": 295.0,
+        "longitude": 114.04391479492188,
+        "latitude": 30.919940948486328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+295.5",
+        "locationNum": 295.5,
+        "longitude": 114.04391479492188,
+        "latitude": 30.919939041137695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+296",
+        "locationNum": 296.0,
+        "longitude": 114.04390716552734,
+        "latitude": 30.91993522644043,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+296.5",
+        "locationNum": 296.5,
+        "longitude": 114.04390716552734,
+        "latitude": 30.919931411743164,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+297",
+        "locationNum": 297.0,
+        "longitude": 114.04389953613281,
+        "latitude": 30.91992950439453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+297.5",
+        "locationNum": 297.5,
+        "longitude": 114.04389953613281,
+        "latitude": 30.919925689697266,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+298",
+        "locationNum": 298.0,
+        "longitude": 114.04389190673828,
+        "latitude": 30.919923782348633,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+298.5",
+        "locationNum": 298.5,
+        "longitude": 114.04389190673828,
+        "latitude": 30.919919967651367,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+299",
+        "locationNum": 299.0,
+        "longitude": 114.04388427734375,
+        "latitude": 30.9199161529541,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+299.5",
+        "locationNum": 299.5,
+        "longitude": 114.04388427734375,
+        "latitude": 30.91991424560547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+300",
+        "locationNum": 300.0,
+        "longitude": 114.04387664794922,
+        "latitude": 30.919910430908203,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+300.5",
+        "locationNum": 300.5,
+        "longitude": 114.04387664794922,
+        "latitude": 30.91990852355957,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+301",
+        "locationNum": 301.0,
+        "longitude": 114.04386901855469,
+        "latitude": 30.919904708862305,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+301.5",
+        "locationNum": 301.5,
+        "longitude": 114.04386138916016,
+        "latitude": 30.91990089416504,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+302",
+        "locationNum": 302.0,
+        "longitude": 114.04386138916016,
+        "latitude": 30.919898986816406,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+302.5",
+        "locationNum": 302.5,
+        "longitude": 114.04385375976562,
+        "latitude": 30.91989517211914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+303",
+        "locationNum": 303.0,
+        "longitude": 114.04385375976562,
+        "latitude": 30.919893264770508,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+303.5",
+        "locationNum": 303.5,
+        "longitude": 114.0438461303711,
+        "latitude": 30.919889450073242,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+304",
+        "locationNum": 304.0,
+        "longitude": 114.0438461303711,
+        "latitude": 30.91988754272461,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+304.5",
+        "locationNum": 304.5,
+        "longitude": 114.04383850097656,
+        "latitude": 30.919883728027344,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+305",
+        "locationNum": 305.0,
+        "longitude": 114.04383850097656,
+        "latitude": 30.91988182067871,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+305.5",
+        "locationNum": 305.5,
+        "longitude": 114.04383087158203,
+        "latitude": 30.919878005981445,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+306",
+        "locationNum": 306.0,
+        "longitude": 114.04383087158203,
+        "latitude": 30.919876098632812,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+306.5",
+        "locationNum": 306.5,
+        "longitude": 114.0438232421875,
+        "latitude": 30.919872283935547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+307",
+        "locationNum": 307.0,
+        "longitude": 114.0438232421875,
+        "latitude": 30.919870376586914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+307.5",
+        "locationNum": 307.5,
+        "longitude": 114.04381561279297,
+        "latitude": 30.91986656188965,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+308",
+        "locationNum": 308.0,
+        "longitude": 114.04381561279297,
+        "latitude": 30.919864654541016,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+308.5",
+        "locationNum": 308.5,
+        "longitude": 114.04380798339844,
+        "latitude": 30.91986083984375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+309",
+        "locationNum": 309.0,
+        "longitude": 114.04380798339844,
+        "latitude": 30.919858932495117,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+309.5",
+        "locationNum": 309.5,
+        "longitude": 114.0438003540039,
+        "latitude": 30.91985511779785,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+310",
+        "locationNum": 310.0,
+        "longitude": 114.0438003540039,
+        "latitude": 30.91985321044922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+310.5",
+        "locationNum": 310.5,
+        "longitude": 114.04379272460938,
+        "latitude": 30.919849395751953,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+311",
+        "locationNum": 311.0,
+        "longitude": 114.04378509521484,
+        "latitude": 30.91984748840332,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+311.5",
+        "locationNum": 311.5,
+        "longitude": 114.04378509521484,
+        "latitude": 30.919843673706055,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+312",
+        "locationNum": 312.0,
+        "longitude": 114.04377746582031,
+        "latitude": 30.919841766357422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+312.5",
+        "locationNum": 312.5,
+        "longitude": 114.04377746582031,
+        "latitude": 30.91983985900879,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+313",
+        "locationNum": 313.0,
+        "longitude": 114.04376983642578,
+        "latitude": 30.919836044311523,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+313.5",
+        "locationNum": 313.5,
+        "longitude": 114.04376983642578,
+        "latitude": 30.91983413696289,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+314",
+        "locationNum": 314.0,
+        "longitude": 114.04376220703125,
+        "latitude": 30.919830322265625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+314.5",
+        "locationNum": 314.5,
+        "longitude": 114.04376220703125,
+        "latitude": 30.919828414916992,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+315",
+        "locationNum": 315.0,
+        "longitude": 114.04375457763672,
+        "latitude": 30.919824600219727,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+315.5",
+        "locationNum": 315.5,
+        "longitude": 114.04375457763672,
+        "latitude": 30.919822692871094,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+316",
+        "locationNum": 316.0,
+        "longitude": 114.04374694824219,
+        "latitude": 30.91982078552246,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+316.5",
+        "locationNum": 316.5,
+        "longitude": 114.04373931884766,
+        "latitude": 30.919816970825195,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+317",
+        "locationNum": 317.0,
+        "longitude": 114.04373931884766,
+        "latitude": 30.919815063476562,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+317.5",
+        "locationNum": 317.5,
+        "longitude": 114.04373168945312,
+        "latitude": 30.919811248779297,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+318",
+        "locationNum": 318.0,
+        "longitude": 114.04373168945312,
+        "latitude": 30.919809341430664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+318.5",
+        "locationNum": 318.5,
+        "longitude": 114.0437240600586,
+        "latitude": 30.91980743408203,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+319",
+        "locationNum": 319.0,
+        "longitude": 114.0437240600586,
+        "latitude": 30.919803619384766,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+319.5",
+        "locationNum": 319.5,
+        "longitude": 114.04371643066406,
+        "latitude": 30.919801712036133,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+320",
+        "locationNum": 320.0,
+        "longitude": 114.04371643066406,
+        "latitude": 30.919797897338867,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+320.5",
+        "locationNum": 320.5,
+        "longitude": 114.04370880126953,
+        "latitude": 30.919795989990234,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+321",
+        "locationNum": 321.0,
+        "longitude": 114.043701171875,
+        "latitude": 30.9197940826416,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+321.5",
+        "locationNum": 321.5,
+        "longitude": 114.043701171875,
+        "latitude": 30.919790267944336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+322",
+        "locationNum": 322.0,
+        "longitude": 114.04369354248047,
+        "latitude": 30.919788360595703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+322.5",
+        "locationNum": 322.5,
+        "longitude": 114.04369354248047,
+        "latitude": 30.91978645324707,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+323",
+        "locationNum": 323.0,
+        "longitude": 114.04368591308594,
+        "latitude": 30.919782638549805,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+323.5",
+        "locationNum": 323.5,
+        "longitude": 114.04368591308594,
+        "latitude": 30.919780731201172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+324",
+        "locationNum": 324.0,
+        "longitude": 114.0436782836914,
+        "latitude": 30.91977882385254,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+324.5",
+        "locationNum": 324.5,
+        "longitude": 114.04367065429688,
+        "latitude": 30.919775009155273,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+325",
+        "locationNum": 325.0,
+        "longitude": 114.04367065429688,
+        "latitude": 30.91977310180664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+325.5",
+        "locationNum": 325.5,
+        "longitude": 114.04366302490234,
+        "latitude": 30.919771194458008,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+326",
+        "locationNum": 326.0,
+        "longitude": 114.04366302490234,
+        "latitude": 30.919767379760742,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+326.5",
+        "locationNum": 326.5,
+        "longitude": 114.04365539550781,
+        "latitude": 30.91976547241211,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+327",
+        "locationNum": 327.0,
+        "longitude": 114.04365539550781,
+        "latitude": 30.919763565063477,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+327.5",
+        "locationNum": 327.5,
+        "longitude": 114.04364776611328,
+        "latitude": 30.919761657714844,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+328",
+        "locationNum": 328.0,
+        "longitude": 114.04364013671875,
+        "latitude": 30.919757843017578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+328.5",
+        "locationNum": 328.5,
+        "longitude": 114.04364013671875,
+        "latitude": 30.919755935668945,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+329",
+        "locationNum": 329.0,
+        "longitude": 114.04363250732422,
+        "latitude": 30.919754028320312,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+329.5",
+        "locationNum": 329.5,
+        "longitude": 114.04363250732422,
+        "latitude": 30.919750213623047,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+330",
+        "locationNum": 330.0,
+        "longitude": 114.04362487792969,
+        "latitude": 30.919748306274414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+330.5",
+        "locationNum": 330.5,
+        "longitude": 114.04362487792969,
+        "latitude": 30.91974639892578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+331",
+        "locationNum": 331.0,
+        "longitude": 114.04361724853516,
+        "latitude": 30.91974449157715,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+331.5",
+        "locationNum": 331.5,
+        "longitude": 114.04360961914062,
+        "latitude": 30.919740676879883,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+332",
+        "locationNum": 332.0,
+        "longitude": 114.04360961914062,
+        "latitude": 30.91973876953125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+332.5",
+        "locationNum": 332.5,
+        "longitude": 114.0436019897461,
+        "latitude": 30.919736862182617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+333",
+        "locationNum": 333.0,
+        "longitude": 114.0436019897461,
+        "latitude": 30.91973304748535,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+333.5",
+        "locationNum": 333.5,
+        "longitude": 114.04359436035156,
+        "latitude": 30.91973114013672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+334",
+        "locationNum": 334.0,
+        "longitude": 114.04359436035156,
+        "latitude": 30.919729232788086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+334.5",
+        "locationNum": 334.5,
+        "longitude": 114.04358673095703,
+        "latitude": 30.919727325439453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+335",
+        "locationNum": 335.0,
+        "longitude": 114.0435791015625,
+        "latitude": 30.919723510742188,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+335.5",
+        "locationNum": 335.5,
+        "longitude": 114.0435791015625,
+        "latitude": 30.919721603393555,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+336",
+        "locationNum": 336.0,
+        "longitude": 114.04357147216797,
+        "latitude": 30.919719696044922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+336.5",
+        "locationNum": 336.5,
+        "longitude": 114.04357147216797,
+        "latitude": 30.91971778869629,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+337",
+        "locationNum": 337.0,
+        "longitude": 114.04356384277344,
+        "latitude": 30.919715881347656,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+337.5",
+        "locationNum": 337.5,
+        "longitude": 114.0435562133789,
+        "latitude": 30.91971206665039,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+338",
+        "locationNum": 338.0,
+        "longitude": 114.0435562133789,
+        "latitude": 30.919710159301758,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+338.5",
+        "locationNum": 338.5,
+        "longitude": 114.04354858398438,
+        "latitude": 30.919708251953125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+339",
+        "locationNum": 339.0,
+        "longitude": 114.04354858398438,
+        "latitude": 30.919706344604492,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+339.5",
+        "locationNum": 339.5,
+        "longitude": 114.04354095458984,
+        "latitude": 30.919702529907227,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+340",
+        "locationNum": 340.0,
+        "longitude": 114.04353332519531,
+        "latitude": 30.919700622558594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+340.5",
+        "locationNum": 340.5,
+        "longitude": 114.04353332519531,
+        "latitude": 30.91969871520996,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+341",
+        "locationNum": 341.0,
+        "longitude": 114.04352569580078,
+        "latitude": 30.919696807861328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+341.5",
+        "locationNum": 341.5,
+        "longitude": 114.04352569580078,
+        "latitude": 30.919694900512695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+342",
+        "locationNum": 342.0,
+        "longitude": 114.04351806640625,
+        "latitude": 30.91969108581543,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+342.5",
+        "locationNum": 342.5,
+        "longitude": 114.04351806640625,
+        "latitude": 30.919689178466797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+343",
+        "locationNum": 343.0,
+        "longitude": 114.04351043701172,
+        "latitude": 30.919687271118164,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+343.5",
+        "locationNum": 343.5,
+        "longitude": 114.04350280761719,
+        "latitude": 30.91968536376953,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+344",
+        "locationNum": 344.0,
+        "longitude": 114.04350280761719,
+        "latitude": 30.9196834564209,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+344.5",
+        "locationNum": 344.5,
+        "longitude": 114.04349517822266,
+        "latitude": 30.919679641723633,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+345",
+        "locationNum": 345.0,
+        "longitude": 114.04349517822266,
+        "latitude": 30.919677734375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+345.5",
+        "locationNum": 345.5,
+        "longitude": 114.04348754882812,
+        "latitude": 30.919675827026367,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+346",
+        "locationNum": 346.0,
+        "longitude": 114.0434799194336,
+        "latitude": 30.919673919677734,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+346.5",
+        "locationNum": 346.5,
+        "longitude": 114.0434799194336,
+        "latitude": 30.9196720123291,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+347",
+        "locationNum": 347.0,
+        "longitude": 114.04347229003906,
+        "latitude": 30.91967010498047,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+347.5",
+        "locationNum": 347.5,
+        "longitude": 114.04347229003906,
+        "latitude": 30.919666290283203,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+348",
+        "locationNum": 348.0,
+        "longitude": 114.04346466064453,
+        "latitude": 30.91966438293457,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+348.5",
+        "locationNum": 348.5,
+        "longitude": 114.04345703125,
+        "latitude": 30.919662475585938,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+349",
+        "locationNum": 349.0,
+        "longitude": 114.04345703125,
+        "latitude": 30.919660568237305,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+349.5",
+        "locationNum": 349.5,
+        "longitude": 114.04344940185547,
+        "latitude": 30.919658660888672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+350",
+        "locationNum": 350.0,
+        "longitude": 114.04344940185547,
+        "latitude": 30.91965675354004,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+350.5",
+        "locationNum": 350.5,
+        "longitude": 114.04344177246094,
+        "latitude": 30.919654846191406,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+351",
+        "locationNum": 351.0,
+        "longitude": 114.0434341430664,
+        "latitude": 30.91965103149414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+351.5",
+        "locationNum": 351.5,
+        "longitude": 114.0434341430664,
+        "latitude": 30.919649124145508,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+352",
+        "locationNum": 352.0,
+        "longitude": 114.04342651367188,
+        "latitude": 30.919647216796875,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+352.5",
+        "locationNum": 352.5,
+        "longitude": 114.04342651367188,
+        "latitude": 30.919645309448242,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+353",
+        "locationNum": 353.0,
+        "longitude": 114.04341888427734,
+        "latitude": 30.91964340209961,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+353.5",
+        "locationNum": 353.5,
+        "longitude": 114.04341125488281,
+        "latitude": 30.919641494750977,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+354",
+        "locationNum": 354.0,
+        "longitude": 114.04341125488281,
+        "latitude": 30.919639587402344,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+354.5",
+        "locationNum": 354.5,
+        "longitude": 114.04340362548828,
+        "latitude": 30.919635772705078,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+355",
+        "locationNum": 355.0,
+        "longitude": 114.04340362548828,
+        "latitude": 30.919633865356445,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+355.5",
+        "locationNum": 355.5,
+        "longitude": 114.04339599609375,
+        "latitude": 30.919631958007812,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+356",
+        "locationNum": 356.0,
+        "longitude": 114.04338836669922,
+        "latitude": 30.91963005065918,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+356.5",
+        "locationNum": 356.5,
+        "longitude": 114.04338836669922,
+        "latitude": 30.919628143310547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+357",
+        "locationNum": 357.0,
+        "longitude": 114.04338073730469,
+        "latitude": 30.919626235961914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+357.5",
+        "locationNum": 357.5,
+        "longitude": 114.04338073730469,
+        "latitude": 30.91962432861328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+358",
+        "locationNum": 358.0,
+        "longitude": 114.04337310791016,
+        "latitude": 30.91962242126465,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+358.5",
+        "locationNum": 358.5,
+        "longitude": 114.04336547851562,
+        "latitude": 30.919620513916016,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+359",
+        "locationNum": 359.0,
+        "longitude": 114.04336547851562,
+        "latitude": 30.919618606567383,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+359.5",
+        "locationNum": 359.5,
+        "longitude": 114.0433578491211,
+        "latitude": 30.919614791870117,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+360",
+        "locationNum": 360.0,
+        "longitude": 114.04335021972656,
+        "latitude": 30.919612884521484,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+360.5",
+        "locationNum": 360.5,
+        "longitude": 114.04335021972656,
+        "latitude": 30.91961097717285,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+361",
+        "locationNum": 361.0,
+        "longitude": 114.04334259033203,
+        "latitude": 30.91960906982422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+361.5",
+        "locationNum": 361.5,
+        "longitude": 114.04334259033203,
+        "latitude": 30.919607162475586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+362",
+        "locationNum": 362.0,
+        "longitude": 114.0433349609375,
+        "latitude": 30.919605255126953,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+362.5",
+        "locationNum": 362.5,
+        "longitude": 114.04332733154297,
+        "latitude": 30.91960334777832,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+363",
+        "locationNum": 363.0,
+        "longitude": 114.04332733154297,
+        "latitude": 30.919601440429688,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+363.5",
+        "locationNum": 363.5,
+        "longitude": 114.04331970214844,
+        "latitude": 30.919599533081055,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+364",
+        "locationNum": 364.0,
+        "longitude": 114.04331970214844,
+        "latitude": 30.919597625732422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+364.5",
+        "locationNum": 364.5,
+        "longitude": 114.0433120727539,
+        "latitude": 30.91959571838379,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+365",
+        "locationNum": 365.0,
+        "longitude": 114.04330444335938,
+        "latitude": 30.919591903686523,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+365.5",
+        "locationNum": 365.5,
+        "longitude": 114.04330444335938,
+        "latitude": 30.91958999633789,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+366",
+        "locationNum": 366.0,
+        "longitude": 114.04329681396484,
+        "latitude": 30.919588088989258,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+366.5",
+        "locationNum": 366.5,
+        "longitude": 114.04329681396484,
+        "latitude": 30.919586181640625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+367",
+        "locationNum": 367.0,
+        "longitude": 114.04328918457031,
+        "latitude": 30.919584274291992,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+367.5",
+        "locationNum": 367.5,
+        "longitude": 114.04328155517578,
+        "latitude": 30.91958236694336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+368",
+        "locationNum": 368.0,
+        "longitude": 114.04328155517578,
+        "latitude": 30.919580459594727,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+368.5",
+        "locationNum": 368.5,
+        "longitude": 114.04327392578125,
+        "latitude": 30.919578552246094,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+369",
+        "locationNum": 369.0,
+        "longitude": 114.04326629638672,
+        "latitude": 30.91957664489746,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+369.5",
+        "locationNum": 369.5,
+        "longitude": 114.04326629638672,
+        "latitude": 30.919574737548828,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+370",
+        "locationNum": 370.0,
+        "longitude": 114.04325866699219,
+        "latitude": 30.919572830200195,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+370.5",
+        "locationNum": 370.5,
+        "longitude": 114.04325866699219,
+        "latitude": 30.919570922851562,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+371",
+        "locationNum": 371.0,
+        "longitude": 114.04325103759766,
+        "latitude": 30.91956901550293,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+371.5",
+        "locationNum": 371.5,
+        "longitude": 114.04324340820312,
+        "latitude": 30.919567108154297,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+372",
+        "locationNum": 372.0,
+        "longitude": 114.04324340820312,
+        "latitude": 30.919565200805664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+372.5",
+        "locationNum": 372.5,
+        "longitude": 114.0432357788086,
+        "latitude": 30.91956329345703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+373",
+        "locationNum": 373.0,
+        "longitude": 114.0432357788086,
+        "latitude": 30.9195613861084,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+373.5",
+        "locationNum": 373.5,
+        "longitude": 114.04322814941406,
+        "latitude": 30.919559478759766,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+374",
+        "locationNum": 374.0,
+        "longitude": 114.04322052001953,
+        "latitude": 30.919557571411133,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+374.5",
+        "locationNum": 374.5,
+        "longitude": 114.04322052001953,
+        "latitude": 30.9195556640625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+375",
+        "locationNum": 375.0,
+        "longitude": 114.043212890625,
+        "latitude": 30.919553756713867,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+375.5",
+        "locationNum": 375.5,
+        "longitude": 114.04320526123047,
+        "latitude": 30.9195499420166,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+376",
+        "locationNum": 376.0,
+        "longitude": 114.04320526123047,
+        "latitude": 30.91954803466797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+376.5",
+        "locationNum": 376.5,
+        "longitude": 114.04319763183594,
+        "latitude": 30.919546127319336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+377",
+        "locationNum": 377.0,
+        "longitude": 114.04319763183594,
+        "latitude": 30.919544219970703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+377.5",
+        "locationNum": 377.5,
+        "longitude": 114.0431900024414,
+        "latitude": 30.91954231262207,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+378",
+        "locationNum": 378.0,
+        "longitude": 114.04318237304688,
+        "latitude": 30.919540405273438,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+378.5",
+        "locationNum": 378.5,
+        "longitude": 114.04318237304688,
+        "latitude": 30.919538497924805,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+379",
+        "locationNum": 379.0,
+        "longitude": 114.04317474365234,
+        "latitude": 30.919536590576172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+379.5",
+        "locationNum": 379.5,
+        "longitude": 114.04317474365234,
+        "latitude": 30.91953468322754,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+380",
+        "locationNum": 380.0,
+        "longitude": 114.04316711425781,
+        "latitude": 30.919532775878906,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+380.5",
+        "locationNum": 380.5,
+        "longitude": 114.04315948486328,
+        "latitude": 30.919530868530273,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+381",
+        "locationNum": 381.0,
+        "longitude": 114.04315948486328,
+        "latitude": 30.91952896118164,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+381.5",
+        "locationNum": 381.5,
+        "longitude": 114.04315185546875,
+        "latitude": 30.919527053833008,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+382",
+        "locationNum": 382.0,
+        "longitude": 114.04314422607422,
+        "latitude": 30.919525146484375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+382.5",
+        "locationNum": 382.5,
+        "longitude": 114.04314422607422,
+        "latitude": 30.919523239135742,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+383",
+        "locationNum": 383.0,
+        "longitude": 114.04313659667969,
+        "latitude": 30.919523239135742,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+383.5",
+        "locationNum": 383.5,
+        "longitude": 114.04313659667969,
+        "latitude": 30.91952133178711,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+384",
+        "locationNum": 384.0,
+        "longitude": 114.04312896728516,
+        "latitude": 30.919519424438477,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+384.5",
+        "locationNum": 384.5,
+        "longitude": 114.04312133789062,
+        "latitude": 30.919517517089844,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+385",
+        "locationNum": 385.0,
+        "longitude": 114.04312133789062,
+        "latitude": 30.91951560974121,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+385.5",
+        "locationNum": 385.5,
+        "longitude": 114.0431137084961,
+        "latitude": 30.919513702392578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+386",
+        "locationNum": 386.0,
+        "longitude": 114.04310607910156,
+        "latitude": 30.919511795043945,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+386.5",
+        "locationNum": 386.5,
+        "longitude": 114.04310607910156,
+        "latitude": 30.919509887695312,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+387",
+        "locationNum": 387.0,
+        "longitude": 114.04309844970703,
+        "latitude": 30.91950798034668,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+387.5",
+        "locationNum": 387.5,
+        "longitude": 114.0430908203125,
+        "latitude": 30.919506072998047,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+388",
+        "locationNum": 388.0,
+        "longitude": 114.0430908203125,
+        "latitude": 30.919504165649414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+388.5",
+        "locationNum": 388.5,
+        "longitude": 114.04308319091797,
+        "latitude": 30.91950225830078,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+389",
+        "locationNum": 389.0,
+        "longitude": 114.04308319091797,
+        "latitude": 30.91950035095215,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+389.5",
+        "locationNum": 389.5,
+        "longitude": 114.04307556152344,
+        "latitude": 30.919498443603516,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+390",
+        "locationNum": 390.0,
+        "longitude": 114.0430679321289,
+        "latitude": 30.919496536254883,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+390.5",
+        "locationNum": 390.5,
+        "longitude": 114.0430679321289,
+        "latitude": 30.91949462890625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+391",
+        "locationNum": 391.0,
+        "longitude": 114.04306030273438,
+        "latitude": 30.919492721557617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+391.5",
+        "locationNum": 391.5,
+        "longitude": 114.04305267333984,
+        "latitude": 30.919492721557617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+392",
+        "locationNum": 392.0,
+        "longitude": 114.04305267333984,
+        "latitude": 30.919490814208984,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+392.5",
+        "locationNum": 392.5,
+        "longitude": 114.04304504394531,
+        "latitude": 30.91948890686035,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+393",
+        "locationNum": 393.0,
+        "longitude": 114.04304504394531,
+        "latitude": 30.91948699951172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+393.5",
+        "locationNum": 393.5,
+        "longitude": 114.04303741455078,
+        "latitude": 30.919485092163086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+394",
+        "locationNum": 394.0,
+        "longitude": 114.04302978515625,
+        "latitude": 30.919483184814453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+394.5",
+        "locationNum": 394.5,
+        "longitude": 114.04302978515625,
+        "latitude": 30.91948127746582,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+395",
+        "locationNum": 395.0,
+        "longitude": 114.04302215576172,
+        "latitude": 30.919479370117188,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+395.5",
+        "locationNum": 395.5,
+        "longitude": 114.04301452636719,
+        "latitude": 30.919477462768555,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+396",
+        "locationNum": 396.0,
+        "longitude": 114.04301452636719,
+        "latitude": 30.919475555419922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+396.5",
+        "locationNum": 396.5,
+        "longitude": 114.04300689697266,
+        "latitude": 30.91947364807129,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+397",
+        "locationNum": 397.0,
+        "longitude": 114.04299926757812,
+        "latitude": 30.91947364807129,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+397.5",
+        "locationNum": 397.5,
+        "longitude": 114.04299926757812,
+        "latitude": 30.919471740722656,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+398",
+        "locationNum": 398.0,
+        "longitude": 114.0429916381836,
+        "latitude": 30.919469833374023,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+398.5",
+        "locationNum": 398.5,
+        "longitude": 114.0429916381836,
+        "latitude": 30.91946792602539,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+399",
+        "locationNum": 399.0,
+        "longitude": 114.04298400878906,
+        "latitude": 30.919466018676758,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+399.5",
+        "locationNum": 399.5,
+        "longitude": 114.04297637939453,
+        "latitude": 30.919464111328125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+400",
+        "locationNum": 400.0,
+        "longitude": 114.04297637939453,
+        "latitude": 30.919462203979492,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+400.5",
+        "locationNum": 400.5,
+        "longitude": 114.04296875,
+        "latitude": 30.91946029663086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+401",
+        "locationNum": 401.0,
+        "longitude": 114.04296112060547,
+        "latitude": 30.919458389282227,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+401.5",
+        "locationNum": 401.5,
+        "longitude": 114.04296112060547,
+        "latitude": 30.919456481933594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+402",
+        "locationNum": 402.0,
+        "longitude": 114.04295349121094,
+        "latitude": 30.91945457458496,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+402.5",
+        "locationNum": 402.5,
+        "longitude": 114.04295349121094,
+        "latitude": 30.91945457458496,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+403",
+        "locationNum": 403.0,
+        "longitude": 114.0429458618164,
+        "latitude": 30.919452667236328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+403.5",
+        "locationNum": 403.5,
+        "longitude": 114.04293823242188,
+        "latitude": 30.919450759887695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+404",
+        "locationNum": 404.0,
+        "longitude": 114.04293823242188,
+        "latitude": 30.919448852539062,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+404.5",
+        "locationNum": 404.5,
+        "longitude": 114.04293060302734,
+        "latitude": 30.91944694519043,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+405",
+        "locationNum": 405.0,
+        "longitude": 114.04292297363281,
+        "latitude": 30.919445037841797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+405.5",
+        "locationNum": 405.5,
+        "longitude": 114.04292297363281,
+        "latitude": 30.919443130493164,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+406",
+        "locationNum": 406.0,
+        "longitude": 114.04291534423828,
+        "latitude": 30.91944122314453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+406.5",
+        "locationNum": 406.5,
+        "longitude": 114.04290771484375,
+        "latitude": 30.91944122314453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+407",
+        "locationNum": 407.0,
+        "longitude": 114.04290771484375,
+        "latitude": 30.9194393157959,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+407.5",
+        "locationNum": 407.5,
+        "longitude": 114.04290008544922,
+        "latitude": 30.919437408447266,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+408",
+        "locationNum": 408.0,
+        "longitude": 114.04290008544922,
+        "latitude": 30.919435501098633,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+408.5",
+        "locationNum": 408.5,
+        "longitude": 114.04289245605469,
+        "latitude": 30.91943359375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+409",
+        "locationNum": 409.0,
+        "longitude": 114.04288482666016,
+        "latitude": 30.919431686401367,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+409.5",
+        "locationNum": 409.5,
+        "longitude": 114.04288482666016,
+        "latitude": 30.919429779052734,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+410",
+        "locationNum": 410.0,
+        "longitude": 114.04287719726562,
+        "latitude": 30.919429779052734,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+410.5",
+        "locationNum": 410.5,
+        "longitude": 114.0428695678711,
+        "latitude": 30.9194278717041,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+411",
+        "locationNum": 411.0,
+        "longitude": 114.0428695678711,
+        "latitude": 30.91942596435547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+411.5",
+        "locationNum": 411.5,
+        "longitude": 114.04286193847656,
+        "latitude": 30.919424057006836,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+412",
+        "locationNum": 412.0,
+        "longitude": 114.04285430908203,
+        "latitude": 30.919422149658203,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+412.5",
+        "locationNum": 412.5,
+        "longitude": 114.04285430908203,
+        "latitude": 30.919422149658203,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+413",
+        "locationNum": 413.0,
+        "longitude": 114.0428466796875,
+        "latitude": 30.91942024230957,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+413.5",
+        "locationNum": 413.5,
+        "longitude": 114.04283905029297,
+        "latitude": 30.919418334960938,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+414",
+        "locationNum": 414.0,
+        "longitude": 114.04283905029297,
+        "latitude": 30.919416427612305,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+414.5",
+        "locationNum": 414.5,
+        "longitude": 114.04283142089844,
+        "latitude": 30.919414520263672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+415",
+        "locationNum": 415.0,
+        "longitude": 114.0428237915039,
+        "latitude": 30.919414520263672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+415.5",
+        "locationNum": 415.5,
+        "longitude": 114.0428237915039,
+        "latitude": 30.91941261291504,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+416",
+        "locationNum": 416.0,
+        "longitude": 114.04281616210938,
+        "latitude": 30.919410705566406,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+416.5",
+        "locationNum": 416.5,
+        "longitude": 114.04281616210938,
+        "latitude": 30.919408798217773,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+417",
+        "locationNum": 417.0,
+        "longitude": 114.04280853271484,
+        "latitude": 30.91940689086914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+417.5",
+        "locationNum": 417.5,
+        "longitude": 114.04280090332031,
+        "latitude": 30.91940689086914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+418",
+        "locationNum": 418.0,
+        "longitude": 114.04280090332031,
+        "latitude": 30.919404983520508,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+418.5",
+        "locationNum": 418.5,
+        "longitude": 114.04279327392578,
+        "latitude": 30.919403076171875,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+419",
+        "locationNum": 419.0,
+        "longitude": 114.04278564453125,
+        "latitude": 30.919401168823242,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+419.5",
+        "locationNum": 419.5,
+        "longitude": 114.04278564453125,
+        "latitude": 30.919401168823242,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+420",
+        "locationNum": 420.0,
+        "longitude": 114.04277801513672,
+        "latitude": 30.91939926147461,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+420.5",
+        "locationNum": 420.5,
+        "longitude": 114.04277038574219,
+        "latitude": 30.919397354125977,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+421",
+        "locationNum": 421.0,
+        "longitude": 114.04277038574219,
+        "latitude": 30.919395446777344,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+421.5",
+        "locationNum": 421.5,
+        "longitude": 114.04276275634766,
+        "latitude": 30.91939353942871,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+422",
+        "locationNum": 422.0,
+        "longitude": 114.04275512695312,
+        "latitude": 30.91939353942871,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+422.5",
+        "locationNum": 422.5,
+        "longitude": 114.04275512695312,
+        "latitude": 30.919391632080078,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+423",
+        "locationNum": 423.0,
+        "longitude": 114.0427474975586,
+        "latitude": 30.919389724731445,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+423.5",
+        "locationNum": 423.5,
+        "longitude": 114.04273986816406,
+        "latitude": 30.919387817382812,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+424",
+        "locationNum": 424.0,
+        "longitude": 114.04273986816406,
+        "latitude": 30.919387817382812,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+424.5",
+        "locationNum": 424.5,
+        "longitude": 114.04273223876953,
+        "latitude": 30.91938591003418,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+425",
+        "locationNum": 425.0,
+        "longitude": 114.04273223876953,
+        "latitude": 30.919384002685547,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+425.5",
+        "locationNum": 425.5,
+        "longitude": 114.042724609375,
+        "latitude": 30.919382095336914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+426",
+        "locationNum": 426.0,
+        "longitude": 114.04271697998047,
+        "latitude": 30.919382095336914,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+426.5",
+        "locationNum": 426.5,
+        "longitude": 114.04271697998047,
+        "latitude": 30.91938018798828,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+427",
+        "locationNum": 427.0,
+        "longitude": 114.04270935058594,
+        "latitude": 30.91937828063965,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+427.5",
+        "locationNum": 427.5,
+        "longitude": 114.0427017211914,
+        "latitude": 30.919376373291016,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+428",
+        "locationNum": 428.0,
+        "longitude": 114.0427017211914,
+        "latitude": 30.919376373291016,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+428.5",
+        "locationNum": 428.5,
+        "longitude": 114.04269409179688,
+        "latitude": 30.919374465942383,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+429",
+        "locationNum": 429.0,
+        "longitude": 114.04268646240234,
+        "latitude": 30.91937255859375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+429.5",
+        "locationNum": 429.5,
+        "longitude": 114.04268646240234,
+        "latitude": 30.91937255859375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+430",
+        "locationNum": 430.0,
+        "longitude": 114.04267883300781,
+        "latitude": 30.919370651245117,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+430.5",
+        "locationNum": 430.5,
+        "longitude": 114.04267120361328,
+        "latitude": 30.919368743896484,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+431",
+        "locationNum": 431.0,
+        "longitude": 114.04267120361328,
+        "latitude": 30.91936683654785,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+431.5",
+        "locationNum": 431.5,
+        "longitude": 114.04266357421875,
+        "latitude": 30.91936683654785,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+432",
+        "locationNum": 432.0,
+        "longitude": 114.04265594482422,
+        "latitude": 30.91936492919922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+432.5",
+        "locationNum": 432.5,
+        "longitude": 114.04265594482422,
+        "latitude": 30.919363021850586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+433",
+        "locationNum": 433.0,
+        "longitude": 114.04264831542969,
+        "latitude": 30.919363021850586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+433.5",
+        "locationNum": 433.5,
+        "longitude": 114.04264068603516,
+        "latitude": 30.919361114501953,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+434",
+        "locationNum": 434.0,
+        "longitude": 114.04264068603516,
+        "latitude": 30.91935920715332,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+434.5",
+        "locationNum": 434.5,
+        "longitude": 114.04263305664062,
+        "latitude": 30.919357299804688,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+435",
+        "locationNum": 435.0,
+        "longitude": 114.0426254272461,
+        "latitude": 30.919357299804688,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+435.5",
+        "locationNum": 435.5,
+        "longitude": 114.0426254272461,
+        "latitude": 30.919355392456055,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+436",
+        "locationNum": 436.0,
+        "longitude": 114.04261779785156,
+        "latitude": 30.919353485107422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+436.5",
+        "locationNum": 436.5,
+        "longitude": 114.04261016845703,
+        "latitude": 30.919353485107422,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+437",
+        "locationNum": 437.0,
+        "longitude": 114.04261016845703,
+        "latitude": 30.91935157775879,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+437.5",
+        "locationNum": 437.5,
+        "longitude": 114.0426025390625,
+        "latitude": 30.919349670410156,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+438",
+        "locationNum": 438.0,
+        "longitude": 114.0426025390625,
+        "latitude": 30.919349670410156,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+438.5",
+        "locationNum": 438.5,
+        "longitude": 114.04259490966797,
+        "latitude": 30.919347763061523,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+439",
+        "locationNum": 439.0,
+        "longitude": 114.04258728027344,
+        "latitude": 30.91934585571289,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+439.5",
+        "locationNum": 439.5,
+        "longitude": 114.04258728027344,
+        "latitude": 30.91934585571289,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+440",
+        "locationNum": 440.0,
+        "longitude": 114.0425796508789,
+        "latitude": 30.919343948364258,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+440.5",
+        "locationNum": 440.5,
+        "longitude": 114.04257202148438,
+        "latitude": 30.919342041015625,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+441",
+        "locationNum": 441.0,
+        "longitude": 114.04257202148438,
+        "latitude": 30.919340133666992,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+441.5",
+        "locationNum": 441.5,
+        "longitude": 114.04256439208984,
+        "latitude": 30.919340133666992,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+442",
+        "locationNum": 442.0,
+        "longitude": 114.04255676269531,
+        "latitude": 30.91933822631836,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+442.5",
+        "locationNum": 442.5,
+        "longitude": 114.04255676269531,
+        "latitude": 30.919336318969727,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+443",
+        "locationNum": 443.0,
+        "longitude": 114.04254913330078,
+        "latitude": 30.919336318969727,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+443.5",
+        "locationNum": 443.5,
+        "longitude": 114.04254150390625,
+        "latitude": 30.919334411621094,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+444",
+        "locationNum": 444.0,
+        "longitude": 114.04254150390625,
+        "latitude": 30.919334411621094,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+444.5",
+        "locationNum": 444.5,
+        "longitude": 114.04253387451172,
+        "latitude": 30.91933250427246,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+445",
+        "locationNum": 445.0,
+        "longitude": 114.04252624511719,
+        "latitude": 30.919330596923828,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+445.5",
+        "locationNum": 445.5,
+        "longitude": 114.04252624511719,
+        "latitude": 30.919330596923828,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+446",
+        "locationNum": 446.0,
+        "longitude": 114.04251861572266,
+        "latitude": 30.919328689575195,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+446.5",
+        "locationNum": 446.5,
+        "longitude": 114.04251098632812,
+        "latitude": 30.919326782226562,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+447",
+        "locationNum": 447.0,
+        "longitude": 114.04251098632812,
+        "latitude": 30.919326782226562,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+447.5",
+        "locationNum": 447.5,
+        "longitude": 114.0425033569336,
+        "latitude": 30.91932487487793,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+448",
+        "locationNum": 448.0,
+        "longitude": 114.04249572753906,
+        "latitude": 30.91932487487793,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+448.5",
+        "locationNum": 448.5,
+        "longitude": 114.04249572753906,
+        "latitude": 30.919322967529297,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+449",
+        "locationNum": 449.0,
+        "longitude": 114.04248809814453,
+        "latitude": 30.919321060180664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+449.5",
+        "locationNum": 449.5,
+        "longitude": 114.04248046875,
+        "latitude": 30.919321060180664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+450",
+        "locationNum": 450.0,
+        "longitude": 114.04248046875,
+        "latitude": 30.91931915283203,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+450.5",
+        "locationNum": 450.5,
+        "longitude": 114.04247283935547,
+        "latitude": 30.91931915283203,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+451",
+        "locationNum": 451.0,
+        "longitude": 114.04246520996094,
+        "latitude": 30.9193172454834,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+451.5",
+        "locationNum": 451.5,
+        "longitude": 114.04246520996094,
+        "latitude": 30.919315338134766,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+452",
+        "locationNum": 452.0,
+        "longitude": 114.0424575805664,
+        "latitude": 30.919315338134766,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+452.5",
+        "locationNum": 452.5,
+        "longitude": 114.04244995117188,
+        "latitude": 30.919313430786133,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+453",
+        "locationNum": 453.0,
+        "longitude": 114.04244995117188,
+        "latitude": 30.919313430786133,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+453.5",
+        "locationNum": 453.5,
+        "longitude": 114.04244232177734,
+        "latitude": 30.9193115234375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+454",
+        "locationNum": 454.0,
+        "longitude": 114.04243469238281,
+        "latitude": 30.919309616088867,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+454.5",
+        "locationNum": 454.5,
+        "longitude": 114.04243469238281,
+        "latitude": 30.919309616088867,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+455",
+        "locationNum": 455.0,
+        "longitude": 114.04242706298828,
+        "latitude": 30.919307708740234,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+455.5",
+        "locationNum": 455.5,
+        "longitude": 114.04241943359375,
+        "latitude": 30.919307708740234,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+456",
+        "locationNum": 456.0,
+        "longitude": 114.04241943359375,
+        "latitude": 30.9193058013916,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+456.5",
+        "locationNum": 456.5,
+        "longitude": 114.04241180419922,
+        "latitude": 30.9193058013916,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+457",
+        "locationNum": 457.0,
+        "longitude": 114.04240417480469,
+        "latitude": 30.91930389404297,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+457.5",
+        "locationNum": 457.5,
+        "longitude": 114.04240417480469,
+        "latitude": 30.919301986694336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+458",
+        "locationNum": 458.0,
+        "longitude": 114.04239654541016,
+        "latitude": 30.919301986694336,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+458.5",
+        "locationNum": 458.5,
+        "longitude": 114.04238891601562,
+        "latitude": 30.919300079345703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+459",
+        "locationNum": 459.0,
+        "longitude": 114.04238891601562,
+        "latitude": 30.919300079345703,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+459.5",
+        "locationNum": 459.5,
+        "longitude": 114.0423812866211,
+        "latitude": 30.91929817199707,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+460",
+        "locationNum": 460.0,
+        "longitude": 114.04237365722656,
+        "latitude": 30.91929817199707,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+460.5",
+        "locationNum": 460.5,
+        "longitude": 114.04237365722656,
+        "latitude": 30.919296264648438,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+461",
+        "locationNum": 461.0,
+        "longitude": 114.04236602783203,
+        "latitude": 30.919296264648438,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+461.5",
+        "locationNum": 461.5,
+        "longitude": 114.0423583984375,
+        "latitude": 30.919294357299805,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+462",
+        "locationNum": 462.0,
+        "longitude": 114.0423583984375,
+        "latitude": 30.919294357299805,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+462.5",
+        "locationNum": 462.5,
+        "longitude": 114.04235076904297,
+        "latitude": 30.919292449951172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+463",
+        "locationNum": 463.0,
+        "longitude": 114.04234313964844,
+        "latitude": 30.919292449951172,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+463.5",
+        "locationNum": 463.5,
+        "longitude": 114.04234313964844,
+        "latitude": 30.91929054260254,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+464",
+        "locationNum": 464.0,
+        "longitude": 114.0423355102539,
+        "latitude": 30.91929054260254,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+464.5",
+        "locationNum": 464.5,
+        "longitude": 114.04232788085938,
+        "latitude": 30.919288635253906,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+465",
+        "locationNum": 465.0,
+        "longitude": 114.04232788085938,
+        "latitude": 30.919288635253906,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+465.5",
+        "locationNum": 465.5,
+        "longitude": 114.04232025146484,
+        "latitude": 30.919286727905273,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+466",
+        "locationNum": 466.0,
+        "longitude": 114.04231262207031,
+        "latitude": 30.919286727905273,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+466.5",
+        "locationNum": 466.5,
+        "longitude": 114.04231262207031,
+        "latitude": 30.91928482055664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+467",
+        "locationNum": 467.0,
+        "longitude": 114.04230499267578,
+        "latitude": 30.91928482055664,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+467.5",
+        "locationNum": 467.5,
+        "longitude": 114.04229736328125,
+        "latitude": 30.919282913208008,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+468",
+        "locationNum": 468.0,
+        "longitude": 114.04229736328125,
+        "latitude": 30.919282913208008,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+468.5",
+        "locationNum": 468.5,
+        "longitude": 114.04228973388672,
+        "latitude": 30.919281005859375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+469",
+        "locationNum": 469.0,
+        "longitude": 114.04228210449219,
+        "latitude": 30.919281005859375,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+469.5",
+        "locationNum": 469.5,
+        "longitude": 114.04228210449219,
+        "latitude": 30.919279098510742,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+470",
+        "locationNum": 470.0,
+        "longitude": 114.04227447509766,
+        "latitude": 30.919279098510742,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+470.5",
+        "locationNum": 470.5,
+        "longitude": 114.04226684570312,
+        "latitude": 30.91927719116211,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+471",
+        "locationNum": 471.0,
+        "longitude": 114.04226684570312,
+        "latitude": 30.91927719116211,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+471.5",
+        "locationNum": 471.5,
+        "longitude": 114.0422592163086,
+        "latitude": 30.919275283813477,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+472",
+        "locationNum": 472.0,
+        "longitude": 114.04225158691406,
+        "latitude": 30.919275283813477,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+472.5",
+        "locationNum": 472.5,
+        "longitude": 114.04225158691406,
+        "latitude": 30.919273376464844,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+473",
+        "locationNum": 473.0,
+        "longitude": 114.04224395751953,
+        "latitude": 30.919273376464844,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+473.5",
+        "locationNum": 473.5,
+        "longitude": 114.042236328125,
+        "latitude": 30.91927146911621,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+474",
+        "locationNum": 474.0,
+        "longitude": 114.042236328125,
+        "latitude": 30.91927146911621,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+474.5",
+        "locationNum": 474.5,
+        "longitude": 114.04222869873047,
+        "latitude": 30.91927146911621,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+475",
+        "locationNum": 475.0,
+        "longitude": 114.04222106933594,
+        "latitude": 30.919269561767578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+475.5",
+        "locationNum": 475.5,
+        "longitude": 114.04222106933594,
+        "latitude": 30.919269561767578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+476",
+        "locationNum": 476.0,
+        "longitude": 114.0422134399414,
+        "latitude": 30.919267654418945,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+476.5",
+        "locationNum": 476.5,
+        "longitude": 114.04220581054688,
+        "latitude": 30.919267654418945,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+477",
+        "locationNum": 477.0,
+        "longitude": 114.04220581054688,
+        "latitude": 30.919265747070312,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+477.5",
+        "locationNum": 477.5,
+        "longitude": 114.04219818115234,
+        "latitude": 30.919265747070312,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+478",
+        "locationNum": 478.0,
+        "longitude": 114.04219055175781,
+        "latitude": 30.91926383972168,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+478.5",
+        "locationNum": 478.5,
+        "longitude": 114.04219055175781,
+        "latitude": 30.91926383972168,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+479",
+        "locationNum": 479.0,
+        "longitude": 114.04218292236328,
+        "latitude": 30.919261932373047,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+479.5",
+        "locationNum": 479.5,
+        "longitude": 114.04217529296875,
+        "latitude": 30.919261932373047,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+480",
+        "locationNum": 480.0,
+        "longitude": 114.04217529296875,
+        "latitude": 30.919260025024414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+480.5",
+        "locationNum": 480.5,
+        "longitude": 114.04216766357422,
+        "latitude": 30.919260025024414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+481",
+        "locationNum": 481.0,
+        "longitude": 114.04216003417969,
+        "latitude": 30.919260025024414,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+481.5",
+        "locationNum": 481.5,
+        "longitude": 114.04215240478516,
+        "latitude": 30.91925811767578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+482",
+        "locationNum": 482.0,
+        "longitude": 114.04215240478516,
+        "latitude": 30.91925811767578,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+482.5",
+        "locationNum": 482.5,
+        "longitude": 114.04214477539062,
+        "latitude": 30.91925621032715,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+483",
+        "locationNum": 483.0,
+        "longitude": 114.0421371459961,
+        "latitude": 30.91925621032715,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+483.5",
+        "locationNum": 483.5,
+        "longitude": 114.0421371459961,
+        "latitude": 30.919254302978516,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+484",
+        "locationNum": 484.0,
+        "longitude": 114.04212951660156,
+        "latitude": 30.919254302978516,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+484.5",
+        "locationNum": 484.5,
+        "longitude": 114.04212188720703,
+        "latitude": 30.919254302978516,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+485",
+        "locationNum": 485.0,
+        "longitude": 114.04212188720703,
+        "latitude": 30.919252395629883,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+485.5",
+        "locationNum": 485.5,
+        "longitude": 114.0421142578125,
+        "latitude": 30.919252395629883,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+486",
+        "locationNum": 486.0,
+        "longitude": 114.04210662841797,
+        "latitude": 30.919252395629883,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+486.5",
+        "locationNum": 486.5,
+        "longitude": 114.04210662841797,
+        "latitude": 30.91925048828125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+487",
+        "locationNum": 487.0,
+        "longitude": 114.04209899902344,
+        "latitude": 30.91925048828125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+487.5",
+        "locationNum": 487.5,
+        "longitude": 114.0420913696289,
+        "latitude": 30.91925048828125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+488",
+        "locationNum": 488.0,
+        "longitude": 114.0420913696289,
+        "latitude": 30.919248580932617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+488.5",
+        "locationNum": 488.5,
+        "longitude": 114.04208374023438,
+        "latitude": 30.919248580932617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+489",
+        "locationNum": 489.0,
+        "longitude": 114.04207611083984,
+        "latitude": 30.919248580932617,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+489.5",
+        "locationNum": 489.5,
+        "longitude": 114.04207611083984,
+        "latitude": 30.919246673583984,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+490",
+        "locationNum": 490.0,
+        "longitude": 114.04206848144531,
+        "latitude": 30.919246673583984,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+490.5",
+        "locationNum": 490.5,
+        "longitude": 114.04206085205078,
+        "latitude": 30.91924476623535,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+491",
+        "locationNum": 491.0,
+        "longitude": 114.04206085205078,
+        "latitude": 30.91924476623535,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+491.5",
+        "locationNum": 491.5,
+        "longitude": 114.04205322265625,
+        "latitude": 30.91924476623535,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+492",
+        "locationNum": 492.0,
+        "longitude": 114.04204559326172,
+        "latitude": 30.91924285888672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+492.5",
+        "locationNum": 492.5,
+        "longitude": 114.04204559326172,
+        "latitude": 30.91924285888672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+493",
+        "locationNum": 493.0,
+        "longitude": 114.04203796386719,
+        "latitude": 30.91924285888672,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+493.5",
+        "locationNum": 493.5,
+        "longitude": 114.04203033447266,
+        "latitude": 30.919240951538086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+494",
+        "locationNum": 494.0,
+        "longitude": 114.04203033447266,
+        "latitude": 30.919240951538086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+494.5",
+        "locationNum": 494.5,
+        "longitude": 114.04202270507812,
+        "latitude": 30.919240951538086,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+495",
+        "locationNum": 495.0,
+        "longitude": 114.0420150756836,
+        "latitude": 30.919239044189453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+495.5",
+        "locationNum": 495.5,
+        "longitude": 114.0420150756836,
+        "latitude": 30.919239044189453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+496",
+        "locationNum": 496.0,
+        "longitude": 114.04200744628906,
+        "latitude": 30.919239044189453,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+496.5",
+        "locationNum": 496.5,
+        "longitude": 114.04199981689453,
+        "latitude": 30.91923713684082,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+497",
+        "locationNum": 497.0,
+        "longitude": 114.0419921875,
+        "latitude": 30.91923713684082,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+497.5",
+        "locationNum": 497.5,
+        "longitude": 114.0419921875,
+        "latitude": 30.91923713684082,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+498",
+        "locationNum": 498.0,
+        "longitude": 114.04198455810547,
+        "latitude": 30.919235229492188,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+498.5",
+        "locationNum": 498.5,
+        "longitude": 114.04197692871094,
+        "latitude": 30.919235229492188,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+499",
+        "locationNum": 499.0,
+        "longitude": 114.04197692871094,
+        "latitude": 30.919233322143555,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+499.5",
+        "locationNum": 499.5,
+        "longitude": 114.0419692993164,
+        "latitude": 30.919233322143555,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+500",
+        "locationNum": 500.0,
+        "longitude": 114.04196166992188,
+        "latitude": 30.919233322143555,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+500.5",
+        "locationNum": 500.5,
+        "longitude": 114.04196166992188,
+        "latitude": 30.919231414794922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+501",
+        "locationNum": 501.0,
+        "longitude": 114.04195404052734,
+        "latitude": 30.919231414794922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+501.5",
+        "locationNum": 501.5,
+        "longitude": 114.04194641113281,
+        "latitude": 30.919231414794922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+502",
+        "locationNum": 502.0,
+        "longitude": 114.04194641113281,
+        "latitude": 30.919231414794922,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+502.5",
+        "locationNum": 502.5,
+        "longitude": 114.04193878173828,
+        "latitude": 30.91922950744629,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+503",
+        "locationNum": 503.0,
+        "longitude": 114.04193115234375,
+        "latitude": 30.91922950744629,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+503.5",
+        "locationNum": 503.5,
+        "longitude": 114.04193115234375,
+        "latitude": 30.91922950744629,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+504",
+        "locationNum": 504.0,
+        "longitude": 114.04192352294922,
+        "latitude": 30.919227600097656,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+504.5",
+        "locationNum": 504.5,
+        "longitude": 114.04191589355469,
+        "latitude": 30.919227600097656,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+505",
+        "locationNum": 505.0,
+        "longitude": 114.04191589355469,
+        "latitude": 30.919227600097656,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+505.5",
+        "locationNum": 505.5,
+        "longitude": 114.04190826416016,
+        "latitude": 30.919225692749023,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+506",
+        "locationNum": 506.0,
+        "longitude": 114.04190063476562,
+        "latitude": 30.919225692749023,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+506.5",
+        "locationNum": 506.5,
+        "longitude": 114.04190063476562,
+        "latitude": 30.919225692749023,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+507",
+        "locationNum": 507.0,
+        "longitude": 114.0418930053711,
+        "latitude": 30.91922378540039,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+507.5",
+        "locationNum": 507.5,
+        "longitude": 114.04188537597656,
+        "latitude": 30.91922378540039,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+508",
+        "locationNum": 508.0,
+        "longitude": 114.04188537597656,
+        "latitude": 30.91922378540039,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+508.5",
+        "locationNum": 508.5,
+        "longitude": 114.04187774658203,
+        "latitude": 30.91922378540039,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+509",
+        "locationNum": 509.0,
+        "longitude": 114.0418701171875,
+        "latitude": 30.919221878051758,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+509.5",
+        "locationNum": 509.5,
+        "longitude": 114.0418701171875,
+        "latitude": 30.919221878051758,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+510",
+        "locationNum": 510.0,
+        "longitude": 114.04186248779297,
+        "latitude": 30.919221878051758,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+510.5",
+        "locationNum": 510.5,
+        "longitude": 114.04185485839844,
+        "latitude": 30.919219970703125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+511",
+        "locationNum": 511.0,
+        "longitude": 114.0418472290039,
+        "latitude": 30.919219970703125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+511.5",
+        "locationNum": 511.5,
+        "longitude": 114.0418472290039,
+        "latitude": 30.919219970703125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+512",
+        "locationNum": 512.0,
+        "longitude": 114.04183959960938,
+        "latitude": 30.919219970703125,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+512.5",
+        "locationNum": 512.5,
+        "longitude": 114.04183197021484,
+        "latitude": 30.919218063354492,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+513",
+        "locationNum": 513.0,
+        "longitude": 114.04183197021484,
+        "latitude": 30.919218063354492,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+513.5",
+        "locationNum": 513.5,
+        "longitude": 114.04182434082031,
+        "latitude": 30.919218063354492,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+514",
+        "locationNum": 514.0,
+        "longitude": 114.04181671142578,
+        "latitude": 30.919218063354492,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+514.5",
+        "locationNum": 514.5,
+        "longitude": 114.04181671142578,
+        "latitude": 30.91921615600586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+515",
+        "locationNum": 515.0,
+        "longitude": 114.04180908203125,
+        "latitude": 30.91921615600586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+515.5",
+        "locationNum": 515.5,
+        "longitude": 114.04180145263672,
+        "latitude": 30.91921615600586,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+516",
+        "locationNum": 516.0,
+        "longitude": 114.04180145263672,
+        "latitude": 30.919214248657227,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+516.5",
+        "locationNum": 516.5,
+        "longitude": 114.04179382324219,
+        "latitude": 30.919214248657227,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+517",
+        "locationNum": 517.0,
+        "longitude": 114.04178619384766,
+        "latitude": 30.919214248657227,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+517.5",
+        "locationNum": 517.5,
+        "longitude": 114.04178619384766,
+        "latitude": 30.919214248657227,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+518",
+        "locationNum": 518.0,
+        "longitude": 114.04177856445312,
+        "latitude": 30.919212341308594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+518.5",
+        "locationNum": 518.5,
+        "longitude": 114.0417709350586,
+        "latitude": 30.919212341308594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+519",
+        "locationNum": 519.0,
+        "longitude": 114.0417709350586,
+        "latitude": 30.919212341308594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+519.5",
+        "locationNum": 519.5,
+        "longitude": 114.04176330566406,
+        "latitude": 30.919212341308594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+520",
+        "locationNum": 520.0,
+        "longitude": 114.04175567626953,
+        "latitude": 30.919212341308594,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+520.5",
+        "locationNum": 520.5,
+        "longitude": 114.04175567626953,
+        "latitude": 30.91921043395996,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+521",
+        "locationNum": 521.0,
+        "longitude": 114.041748046875,
+        "latitude": 30.91921043395996,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+521.5",
+        "locationNum": 521.5,
+        "longitude": 114.04174041748047,
+        "latitude": 30.91921043395996,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+522",
+        "locationNum": 522.0,
+        "longitude": 114.04173278808594,
+        "latitude": 30.91921043395996,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+522.5",
+        "locationNum": 522.5,
+        "longitude": 114.04173278808594,
+        "latitude": 30.919208526611328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+523",
+        "locationNum": 523.0,
+        "longitude": 114.0417251586914,
+        "latitude": 30.919208526611328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+523.5",
+        "locationNum": 523.5,
+        "longitude": 114.04171752929688,
+        "latitude": 30.919208526611328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+524",
+        "locationNum": 524.0,
+        "longitude": 114.04171752929688,
+        "latitude": 30.919208526611328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+524.5",
+        "locationNum": 524.5,
+        "longitude": 114.04170989990234,
+        "latitude": 30.919208526611328,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+525",
+        "locationNum": 525.0,
+        "longitude": 114.04170227050781,
+        "latitude": 30.919206619262695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+525.5",
+        "locationNum": 525.5,
+        "longitude": 114.04170227050781,
+        "latitude": 30.919206619262695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+526",
+        "locationNum": 526.0,
+        "longitude": 114.04169464111328,
+        "latitude": 30.919206619262695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+526.5",
+        "locationNum": 526.5,
+        "longitude": 114.04168701171875,
+        "latitude": 30.919206619262695,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+527",
+        "locationNum": 527.0,
+        "longitude": 114.04168701171875,
+        "latitude": 30.919204711914062,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+527.5",
+        "locationNum": 527.5,
+        "longitude": 114.04167938232422,
+        "latitude": 30.919204711914062,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+528",
+        "locationNum": 528.0,
+        "longitude": 114.04167175292969,
+        "latitude": 30.919204711914062,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+528.5",
+        "locationNum": 528.5,
+        "longitude": 114.04167175292969,
+        "latitude": 30.919204711914062,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+529",
+        "locationNum": 529.0,
+        "longitude": 114.04166412353516,
+        "latitude": 30.919204711914062,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+529.5",
+        "locationNum": 529.5,
+        "longitude": 114.04165649414062,
+        "latitude": 30.919204711914062,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+530",
+        "locationNum": 530.0,
+        "longitude": 114.04165649414062,
+        "latitude": 30.91920280456543,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+530.5",
+        "locationNum": 530.5,
+        "longitude": 114.0416488647461,
+        "latitude": 30.91920280456543,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+531",
+        "locationNum": 531.0,
+        "longitude": 114.04164123535156,
+        "latitude": 30.91920280456543,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+531.5",
+        "locationNum": 531.5,
+        "longitude": 114.04163360595703,
+        "latitude": 30.91920280456543,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+532",
+        "locationNum": 532.0,
+        "longitude": 114.04163360595703,
+        "latitude": 30.91920280456543,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+532.5",
+        "locationNum": 532.5,
+        "longitude": 114.0416259765625,
+        "latitude": 30.91920280456543,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+533",
+        "locationNum": 533.0,
+        "longitude": 114.04161834716797,
+        "latitude": 30.919200897216797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+533.5",
+        "locationNum": 533.5,
+        "longitude": 114.04161834716797,
+        "latitude": 30.919200897216797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+534",
+        "locationNum": 534.0,
+        "longitude": 114.04161071777344,
+        "latitude": 30.919200897216797,
+        "laneType": 1,
+        "direction": 1
+    },
+    {
+        "ramp": "C",
+        "laneNum": 1,
+        "location": "CK0+534.5",
+        "locationNum": 534.5,
+        "longitude": 114.0416030883789,
+        "latitude": 30.919200897216797,
+        "laneType": 1,
+        "direction": 1
+    }
+]

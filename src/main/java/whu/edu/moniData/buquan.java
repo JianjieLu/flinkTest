@@ -128,7 +128,7 @@ public class buquan {
                             if(myTools.getNString(jsonStr,2,4).equals("SN")) {
 //                                if(myTools.getNString(jsonStr,2,10).equals("pathList")) {SN
                                 data = JSON.parseObject(jsonStr, PathTData.class);
-
+                                System.out.println(data);
                                 out.collect(data);
                             }
                         } catch (Exception e) {

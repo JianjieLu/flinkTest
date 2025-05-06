@@ -3,15 +3,25 @@ package whu.edu.ljj.flink.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import static whu.edu.ljj.flink.xiaohanying.Utils.*;
 
 public class JsonReader {
-    public static List<Location> readJsonFile(String filePath) throws IOException {
+    public static List<Location> readJsonFile(String resourcePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(filePath);
-        return objectMapper.readValue(file, objectMapper.getTypeFactory().constructCollectionType(List.class, Location.class));
+// 使用类加载器获取资源流
+        InputStream inputStream = JsonReader.class.getClassLoader()
+                .getResourceAsStream(resourcePath);
+
+        if (inputStream == null) {
+            throw new FileNotFoundException("Resource not found: " + resourcePath);
+        }
+
+        return objectMapper.readValue(inputStream,
+                objectMapper.getTypeFactory().constructCollectionType(List.class, Location.class));
     }
     public static void getMax(String filePath) throws IOException {
             List<Location> l=readJsonFile(filePath);

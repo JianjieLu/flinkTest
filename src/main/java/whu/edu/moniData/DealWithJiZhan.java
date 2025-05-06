@@ -26,6 +26,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class DealWithJiZhan {
@@ -33,8 +35,8 @@ public class DealWithJiZhan {
     static List<Location> roadDataList;
     static {
         try {
-             roadDataList = JsonReader.readJsonFile("ABCDK_locations.json");
-          } catch (IOException e) {
+            roadDataList = JsonReader.readJsonFile("ABCDK_locations.json");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -52,6 +54,7 @@ public class DealWithJiZhan {
                 try {
                     StationData data =null;
                     //这是基站数据
+
                     if(myTools.getNString(jsonStr,2,10).equals("frameNum")){
                         data = JSON.parseObject(jsonStr, StationData.class);
                         String gloTime=data.getGlobalTime();
@@ -61,41 +64,54 @@ public class DealWithJiZhan {
                         out.collect(p);
                     }
                 } catch (Exception e) {
-                    System.err.println("JSON解析失败: " + jsonStr);
+                    System.err.println("JSON解析失败: " +"====");
                 }
             }).returns(PathTData.class).keyBy(PathTData::getTime);
 
             SingleOutputStreamOperator<PathTData> endPathTDataStream = StationStream.flatMap(new FlatMapFunction<PathTData, PathTData>() {
 
-                    @Override//5.56   33.76  86.64
-                    public void flatMap(PathTData pathTData, Collector<PathTData> collector) throws Exception {
-                        for(PathPoint p:pathTData.getPathList()){
-                            p.setStakeId(LocationOP.UseLLGetSK(p.getLatitude(), p.getLongitude(), roadDataList).getKey().getLocation());
-
-                        }
-
-                    }//flatMap
-
-                }
+                                                                                                 @Override//5.56   33.76  86.64
+                                                                                                 public void flatMap(PathTData pathTData, Collector<PathTData> collector) throws Exception {
+                                                                                                     collector.collect(pathTData);
+                                                                                                 }//flatMap
+                                                                                             }
             );
-
-            env.execute("Flink completion");
+            writeIntoKafka(endPathTDataStream);
+            env.execute("Dealing with JiZhan Data(e1_data_XG01)");
         }//flink env
 
     }//main
 
-    private static PathTData transStationToPathTDate(StationData data, String gloTime) {
+    private static PathTData transStationToPathTDate(StationData data, String gloTime) throws IOException {
         List<PathPoint> plist=new ArrayList<>();
         for(StationTarget s: data.getTargetList()){
             //mileage\originalType\originalColor
-            int mileage=s.getEnGap();
             double lon=s.getLon();
             double lat=s.getLat();
+            String stake=LocationOP.UseLLGetSK(lat, lon, roadDataList).getKey().getLocation();
+            PathPoint pp=new PathPoint();
+            pp.setId(s.getId());
+            pp.setMileage(stakeToMileage(stake));
+            pp.setLaneNo(s.getLane());
 
-            PathPoint pp=new PathPoint(1,s.getId(),s.getLane(),mileage , s.getPicLicense()+s.getId(),s.getSpeed(), gloTime,s.getCarColor(),s.getCarType(),lon,lat,s.getAngle(),"skate",1,1);
+            if(s.getPicLicense()!=null)pp.setPlateNo(s.getPicLicense());
+            pp.setSpeed(s.getSpeed());
+            pp.setTimeStamp(gloTime);
+            pp.setPlateColor(s.getCarColor());
+            pp.setVehicleType(s.getCarType());
+            pp.setLongitude(lon);
+            pp.setLatitude(lat);
+            pp.setCarAngle(s.getAngle());
+            pp.setStakeId(stake);
             plist.add(pp);
+
         }
-        PathTData p=new PathTData(data.getTargetList().size(), temp, gloTime, data.getOrgCode() , data.getOrgCode(),plist);
+        PathTData p=new PathTData();
+        p.setPathList(plist);
+        p.setPathNum(plist.size());
+        p.setTime(temp);
+        p.setTimeStamp(gloTime);
+
         return p;
     }
 
@@ -131,10 +147,10 @@ public class DealWithJiZhan {
 
     public static void writeIntoKafka(SingleOutputStreamOperator<PathTData> endPathTDataStream){
         KafkaSink<String> dealStreamSink = KafkaSink.<String>builder()
-                .setBootstrapServers("100.65.38.139:9092")
+                .setBootstrapServers("100.65.38.40:9092")
                 .setRecordSerializer(
                         KafkaRecordSerializationSchema.builder()
-                                .setTopic("completed.pathdata")
+                                .setTopic("MergedPathData")
                                 .setValueSerializationSchema(new SimpleStringSchema())
                                 .build()
                 )
@@ -147,5 +163,30 @@ public class DealWithJiZhan {
                 .returns(String.class);
 
         jsonStream.sinkTo(dealStreamSink);
+    }
+    private static int stakeToMileage(String input) {
+        String[] parts = input.split("\\+");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("输入格式无效，应包含一个加号分隔符");
+        }
+
+        String frontPart = parts[0];
+        String rearPart = parts[1];
+
+        // 提取前段中的最后一个数字
+        List<String> numbers = new ArrayList<>();
+        Matcher matcher = Pattern.compile("\\d+").matcher(frontPart);
+        while (matcher.find()) {
+            numbers.add(matcher.group());
+        }
+        if (numbers.isEmpty()) {
+            throw new IllegalArgumentException("前段中未找到数字");
+        }
+        int prefix = Integer.parseInt(numbers.get(numbers.size() - 1));
+
+        // 处理后段数字
+        float suffix = Float.parseFloat(rearPart);
+
+        return (int) (prefix * 1000 + suffix);
     }
 }//public buquan class

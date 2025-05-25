@@ -1,0 +1,8 @@
+设置自动清理时间2h，只要在139运行就好了
+kafka-topics.sh --zookeeper 100.65.38.139:2181 --alter --topic completed.pathdata --config retention.ms=7200000
+
+查看topic情况
+kafka-topics.sh --describe --topic completed.pathdata --bootstrap-server 100.65.38.139:9092
+
+清理kafka：
+find . -name "*.log" -size +1000M -exec rm -f {} \;

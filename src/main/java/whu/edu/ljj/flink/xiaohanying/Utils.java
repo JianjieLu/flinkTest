@@ -86,6 +86,14 @@ public class Utils {
         List<StationTarget> targetList;
 
     }
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class stat {
+        int station;
+        int lane;
+    }
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -137,7 +145,20 @@ public class Utils {
         private String waySectionName;
         private List<PathPoint> pathList;
     }
-
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    public static class PathTDataTemp implements Serializable{
+        private Integer pathNum;
+        private long time;
+        private String timeStamp;
+        private String waySectionId;
+        private String waySectionName;
+        private List<PathPoint> pathList;
+        private boolean isMain;
+    }
     /**
      * PathPoint 为 PathData中 pathList 存储的点的简化版本
      * 注意：time是多余的，原本只要求timestamp

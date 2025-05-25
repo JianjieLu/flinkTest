@@ -85,13 +85,6 @@ public class LocationOPJiQun {
         List<Location> roadDataList = JsonReader.readJsonFile(jsonPath);
         return findClosest(roadDataList,target);
     }
-    public static Location UseSKgetLL(String sk,String whichK) throws IOException {
-        List<Location> roadDataList = JsonReader.readJsonFile("/home/ljj/data/"+whichK+"_locations.json");
-        for(Location l:roadDataList){
-            if(l.getLocation()==sk)return l;
-        }
-        return null;
-    }
 
     public static void main(String[] args) throws IOException {
         long currentTime = System.currentTimeMillis();

@@ -1,0 +1,55 @@
+buquan
+java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.buquan  100.65.38.139:9092 fiberDataTest1 fiberDataTest2 fiberDataTest3
+java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.buquanCopy  100.65.38.40:9092 MergedPathData MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
+java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan1 100.65.38.40:9092
+ nohup java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan1 100.65.38.40:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan2 100.65.38.40:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan3 100.65.38.40:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan4 100.65.38.40:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan5 100.65.38.40:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquanji 100.65.38.40:9092 > /dev/null 2>&1 &
+flink run -c whu.edu.moniData.BuQuan.buquan1 /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
+flink run -c whu.edu.moniData.BuQuan.buquan2 /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
+flink run -c whu.edu.moniData.BuQuan.buquan3 /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
+flink run -c whu.edu.moniData.BuQuan.buquan4 /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
+flink run -c whu.edu.moniData.BuQuan.buquan5 /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
+flink run -c whu.edu.moniData.BuQuan.buquanji /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
+
+
+cunUPDOWN:
+flink run -c whu.edu.moniData.cunUPDOWN /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar 11 13
+java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 17 19
+                                                                                 14 16
+                                                                                 11 13
+ nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 11 13 > /dev/null 2>&1 &
+
+
+
+toshow:
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 completed.pathdata
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 MergedPathData,MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.139:9092 fiberDataTest1 fiberDataTest2 fiberDataTest3
+
+DealWithJiZhan:
+flink run -c whu.edu.moniData.DealWithJiZhan /home/ljj/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+
+FlinkQuery:
+nohup java -jar /home/ljj/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
+
+
+
+ps -ef | grep java
+
+
+
+flink run -c whu.edu.moniData.Utils.ProtocolReceiver /home/ljj/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+
+查看所有kafka topics
+/opt/bigdata/kafka_2.12-2.4.1/bin/kafka-topics.sh --list --bootstrap-server 100.65.38.40:9092
+http://100.65.38.139:8080/getByTimeSpatial?startTime=1746757325000&endTime=1746757325000&startMileage=&endMileage=&Longitude1=115.09473447824057&Latitude1=31.514402259737583&Longitude2=114.13713598432462&Latitude2=31.559195282594537
+匝道：
+http://100.65.38.139:8080/getByTimeSpatial?startTime=1747017318723&endTime=1747017348723&startMileage=&endMileage=&Longitude1=114.02746643742528&Latitude1=30.907482277014676&Longitude2=114.04903222272326&Latitude2=30.907482277014676
+http://100.65.38.139:8080/getByTimeSpatial?startTime=1747020883000&endTime=1747020883000&startMileage=&endMileage=&Longitude1=114.034&Latitude1=31.9&Longitude2=114.049&Latitude2=30.113
+
+

@@ -1,0 +1,70 @@
+启动hadoop：
+hdfs namenode -format
+# 启动 HDFS
+$HADOOP_HOME/sbin/start-dfs.sh
+# 启动 YARN
+$HADOOP_HOME/sbin/start-yarn.sh
+
+验证hadoop:
+jps  # NameNode 应有 NameNode、ResourceManager
+# 检查 DataNode
+hdfs dfsadmin -report
+
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
+
+
+
+
+hadoop出问题：https://blog.csdn.net/psp0001060/article/details/90110954
+每个节点：
+cd /opt/bigdata/hadoop-2.7.7/
+rm -r tmp
+
+mkdir tmp
+rm -r dfs
+
+mkdir dfs
+cd dfs
+mkdir data(name)
+
+删除redis
+rm -r /usr/local/redis-app/8006
+mkdir /usr/local/redis-app/8005
+
+###！！注意：zookeeper是管理kafka的，关的时候先关kafka再关zookeeper，开的时候先开zookeeper
+启动zookeeper：（所有）
+$ZOOKEEPER_HOME/bin/zkServer.sh start
+$ZOOKEEPER_HOME/bin/zkServer.sh stop
+
+验证zookeeper：
+# 检查进程
+jps  # 应有 QuorumPeerMain
+# 查看集群状态
+$ZOOKEEPER_HOME/bin/zkServer.sh status
+# 客户端连接测试
+$ZOOKEEPER_HOME/bin/zkCli.sh -server namenode:2181
+
+
+启动hbase：
+start-hbase.sh
+
+
+启动kafka（所有）：
+$KAFKA_HOME/bin/kafka-server-start.sh -daemon $KAFKA_HOME/config/server.properties
+$KAFKA_HOME/bin/kafka-server-stop.sh -daemon $KAFKA_HOME/config/server.properties
+
+
+启动flink（独立模式）：
+$FLINK_HOME/bin/start-cluster.sh
+
+
+$FLINK_HOME/bin/stop-cluster.sh

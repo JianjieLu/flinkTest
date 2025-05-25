@@ -1,5 +1,4 @@
 package whu.edu.moniData;
-
 import com.alibaba.fastjson2.JSON;
 import javafx.util.Pair;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -14,8 +13,10 @@ import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
+import whu.edu.ljj.flink.utils.JsonReader;
 import whu.edu.ljj.flink.utils.myTools;
 import whu.edu.ljj.flink.xiaohanying.Utils.*;
+import whu.edu.moniData.BuQuan.buquanji;
 import whu.edu.moniData.Utils.TrafficEventUtils;
 
 import java.io.IOException;
@@ -24,6 +25,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static whu.edu.ljj.flink.utils.LocationOP.UseSKgetLL;
+import static whu.edu.ljj.flink.utils.calAngle.calculateBearing;
+import static whu.edu.moniData.BuQuan.buquanji.predictSpeedWindow;
 
 
 public class buquanCopy {
@@ -56,13 +61,21 @@ public class buquanCopy {
     private static TrafficEventUtils.MileageConverter mileageConverter2;
     private static TrafficEventUtils.StakeAssignment stakeAssign1;
     private static TrafficEventUtils.StakeAssignment stakeAssign2;
-
+    static List<Location> roadAKDataList;
+    static List<Location> roadBKDataList;
+    static List<Location> roadCKDataList;
+    static List<Location> roadDKDataList;
     static {
         try {
             mileageConverter1 = new TrafficEventUtils.MileageConverter("sx_json.json");
             mileageConverter2 = new TrafficEventUtils.MileageConverter("xx_json.json");
             stakeAssign1 = new TrafficEventUtils.StakeAssignment("sx_json.json");
             stakeAssign2 = new TrafficEventUtils.StakeAssignment("xx_json.json");
+            roadAKDataList = JsonReader.readJsonFile("AK_locations.json");
+            roadBKDataList = JsonReader.readJsonFile("BK_locations.json");
+            roadCKDataList = JsonReader.readJsonFile("CK_locations.json");
+            roadDKDataList = JsonReader.readJsonFile("DK_locations.json");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -92,6 +105,7 @@ public class buquanCopy {
             DataStream<PathTData> StationStream=kafkaStream.flatMap((String jsonStr, Collector<PathTData> out)-> {
                 try {
                     StationData data =null;
+                    PathTData data1 = null;
                     //验证，如果json的前几位是timestamp，则认为是mergedata
                     if(myTools.getNString(jsonStr,2,10).equals("frameNum")){
                         data = JSON.parseObject(jsonStr, StationData.class);
@@ -101,79 +115,106 @@ public class buquanCopy {
                         PathTData p = transStationToPathTDate(data, gloTime);
                         out.collect(p);
                     }
+                    if(myTools.getNString(jsonStr,2,10).equals("pathList")) {
+                        data1 = JSON.parseObject(jsonStr, PathTData.class);
+                        out.collect(data1);
+                    }
                 } catch (Exception e) {
-                    System.err.println("JSON解析失败: " + jsonStr);
+                    System.err.println("JSON解析失败: "+ e.getMessage());
                 }
             }).returns(PathTData.class).keyBy(PathTData::getTime);
-//            //所有的雷视数据一起接入
-//            StationStream.flatMap(new FlatMapFunction<StationData, Object>() {
-//                @Override
-//                public void flatMap(StationData stationData, Collector<Object> collector) throws Exception {
-//                    if(stationData.getTargetList()!=null&&!stationData.getTargetList().isEmpty()){
-//                        for(StationTarget t:stationData.getTargetList()){
-//                            //如果等于下面的那个收费站，则认为上了匝道
-//                            if(t.getId().equals("下面那个收费站上匝道了")){
-//                                //找出光栅中车牌对应carid
-//                                nowMap.forEach((key, value) -> {
-//                                    //之前在主道上开如果发现匹配的车牌号
-//                                    if(PointMap.get(key).getPlateNo().equals(t.getPlateNo())){
-//                                        zaMap.put(new Pair<>(key,t.getPlateNo()),"BK");
-//                                        nowMap.put(key,new Pair<>(false,3));
-//                                    }
-//                                });
-//                            }
-//                            //用雷视数据车牌号遍历pointmap，从而从光栅数据获取id
-//
-//                            //按照id更新PointMap、JizhanPointMap
-//
-//                        }
-//                    }
-//                }
-//            });
+            DataStream<PathTData> jizhanStream=kafkaStream.flatMap((String jsonStr, Collector<PathTData> out)-> {
+                try {
+                    PathTData data1 = null;
 
-            DataStream<PathTData> rasterStream = kafkaStream
-                    .flatMap((String jsonStr, Collector<PathTData> out) -> {
-                        try {
-                            PathTData data = null;
-                            //验证，如果json的前几位是timestamp，则认为是mergedata
-                            if(myTools.getNString(jsonStr,2,11).equals("timeStamp")) {
-                                data = JSON.parseObject(jsonStr, PathTData.class);
-                                out.collect(data);
-                            }
-                        } catch (Exception e) {
-                            System.err.println("JSON解析失败: " + jsonStr);
-                        }
-                    }).returns(PathTData.class).keyBy(PathTData::getTime);
+                    if(myTools.getNString(jsonStr,2,11).equals("timeStamp")) {
+                        data1 = JSON.parseObject(jsonStr, PathTData.class);
+                        out.collect(data1);
+                    }
+                } catch (Exception e) {
+                    System.err.println("JSON解析失败: "+ e.getMessage());
+                }
+            }).returns(PathTData.class).keyBy(PathTData::getTime);
 
-            DataStream<PathTData> parsedStream=rasterStream.union(StationStream);
-            SingleOutputStreamOperator<PathTData> endPathTDataStream = parsedStream.flatMap(new FlatMapFunction<PathTData, PathTData>() {
+            SingleOutputStreamOperator<PathTData> endPathTDataStream = StationStream.flatMap(new FlatMapFunction<PathTData, PathTData>() {
                 @Override//5.56   33.76  86.64
                 public void flatMap(PathTData pathTData, Collector<PathTData> collector) throws Exception {
                     List<PathPoint> list=new ArrayList<>();
                     PathTData pathTData1 = initResPathTDate(pathTData);
                     temp = initCurrentTime(pathTData.getTimeStamp());
+//                    System.out.println(pathTData.getTimeStamp());
                     if (!pathTData.getPathList().isEmpty()) {
-                        if (firstEnter) firstEnterInitializePointMapAndlastMap(pathTData);else putNowDataIntoTempMap(pathTData);
+                        if (firstEnter) {
+                            list = firstEnterInitializePointMapAndlastMap(pathTData);
+                            pathTData1.setPathList(list);
+                            System.out.println("point map:"+pointMap);
+                        }
+                        else {
+                            putNowDataIntoTempMap(pathTData);
+                            for(PathPoint p:pathTData.getPathList()){
+                                for (Map.Entry<Long, PathPointData> entry : pointMap.entrySet()) {
+                                    if(tempMap.get(entry.getKey())==null){//PointMap中有，但是当前tempMap中没有，车辆缺失
+                                        PathPointData pdInPointMap=predictNextMixed(entry.getKey(),pathTData.getTimeStamp());
+                                        list.add(PDToPP(pdInPointMap));
+                                        pointMap.put(pdInPointMap.getId(), pdInPointMap);
+                                    }
+                                }
+                                if(pointMap.get(p.getId())==null){//如果是个新车
+                                    PathPointData ppp=newPD(p);
+                                    pointMap.put(p.getId(),ppp);
+                                    list.add(p);
+                                    myTools.printNormalmergePoint(p);
+                                }else{
+                                    list.add(p);
+                                    myTools.printNormalmergePoint(p);
+                                }
+                            }
+                        }
 
-                        list=dealWithLackOrNotComplete();
+//                        if(pathTData.getPathList().get(0).getStakeId().charAt(0)=='K') {
+//                            list = dealWithLackOrNotComplete();
+//                        }
+////                        else{
+////                            list=dealWithJiZhanLackOrNotComplete();
+////                        }
+                            pathTData1.setPathList(list);
+                            collector.collect(pathTData1);
+                            //mark:防撞
+//                            lastMap=tempMap;
+                            tempMap.clear();
 
-                        pathTData1.setPathList(list);
-
-                        collector.collect(pathTData1);
-
-                        //mark:防撞
-                        lastMap=tempMap;
-
-                        tempMap.clear();
                     }//pathlist.empty
                 }//flatMap
             });
             writeIntoKafka(endPathTDataStream);
-            env.execute("Flink completion");
+            env.execute("Flink completion to Kafka : completed.pathdata");
         }//flink env
 
     }//main
-
+private static PathPointData newPD(PathPoint pp){
+        PathPointData pd=PPToPD(pp);
+        pd.getSpeedWindow().add(pp.getSpeed());
+        return pd;
+}
+    private static PathPointData predictNextMixed(long keyInPointMap,String timestamp){
+        PathPointData pdInPointMap=pointMap.get(keyInPointMap);
+        Pair<LinkedList<Float>,Float> a1=predictSpeedWindow(pdInPointMap);//速度窗口、预测的速度
+        double[] a2=predictNewMileage(pdInPointMap,a1.getValue());//新里程、驶过的距离
+        Pair<String,double[]> a3= buquanji.predictStake(pdInPointMap,a2[0],a2[1]);//新桩号、新经纬度lonlng
+        double carangle=calculateBearing(a3.getValue()[1],a3.getValue()[0],pdInPointMap.getLatitude(),pdInPointMap.getLongitude());
+        pdInPointMap.setCarAngle(carangle);
+        pdInPointMap.setMileage((int) (a2[0]));
+        pdInPointMap.setSpeed(a1.getValue());
+//        pdInPointMap.setTimeStamp(pathTimeStamp);//未接收到，不更新
+        pdInPointMap.setLatitude(a3.getValue()[1]);
+        pdInPointMap.setLongitude(a3.getValue()[0]);
+        pdInPointMap.setSpeedWindow(a1.getKey());
+        pdInPointMap.setStakeId(a3.getKey());
+        pdInPointMap.setTimeStamp(timestamp);
+        PathPoint pp=PDToPP(pdInPointMap);
+        myTools.printmergePoint(pp);
+        return pdInPointMap;
+    }
     private static PathTData transStationToPathTDate(StationData data, String gloTime) {
         List<PathPoint> plist=new ArrayList<>();
         for(StationTarget s: data.getTargetList()){
@@ -188,78 +229,191 @@ public class buquanCopy {
         PathTData p=new PathTData(data.getTargetList().size(), temp, gloTime, data.getOrgCode() , data.getOrgCode(),plist);
         return p;
     }
+//    private static PathPoint predictMainRoadNextOne_UpdataPointMap(long key) {
+//        PathPointData data=pointMap.get(key);
+//        LinkedList<Float> spw=data.getSpeedWindow();
+//        predictedSpeed=calculateMovingAverage(spw);
+//        spw.addLast(predictedSpeed);
+//        if(spw.size()>WINDOW_SIZE)spw.removeFirst();
+//        double newTpointno=0;
+//        distanceDiff = myTools.calculateDistance(predictedSpeed, 200);
+//        if(data.getDirection()==1) {
+//            newTpointno = data.getMileage() + distanceDiff; // 更新里程点
+//        }else {
+//            newTpointno = data.getMileage() - distanceDiff; // 更新里程点
+//        }
+//        if(newTpointno<mainRoadMinMillage||newTpointno>mainRoadMaxMillage)return null;
+//        String stake=data.getStakeId();
+//        String newStake="K"+MileageToStake((int)(stakeToMileage(stake)+distanceDiff));
+//        TrafficEventUtils.MileageConverter converter = (data.getDirection() == 1) ? mileageConverter1 : mileageConverter2;
+//        double[] d=converter.findCoordinate(stakeToMileage(newStake)).getLnglat();
+//        //问题；角度
+//        double carangle=89;
+//        data.setCarAngle(carangle);
+//        data.setMileage((int)newTpointno);
+//        data.setSpeed(predictedSpeed);
+////        data.setTimeStamp(pathTimeStamp);//未接收到，不更新
+//        data.setLatitude(d[1]);
+//        data.setLongitude(d[0]);
+//        data.setSpeedWindow(spw);
+//        data.setStakeId(newStake);
+//        pointMap.put(key, data);
+//        PathPoint pp=PDToPP(data);
+//        myTools.printmergePoint(pp);
+//        return pp;
+//    }
+//    public static List<PathPoint> dealWithLackOrNotComplete(){
+//        List<PathPoint> list=new ArrayList<>();
+//        //新车，直接更新pointmap
+//        for (Map.Entry<Long, PathPoint> entry : tempMap.entrySet()) {
+//            long key = entry.getKey();
+//            PathPoint pp=lastMap.get(key);
+//            if(pp==null){//是个新车
+//                PathPointData pd= PPToPD(tempMap.get(key));
+//                pd.getSpeedWindow().add(pd.getSpeed());
+//                pointMap.put(key,pd);
+//            }
+//        }
+//        //遍历lastMap，看是否有车没了,也就是lastMap有，tempMap目前没有
+//        for (Map.Entry<Long, PathPoint> entry : lastMap.entrySet()) {
+//            long key = entry.getKey();
+//            String stake ="";
+//            PathPoint pp=tempMap.get(key);
+//            PathPoint value=new PathPoint();
+//            //问题：车不能出边界
+//            if (pp == null) {//前面有车但是当前没车
+//                value = predictMainRoadNextOne_UpdataPointMap(key);
+//            }else{
+//                if(pp.getStakeId()==null||pp.getStakeId().isEmpty()){//处理缺失
+//                    stake=getSkateID(pp);
+//                    pointMap.get(key).setStakeId(stake);
+//                    tempMap.get(key).setStakeId(stake);
+//                }
+//                //问题：经纬度null判断
+//                if(pp.getLatitude()==0||pp.getLongitude()==0){
+//                    stake=tempMap.get(key).getStakeId();
+//                    TrafficEventUtils.MileageConverter converter = (pp.getDirection() == 1)
+//                            ? mileageConverter1 : mileageConverter2;
+//                    if(!stake.isEmpty()){
+//                        double[] d=converter.findCoordinate(stakeToMileage(stake)).getLnglat();
+//                        pointMap.get(key).setLatitude(d[1]);
+//                        pointMap.get(key).setLongitude(d[0]);
+//                        tempMap.get(key).setLatitude(d[1]);
+//                        tempMap.get(key).setLongitude(d[0]);
+//                    }
+//                }
+//                value=tempMap.get(key);
+//            }
+//            list.add(value);
+//
+//        }
+//        return list;
+//    }
+//    private static PathPoint predictJiZhanNextOne_UpdataPointMap(long key) {
+//        PathPointData data=pointMap.get(key);
+//
+//        LinkedList<Float> spw=data.getSpeedWindow();
+//        predictedSpeed=calculateMovingAverage(spw);
+//        spw.addLast(predictedSpeed);
+//        if(spw.size()>WINDOW_SIZE)spw.removeFirst();
+//        double newTpointno=0;
+//        distanceDiff = myTools.calculateDistance(predictedSpeed, 200);
+//        if(data.getDirection()==1) {
+//            newTpointno = data.getMileage() + distanceDiff; // 更新里程点
+//        }else {
+//            newTpointno = data.getMileage() - distanceDiff; // 更新里程点
+//        }
+//        if(newTpointno<mainRoadMinMillage||newTpointno>mainRoadMaxMillage)return null;
+//        String stake=data.getStakeId();
+//        String newStake = "";
+//        if(stake==null|| stake.isEmpty()) System.out.println("data: "+data);
+//        char a=stake.charAt(0);
+//        double[]d = new double[2];
+//        if(a=='A'){
+//            newStake="AK"+MileageToStake((int)(stakeToMileage(stake)+distanceDiff));
+//            d[0]= Objects.requireNonNull(UseSKgetLL(newStake, roadAKDataList, distanceDiff)).getLongitude();
+//            d[1]= Objects.requireNonNull(UseSKgetLL(newStake, roadAKDataList, distanceDiff)).getLatitude();
+//        }else if(a=='B'){
+//            newStake="AK"+MileageToStake((int)(stakeToMileage(stake)+distanceDiff));
+//            d[0]= Objects.requireNonNull(UseSKgetLL(newStake, roadBKDataList, distanceDiff)).getLongitude();
+//            d[1]= Objects.requireNonNull(UseSKgetLL(newStake, roadBKDataList, distanceDiff)).getLatitude();
+//        }else if(a=='C'){
+//            newStake="AK"+MileageToStake((int)(stakeToMileage(stake)+distanceDiff));
+//            d[0]= Objects.requireNonNull(UseSKgetLL(newStake, roadCKDataList, distanceDiff)).getLongitude();
+//            d[1]= Objects.requireNonNull(UseSKgetLL(newStake, roadCKDataList, distanceDiff)).getLatitude();
+//        }else if(a=='D'){
+//            newStake="AK"+MileageToStake((int)(stakeToMileage(stake)+distanceDiff));
+//            d[0]= Objects.requireNonNull(UseSKgetLL(newStake, roadDKDataList, distanceDiff)).getLongitude();
+//            d[1]= Objects.requireNonNull(UseSKgetLL(newStake, roadDKDataList, distanceDiff)).getLatitude();
+//        }
+//        //问题：里程达到后，应该下匝道上主路
+////        double[] d=converter.findCoordinate(stakeToMileage(newStake)).getLnglat();
+//        //问题；角度
+//        double carangle=calculateBearing(d[1],d[0],data.getLatitude(),data.getLongitude());
+//        data.setCarAngle(carangle);
+//        data.setMileage((int)newTpointno);
+//        data.setSpeed(predictedSpeed);
+////        data.setTimeStamp(pathTimeStamp);//未接收到，不更新
+//        data.setLatitude(d[1]);
+//        data.setLongitude(d[0]);
+//        data.setSpeedWindow(spw);
+//        data.setStakeId(newStake);
+//        pointMap.put(key, data);
+//        PathPoint pp=PDToPP(data);
+//        myTools.printmergePoint(pp);
+//        return pp;
+//    }
 
+    public static double[] predictNewMileage(PathPointData data,float speed){
 
-    private static PathPoint predictMainRoadNextOne_UpdataPointMap(long key) {
-        PathPointData data=pointMap.get(key);
-        LinkedList<Float> spw=data.getSpeedWindow();
-        predictedSpeed=calculateMovingAverage(spw);
-        spw.addLast(predictedSpeed);
-        if(spw.size()>WINDOW_SIZE)spw.removeFirst();
-        double newTpointno=0;
-        distanceDiff = myTools.calculateDistance(predictedSpeed, 200);
+        double[]d={0,0};
+        d[1] = myTools.calculateDistance(speed, 200);
         if(data.getDirection()==1) {
-            newTpointno = data.getMileage() + distanceDiff; // 更新里程点
+            d[0] = data.getMileage() + d[1]; // 更新里程点
         }else {
-            newTpointno = data.getMileage() - distanceDiff; // 更新里程点
+            d[0] = data.getMileage() - d[1]; // 更新里程点
         }
-        if(newTpointno<mainRoadMinMillage||newTpointno>mainRoadMaxMillage)return null;
-        String stake=data.getStakeId();
-        String newStake=MileageToStake((int)(stakeToMileage(stake)+distanceDiff));
-        TrafficEventUtils.MileageConverter converter = (data.getDirection() == 1) ? mileageConverter1 : mileageConverter2;
-        double[] d=converter.findCoordinate(stakeToMileage(newStake)).getLnglat();
-        //问题；角度
-        double carangle=89;
-        data.setCarAngle(carangle);
-        data.setMileage((int)newTpointno);
-        data.setSpeed(predictedSpeed);
-//        data.setTimeStamp(pathTimeStamp);//未接收到，不更新
-        data.setLatitude(d[1]);
-        data.setLongitude(d[0]);
-        data.setSpeedWindow(spw);
-        data.setStakeId(newStake);
-        pointMap.put(key, data);
-        PathPoint pp=PDToPP(data);
-        myTools.printmergePoint(pp);
-        return pp;
+        //问题：新里程是否过大
+        return d;
     }
-    public static List<PathPoint> dealWithLackOrNotComplete(){
-        List<PathPoint> list=new ArrayList<>();
-        //遍历lastMap，看是否有车没了,也就是lastMap有，tempMap目前没有
-        for (Map.Entry<Long, PathPoint> entry : lastMap.entrySet()) {
-            long key = entry.getKey();
-            String stake ="";
-            PathPoint pp=tempMap.get(key);
-            PathPoint value=new PathPoint();
-            //问题：车不能出边界
-            if (pp == null) {//前面有车但是当前没车
-                value = predictMainRoadNextOne_UpdataPointMap(key);
-            }else{
-                if(pp.getStakeId()==null||pp.getStakeId().isEmpty()){//处理缺失
-                    stake=getSkateID(pp);
-                    pointMap.get(key).setStakeId(stake);
-                    tempMap.get(key).setStakeId(stake);
-                }
-                //问题：经纬度null判断
-                if(pp.getLatitude()==0||pp.getLongitude()==0){
-                    stake=tempMap.get(key).getStakeId();
-                    TrafficEventUtils.MileageConverter converter = (pp.getDirection() == 1)
-                            ? mileageConverter1 : mileageConverter2;
-                    if(!stake.isEmpty()){
-                        double[] d=converter.findCoordinate(stakeToMileage(stake)).getLnglat();
-                        pointMap.get(key).setLatitude(d[1]);
-                        pointMap.get(key).setLongitude(d[0]);
-                        tempMap.get(key).setLatitude(d[1]);
-                        tempMap.get(key).setLongitude(d[0]);
-                    }
-                }
-                value=tempMap.get(key);
-            }
-            list.add(value);
 
-        }
-        return list;
-    }
+//    public static List<PathPoint> dealWithJiZhanLackOrNotComplete(){
+//        List<PathPoint> list=new ArrayList<>();
+//        //遍历lastMap，看是否有车没了,也就是lastMap有，tempMap目前没有
+//        for (Map.Entry<Long, PathPoint> entry : lastMap.entrySet()) {
+//            long key = entry.getKey();
+//            String stake ="";
+//            PathPoint pp=tempMap.get(key);
+//            PathPoint value=new PathPoint();
+//            //问题：车不能出边界
+//            if (pp == null) {//前面有车但是当前没车
+//                value = predictJiZhanNextOne_UpdataPointMap(key);
+//            }else{
+//                if(pp.getStakeId()==null||pp.getStakeId().isEmpty()){//处理缺失
+//                    stake=getSkateID(pp);
+//                    pointMap.get(key).setStakeId(stake);
+//                    tempMap.get(key).setStakeId(stake);
+//                }
+//                //问题：经纬度null判断
+//                if(pp.getLatitude()==0||pp.getLongitude()==0){
+//                    stake=tempMap.get(key).getStakeId();
+//                    TrafficEventUtils.MileageConverter converter = (pp.getDirection() == 1)
+//                            ? mileageConverter1 : mileageConverter2;
+//                    if(!stake.isEmpty()){
+//                        double[] d=converter.findCoordinate(stakeToMileage(stake)).getLnglat();
+//                        pointMap.get(key).setLatitude(d[1]);
+//                        pointMap.get(key).setLongitude(d[0]);
+//                        tempMap.get(key).setLatitude(d[1]);
+//                        tempMap.get(key).setLongitude(d[0]);
+//                    }
+//                }
+//                value=tempMap.get(key);
+//            }
+//            list.add(value);
+//
+//        }
+//        return list;
+//    }
     private static int stakeToMileage(String stakeId) {
         return Integer.parseInt(stakeId.split("\\+")[0].substring(1)) * 1000 + Integer.parseInt(stakeId.split("\\+")[1]);
     }
@@ -290,7 +444,7 @@ public class buquanCopy {
                 .setProperty("max.partition.fetch.bytes", "16777216")
                 .build();
     }
-    private static void firstEnterInitializePointMapAndlastMap (PathTData pathTData){
+    private static List<PathPoint> firstEnterInitializePointMapAndlastMap (PathTData pathTData){
         List<PathPoint> p=pathTData.getPathList();
         for(PathPoint m:p){
             lastMap.put(m.getId(),m);
@@ -300,6 +454,7 @@ public class buquanCopy {
             pointMap.put(m.getId(),pp);
         }
         firstEnter = false;
+        return p;
     }
     private static void firstEnterInsertPointMap(PathPoint p){
             PathPointData pp=PPToPD(p);
@@ -389,8 +544,7 @@ public class buquanCopy {
                                 .setValueSerializationSchema(new SimpleStringSchema())
                                 .build()
                 )
-                .setProperty("max.request.size", "629145600") // 20MB
-                .setProperty("message.max.bytes", "629145600") // Kafka Broker 的 message.max.bytes
+                .setProperty("max.request.size", "20971520") // 20MB
                 .build();
 
         DataStream<String> jsonStream = endPathTDataStream

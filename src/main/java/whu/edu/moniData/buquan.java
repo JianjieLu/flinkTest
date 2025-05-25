@@ -56,7 +56,7 @@ public class buquan {
     private static TrafficEventUtils.MileageConverter mileageConverter2;
     private static TrafficEventUtils.StakeAssignment stakeAssign1;
     private static TrafficEventUtils.StakeAssignment stakeAssign2;
-
+    private static int listLen;
     static {
         try {
             mileageConverter1 = new TrafficEventUtils.MileageConverter("sx_json.json");
@@ -72,7 +72,8 @@ public class buquan {
         try (StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()) {
             env.setParallelism(3);
             String brokers = args[0];
-            List<String> topics  = Arrays.asList(Arrays.copyOfRange(args, 1, args.length));;
+            List<String> topics  = Arrays.asList(Arrays.copyOfRange(args, 1, args.length-1));
+            listLen= Integer.parseInt(args[args.length-1]);
             // 从Kafka读取数据
             DataStreamSource<String> kafkaStream = env.fromSource(buildSource(brokers, topics), WatermarkStrategy.noWatermarks(), "Kafka Source1");
 
@@ -128,7 +129,7 @@ public class buquan {
                             if(myTools.getNString(jsonStr,2,4).equals("SN")) {
 //                                if(myTools.getNString(jsonStr,2,10).equals("pathList")) {SN
                                 data = JSON.parseObject(jsonStr, PathTData.class);
-                                System.out.println(data);
+//                                System.out.println(data);
                                 out.collect(data);
                             }
                         } catch (Exception e) {
@@ -150,8 +151,8 @@ public class buquan {
                             System.err.println("JSON解析失败: " + jsonStr);
                         }
                     }).returns(PathTData.class).keyBy(PathTData::getTime);
-            DataStream<PathTData> parsedStream1=rasterStream.union(StationStream);
-            DataStream<PathTData> parsedStream=parsedStream1.union(rasterStream1);
+//            DataStream<PathTData> parsedStream1=rasterStream.union(StationStream);
+            DataStream<PathTData> parsedStream=rasterStream.union(rasterStream1);
             SingleOutputStreamOperator<PathTData> endPathTDataStream = parsedStream.flatMap(new FlatMapFunction<PathTData, PathTData>() {
 
                 @Override//5.56   33.76  86.64
@@ -176,7 +177,15 @@ public class buquan {
                         lastMap=tempMap;
 
                         tempMap.clear();
-                        System.out.println("处理了 "+list.size()+" 条数据,用时 "+(System.currentTimeMillis()-t1)+" ms");
+                        Runtime runtime = Runtime.getRuntime();
+                        long usedMemory = runtime.totalMemory() - runtime.freeMemory();
+                        double usedMemoryMB = usedMemory / (1024.0 * 1024.0);
+                        System.out.printf(
+                                "处理了 %d 条数据, 用时 %d ms, 占用内存: %.2f MB%n",
+                                list.size(),
+                                (System.currentTimeMillis() - t1),
+                                usedMemoryMB
+                        );
                     }//pathlist.empty
 
                 }//flatMap
@@ -242,18 +251,18 @@ public class buquan {
     }
     public static List<PathPoint> dealWithLackOrNotComplete(){
         List<PathPoint> list=new ArrayList<>();
-        for (Map.Entry<Long, PathPoint> entry : tempMap.entrySet()) {
-            if (entry.getValue().getStakeId().equals("skate")) {
-                System.out.println(entry.getValue());
-                list.add(entry.getValue());
-            }
-        }
+//        for (Map.Entry<Long, PathPoint> entry : tempMap.entrySet()) {
+//            if (entry.getValue().getStakeId().equals("skate")) {
+//                System.out.println(entry.getValue());
+//                list.add(entry.getValue());
+//            }
+//        }
         //遍历lastMap，看是否有车没了,也就是lastMap有，tempMap目前没有
         for (Map.Entry<Long, PathPoint> entry : lastMap.entrySet()) {
 
             long key = entry.getKey();
             //问题：对于基站的经纬度的转化的代码放在这里
-            if(entry.getValue().getStakeId().equals("skate"))continue;
+//            if(entry.getValue().getStakeId().equals("skate"))continue;
             String stake ="";
             PathPoint pp=tempMap.get(key);
             PathPoint value=new PathPoint();
@@ -283,7 +292,7 @@ public class buquan {
                 value=tempMap.get(key);
             }
             list.add(value);
-
+            if(list.size()>=listLen)return list;
         }
         return list;
     }

@@ -76,7 +76,7 @@ public class myTools {
             }
     }
     public static void printmergePoint(PathPoint point){
-            System.out.printf("├─ 车辆轨迹点  carid:%d | 里程:%d | 时间：%s | 车牌: %s (颜色:%d) | 坐标: %.6f,%.6f | 速度: %.2f km/h | 车道: %d | 方向: %d%n",
+            System.out.printf("预测 - 车辆轨迹点 carid:%d |里程:%d |时间：%s |车牌: %s(颜色:%d) |坐标: %.6f,%.6f |速度: %.2f km/h |方向: %d%n |stake: %s",
                     point.getId(),
                     point.getMileage(),
                     point.getTimeStamp(),
@@ -86,8 +86,24 @@ public class myTools {
                     point.getLongitude(),
                     point.getLatitude(),
                     point.getSpeed(),
-                    point.getLaneNo(),
-                    point.getDirection());
+                    point.getDirection(),
+                    point.getStakeId());
+
+    }
+    public static void printNormalmergePoint(PathPoint point){
+        System.out.printf("正常 - 车辆轨迹点 carid:%d |里程:%d |时间：%s |车牌: %s(颜色:%d) |坐标: %.6f,%.6f |速度: %.2f km/h |方向: %d%n |stake: %s",
+                point.getId(),
+                point.getMileage(),
+                point.getTimeStamp(),
+
+                point.getPlateNo(),
+                point.getPlateColor(),
+                point.getLongitude(),
+                point.getLatitude(),
+                point.getSpeed(),
+
+                point.getDirection(),
+                point.getStakeId());
 
     }
     public static String PointToString(PathPoint point){

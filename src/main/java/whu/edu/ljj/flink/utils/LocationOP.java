@@ -89,10 +89,14 @@ public class LocationOP {
         int d1 = (int) Math.ceil(distance);
         return roadlist.get(d1*2+j);
     }
-    public static Location UseSKgetLL(String sk,List<Location> roadlist,Double distance)  {
+    public static Location UseSKgetLL(String sk,List<Location> roadlist,Double distance,int num)  {
         int j=0;
         for(Location l:roadlist){
-            if(l.getLocation().equals(sk))return roadlist.get(((int) Math.ceil(distance))*2+j);
+            if(l.getLocation().equals(sk))
+            {
+                int a=((int) Math.ceil(distance))*2+j;
+                if(a<num) return roadlist.get(a);
+            }
             else j++;
         }
         return null;

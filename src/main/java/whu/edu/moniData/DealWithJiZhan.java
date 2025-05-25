@@ -21,6 +21,7 @@ import whu.edu.ljj.flink.xiaohanying.Utils.*;
 import whu.edu.moniData.Utils.TrafficEventUtils;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +34,7 @@ import java.util.regex.Pattern;
 public class DealWithJiZhan {
     private static long temp = 0;
     static List<Location> roadDataList;
+    public static DecimalFormat df = new DecimalFormat("0.00");
     static {
         try {
             roadDataList = JsonReader.readJsonFile("ABCDK_locations.json");
@@ -43,7 +45,8 @@ public class DealWithJiZhan {
     //MergedPathData.sceneTest.1 "fiberDataTest1", "fiberDataTest2", "fiberDataTest3" 100.65.38.139:9092
     public static void main(String[] args) throws Exception {
         try (StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()) {
-            env.setParallelism(3);
+            env.setParallelism(1);
+            env.disableOperatorChaining();
             String brokers = args[0];
             List<String> topics  = Arrays.asList(Arrays.copyOfRange(args, 1, args.length));;
             // 从Kafka读取数据
@@ -55,26 +58,23 @@ public class DealWithJiZhan {
                     StationData data =null;
                     //这是基站数据
 
-                    if(myTools.getNString(jsonStr,2,10).equals("frameNum")){
                         data = JSON.parseObject(jsonStr, StationData.class);
                         String gloTime=data.getGlobalTime();
                         temp = initCurrentTime(gloTime);
                         //问题：是不是这个globaltime,orgcode这么用吗？有问题
                         PathTData p = transStationToPathTDate(data, gloTime);
                         out.collect(p);
-                    }
                 } catch (Exception e) {
                     System.err.println("JSON解析失败: " +"====");
                 }
             }).returns(PathTData.class).keyBy(PathTData::getTime);
 
             SingleOutputStreamOperator<PathTData> endPathTDataStream = StationStream.flatMap(new FlatMapFunction<PathTData, PathTData>() {
-
-                                                                                                 @Override//5.56   33.76  86.64
-                                                                                                 public void flatMap(PathTData pathTData, Collector<PathTData> collector) throws Exception {
-                                                                                                     collector.collect(pathTData);
-                                                                                                 }//flatMap
-                                                                                             }
+                 @Override//5.56   33.76  86.64
+                 public void flatMap(PathTData pathTData, Collector<PathTData> collector) throws Exception {
+                     collector.collect(pathTData);
+                 }//flatMap
+             }
             );
             writeIntoKafka(endPathTDataStream);
             env.execute("Dealing with JiZhan Data(e1_data_XG01)");
@@ -101,7 +101,7 @@ public class DealWithJiZhan {
             pp.setVehicleType(s.getCarType());
             pp.setLongitude(lon);
             pp.setLatitude(lat);
-            pp.setCarAngle(s.getAngle());
+            pp.setCarAngle(Double.parseDouble(df.format(s.getAngle())));
             pp.setStakeId(stake);
             plist.add(pp);
 
@@ -127,6 +127,8 @@ public class DealWithJiZhan {
                 .setValueOnlyDeserializer(new SimpleStringSchema())
                 .setProperty("message.max.bytes", "16777216")
                 .setProperty("max.partition.fetch.bytes", "16777216")
+                .setProperty("consumer.max.poll.interval.ms",String.valueOf( 24*60*60*1000))
+                .setProperty("session.timeout.ms",String.valueOf(24*60*60*1000))
                 .build();
     }
 
@@ -156,6 +158,7 @@ public class DealWithJiZhan {
                 )
                 .setProperty("max.request.size", "629145600") // 20MB
                 .setProperty("message.max.bytes", "629145600") // Kafka Broker 的 message.max.bytes
+                .setProperty("delivery.timeout.ms",String.valueOf(24*60*60*1000))
                 .build();
 
         DataStream<String> jsonStream = endPathTDataStream

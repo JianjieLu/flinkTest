@@ -1,4 +1,4 @@
-package whu.edu.ljj.flink.merge.ingest;
+package whu.edu.moniData;
 
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.FlatMapFunction;
@@ -7,15 +7,17 @@ import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.api.java.tuple.Tuple5;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
-import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.apache.flink.util.Collector;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,38 +27,62 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CarTrajIngestMoniOfi {
-
+    private static final Logger logger = LogManager.getLogger(CarTrajIngestMoniOfi.class);
     public static void main(String[] args) throws Exception {
 
         // 设置 Flink 流执行环境
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        // 配置 KafkaSource
-        String brokers = "100.65.38.40:9092";
-        String groupId = "flink-group"; // 消费者组ID
-        String topic = "MergedPathData";
+        logger.info("Flink CarTraj 数据接入任务启动...");
 
+        String brokers = "100.65.38.40:9092";
+        String groupId = "flink-group";
+//        List<String> topics = Arrays.asList("MergedPathData",
+//                "MergedPathData.sceneTest.2", "MergedPathData.sceneTest.3",
+//                "MergedPathData.sceneTest.4", "MergedPathData.sceneTest.5");
+        List<String> topics = Arrays.asList("fiberData1",
+                "fiberData2", "fiberData3",
+                "fiberData4", "fiberData5",
+                "fiberData6", "fiberData7",
+                "fiberData8", "fiberData9",
+                "fiberData10", "fiberData11");
+        // 初始化第一个KafkaSource
         KafkaSource<String> kafkaSource = KafkaSource.<String>builder()
                 .setBootstrapServers(brokers)
-                .setTopics(topic)
+                .setTopics(topics.get(0))
                 .setGroupId(groupId)
-                .setStartingOffsets(OffsetsInitializer.earliest())
+                .setStartingOffsets(OffsetsInitializer.latest())
+                .setProperty("auto.offset.commit", "true")
+                .setProperty("consumer.max.poll.interval.ms",String.valueOf( 24*60*60*1000))
+                .setProperty("session.timeout.ms",String.valueOf(24*60*60*1000))
                 .setValueOnlyDeserializer(new SimpleStringSchema())
                 .build();
 
-        // 从 KafkaSource 创建数据流
-        DataStreamSource<String> kafkaStream = env.fromSource(
-                kafkaSource,
-                WatermarkStrategy.noWatermarks(),
-                "Kafka Source"
-        );
+        DataStream<String> unionStream = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "Kafka Source 1");
+        // 合并其他主题数据流
+        for (int i = 1; i < topics.size(); i++) {
+            KafkaSource<String> source = KafkaSource.<String>builder()
+                    .setBootstrapServers(brokers)
+                    .setTopics(topics.get(i))
+                    .setGroupId(groupId)
+                    .setStartingOffsets(OffsetsInitializer.latest())
+                    .setProperty("auto.offset.commit", "true")
+                    .setValueOnlyDeserializer(new SimpleStringSchema())
+                    .setProperty("consumer.max.poll.interval.ms",String.valueOf( 24*60*60*1000))
+                    .setProperty("session.timeout.ms",String.valueOf(24*60*60*1000))
+                    .build();
 
-        kafkaStream
+            DataStream<String> stream = env.fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka Source " + (i + 1));
+            unionStream = unionStream.union(stream);
+        }
+
+        unionStream
                 .flatMap(new FlatMapFunction<String, Tuple4<String, Integer, Long, List<Tuple5<Double, Double, Integer, Integer, Double>>>>() {
                     private final Map<String, List<Tuple5<Double,Double, Integer, Integer, Double>>> map = new LinkedHashMap<>();
                     private final Map<String, Long> mapJudge = new HashMap<>();
@@ -107,6 +133,7 @@ public class CarTrajIngestMoniOfi {
                                             tdataObject.getInt("laneNo"), direction,
                                             tdataObject.getDouble("speed")));
                                     map.put(carNumber, list);
+                                    logger.debug("新建车辆轨迹缓存: 车牌号="+carNumber+", 时间="+ timeStampStr);
                                 } else {
                                     List<Tuple5<Double,Double, Integer, Integer, Double>> list = map.get(carNumber);
                                     int direction;
@@ -141,7 +168,7 @@ public class CarTrajIngestMoniOfi {
                         }
                     }
                 })
-                .addSink(new DynamicHBaseSink("CarTraj", "cf0","1m"));
+                .addSink(new DynamicHBaseSink("CarTraj", "cf0","1h"));
 //                .addSink(new SinkFunction<Tuple4<String, Integer, Long, List<Tuple5<Double,Double, Integer, Integer, Double>>>>() {
 //                    @Override
 //                    public void invoke(Tuple4<String, Integer, Long, List<Tuple5<Double, Double, Integer, Integer, Double>>> value, Context context) {
@@ -180,8 +207,9 @@ public class CarTrajIngestMoniOfi {
         public void open(org.apache.flink.configuration.Configuration parameters) throws Exception {
             super.open(parameters);
             conf = HBaseConfiguration.create();
-            conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141");
+            conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,100.65.38.36,100.65.38.37,100.65.38.38");
             conf.set("hbase.zookeeper.property.clientPort", "2181");
+            conf.set("zookeeper.session.timeout", "120000");
 //            conf.set("hbase.mapreduce.bulkload.max.hfiles.perRegion.perFamily", "400");
             conf.set("fs.defaultFS", "hdfs://100.65.38.139:9000");
             conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
@@ -195,7 +223,7 @@ public class CarTrajIngestMoniOfi {
         public void invoke(Tuple4<String, Integer, Long, List<Tuple5<Double, Double, Integer, Integer, Double>>> value, Context context) throws Exception {
             tableLock.lock();
             try {
-                long rowKeyTime = Long.parseLong(value.f0.split("-")[0]);
+                long rowKeyTime = value.f2;
                 // 切换表（如果必要）
                 if (currentTableName == null || isTimeToSwitch(rowKeyTime)) {
                     switchTable(rowKeyTime);
@@ -230,31 +258,30 @@ public class CarTrajIngestMoniOfi {
 
         private void switchTable(long rowKeyTime) throws IOException {
             tableLock.lock();
-            LocalDateTime rowKeyDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(rowKeyTime), ZoneId.systemDefault());
-
             try {
+                LocalDateTime rowKeyDateTime = LocalDateTime.ofInstant(
+                        Instant.ofEpochMilli(rowKeyTime), ZoneId.systemDefault()
+                );
+
+                // 对齐到整点小时（关键修改点）
+                LocalDateTime alignedTime = rowKeyDateTime.truncatedTo(ChronoUnit.HOURS);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HH");
+                currentTableName = baseTableName + "_" + alignedTime.format(formatter);
+
+                // 统一修改两处 nextTableSwitchTime 的赋值逻辑
                 if (nextTableSwitchTime == null) {
-                    nextTableSwitchTime = rowKeyDateTime.plusSeconds(intervalSeconds);
+                    nextTableSwitchTime = alignedTime.plusHours(1); // 初始化时对齐到整点
+                } else {
+                    nextTableSwitchTime = alignedTime.plusHours(1); // 后续切换时同样对齐
                 }
 
-                // 动态生成新表名
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmm");
-                String timestamp = rowKeyDateTime.format(formatter);
-                currentTableName = baseTableName + "_" + timestamp;
-
-                // 创建新表（如果不存在）
+                // 创建表并切换
                 createTableIfNotExists(currentTableName, columnFamily);
-
-                // 打开新表
-                if (table != null) {
-                    table.close();
-                }
+                if (table != null) table.close();
                 table = connection.getTable(TableName.valueOf(currentTableName));
 
-                // 更新下次切换时间
-                nextTableSwitchTime = rowKeyDateTime.plusSeconds(intervalSeconds);
-
-                System.out.printf("切换到新表: %s，下一次切换时间: %s%n", currentTableName, nextTableSwitchTime.format(formatter));
+                System.out.printf("切换到新表: %s，下一次切换时间: %s%n",
+                        currentTableName, nextTableSwitchTime.format(formatter));
             } finally {
                 tableLock.unlock();
             }
@@ -275,7 +302,7 @@ public class CarTrajIngestMoniOfi {
                         HTableDescriptor tableDescriptor = new HTableDescriptor(hbaseTableName);
                         tableDescriptor.addFamily(new HColumnDescriptor(columnFamily));
                         admin.createTable(tableDescriptor); // 创建表
-                        System.out.println("Table created: " + tableName);
+                        logger.info("Table created: " + tableName);
                     } else {
                         // 如果表已存在，打印表已存在的消息
                         System.out.println("Table already exists: " + tableName);

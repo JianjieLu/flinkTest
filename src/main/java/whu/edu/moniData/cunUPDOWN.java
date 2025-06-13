@@ -113,6 +113,7 @@ public class cunUPDOWN {
                     private transient ValueState<Integer> upCountState;
                     private transient ValueState<Integer> downCountState;
                     private transient ValueState<String> lastTimeState;
+                    private transient ValueState<Integer> lastMinuteState;
 
                     @Override
                     public void open( org.apache.flink.configuration.Configuration parameters) {
@@ -123,10 +124,12 @@ public class cunUPDOWN {
                                 new ValueStateDescriptor<>("downCount", Types.INT);
                         ValueStateDescriptor<String> timeDesc =
                                 new ValueStateDescriptor<>("lastTime", Types.STRING);
-
+                        ValueStateDescriptor<Integer> minuteDesc =
+                                new ValueStateDescriptor<>("lastMinute", Types.INT);
                         upCountState = getRuntimeContext().getState(upDesc);
                         downCountState = getRuntimeContext().getState(downDesc);
                         lastTimeState = getRuntimeContext().getState(timeDesc);
+                        lastMinuteState = getRuntimeContext().getState(minuteDesc);
                     }
 
                     @Override
@@ -144,13 +147,14 @@ public class cunUPDOWN {
 
                             String thisTime = jsonObj.getString("globalTime");
                             String timeKey = thisTime.substring(ii1, ii2);
+                            int myKey = Integer.parseInt(thisTime.substring(14, 16));
                             Integer targetId = idTid.get(orgcode);
-
                             // 初始化状态
                             if (lastTimeState.value() == null) {
                                 upCountState.update(0);
                                 downCountState.update(0);
                                 lastTimeState.update(timeKey);
+                                lastMinuteState.update(myKey);
                             }
                              Map<Integer, Pair<Integer,Integer>> tempMap=new ConcurrentHashMap<>();
 
@@ -160,9 +164,11 @@ public class cunUPDOWN {
                                 for (int i = 0; i < targetList.size(); i++) {
                                     JSONObject target = targetList.getJSONObject(i);
                                     Integer station = target.getInteger("station");
+                                    int lane = target.getIntValue("lane");
+                                    Integer id = target.getInteger("id");
+                                    System.out.println("station:"+station+" lane:"+lane+" id:"+id);
                                     if (station.equals(targetId)) {
-                                        int lane = target.getIntValue("lane");
-                                        Integer id = target.getInteger("id");
+                                        System.out.println("合理！");
                                         tempMap.put(id, new Pair<>(station, lane));
                                     }
                                 }
@@ -179,23 +185,26 @@ public class cunUPDOWN {
                             }
                             mmap.putAll(tempMap);
 
-                            // 时间窗口判断
-                            String storedTimeKey = lastTimeState.value();
-                            if (!timeKey.equals(storedTimeKey)) {
-                                // 写入 HBase
-                                long timestamp = parseTimestamp(thisTime);
-                                long hourWindow = (timestamp / 3_600_000) * 3_600_000 - 3_600_000;
+                            long timestamp = parseTimestamp(thisTime);
+                            long hourWindow = (timestamp / 3_600_000) * 3_600_000;
+                            String rowKey = orgcode + "_" + hourWindow;
 
-                                String rowKey = orgcode + "_" + hourWindow;
+                            //每分钟插入
+                            int storedMinuteKey = lastMinuteState.value();
+                            if(storedMinuteKey!=myKey){
+                                System.out.println("storedMinuteKey:"+storedMinuteKey+"  myKey:"+myKey);
                                 putLine(conf, "f1", "tab", rowKey, "downCount",
                                         String.valueOf(downCountState.value()));
                                 putLine(conf, "f1", "tab", rowKey, "upCount",
                                         String.valueOf(upCountState.value()));
+                                lastMinuteState.update(myKey);
+                            }
 
-                                // 发送结果到下游（可选）
-                                out.collect(new Tuple3<>(orgcode, upCountState.value(), hourWindow));
 
-                                // 重置状态
+
+                            // 每小时清空
+                            String storedTimeKey = lastTimeState.value();
+                            if (!timeKey.equals(storedTimeKey)) {
                                 upCountState.update(0);
                                 downCountState.update(0);
                                 lastTimeState.update(timeKey);

@@ -24,6 +24,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 
 public class buquan {
@@ -222,7 +223,7 @@ public class buquan {
             System.out.println("nullnullnull");
             return null;
         }
-        LinkedList<Float> spw=data.getSpeedWindow();
+        ConcurrentLinkedDeque<Float> spw=data.getSpeedWindow();
         predictedSpeed=calculateMovingAverage(spw);
         spw.addLast(predictedSpeed);
         if(spw.size()>WINDOW_SIZE)spw.removeFirst();
@@ -303,7 +304,7 @@ public class buquan {
     private static String MileageToStake(int newMileage) {
         return newMileage/1000+"+"+(newMileage-(newMileage/1000*1000));
     }
-    private static float calculateMovingAverage(LinkedList<Float> speedWindow) {
+    private static float calculateMovingAverage(ConcurrentLinkedDeque<Float> speedWindow) {
         return (float) speedWindow.stream()
                 .mapToDouble(Float::doubleValue)
                 .average()
@@ -383,7 +384,7 @@ public class buquan {
         pathPoint.setOriginalType(Point.getOriginalType());
         pathPoint.setVehicleType(Point.getVehicleType());
         pathPoint.setTimeStamp(Point.getTimeStamp());
-        pathPoint.setSpeedWindow(new LinkedList<>());
+        pathPoint.setSpeedWindow(new ConcurrentLinkedDeque<>());
 
         return pathPoint;
     }

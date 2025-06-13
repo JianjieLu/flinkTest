@@ -25,6 +25,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 import static whu.edu.ljj.flink.utils.LocationOP.UseSKgetLL;
 import static whu.edu.ljj.flink.utils.calAngle.calculateBearing;
@@ -198,7 +199,7 @@ private static PathPointData newPD(PathPoint pp){
 }
     private static PathPointData predictNextMixed(long keyInPointMap,String timestamp){
         PathPointData pdInPointMap=pointMap.get(keyInPointMap);
-        Pair<LinkedList<Float>,Float> a1=predictSpeedWindow(pdInPointMap);//速度窗口、预测的速度
+        Pair<ConcurrentLinkedDeque<Float>,Float> a1=predictSpeedWindow(pdInPointMap);//速度窗口、预测的速度
         double[] a2=predictNewMileage(pdInPointMap,a1.getValue());//新里程、驶过的距离
         Pair<String,double[]> a3= buquanji.predictStake(pdInPointMap,a2[0],a2[1]);//新桩号、新经纬度lonlng
         double carangle=calculateBearing(a3.getValue()[1],a3.getValue()[0],pdInPointMap.getLatitude(),pdInPointMap.getLongitude());
@@ -231,7 +232,7 @@ private static PathPointData newPD(PathPoint pp){
     }
 //    private static PathPoint predictMainRoadNextOne_UpdataPointMap(long key) {
 //        PathPointData data=pointMap.get(key);
-//        LinkedList<Float> spw=data.getSpeedWindow();
+//        ConcurrentLinkedDeque<Float> spw=data.getSpeedWindow();
 //        predictedSpeed=calculateMovingAverage(spw);
 //        spw.addLast(predictedSpeed);
 //        if(spw.size()>WINDOW_SIZE)spw.removeFirst();
@@ -312,7 +313,7 @@ private static PathPointData newPD(PathPoint pp){
 //    private static PathPoint predictJiZhanNextOne_UpdataPointMap(long key) {
 //        PathPointData data=pointMap.get(key);
 //
-//        LinkedList<Float> spw=data.getSpeedWindow();
+//        ConcurrentLinkedDeque<Float> spw=data.getSpeedWindow();
 //        predictedSpeed=calculateMovingAverage(spw);
 //        spw.addLast(predictedSpeed);
 //        if(spw.size()>WINDOW_SIZE)spw.removeFirst();
@@ -501,7 +502,7 @@ private static PathPointData newPD(PathPoint pp){
         pathPoint.setOriginalType(Point.getOriginalType());
         pathPoint.setVehicleType(Point.getVehicleType());
         pathPoint.setTimeStamp(Point.getTimeStamp());
-        pathPoint.setSpeedWindow(new LinkedList<>());
+        pathPoint.setSpeedWindow(new ConcurrentLinkedDeque<>());
 
         return pathPoint;
     }

@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Utils {
 
@@ -203,6 +204,101 @@ public class Utils {
         private Integer originalColor;
 
     }
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    public static class Participant implements Serializable {
+        private Long id;
+        private Integer type;
+        private Float confidence;
+        private Integer color;
+        private Integer source;
+        private Integer signBit;
+        private Integer cameraId;
+        private Double longitude;
+        private Double latitude;
+        private Float altitude;
+        private Float speed;
+        private Float heading;
+        private Float length;
+        private Float width;
+        private Float height;
+        private Float X;
+        private Float Y;
+        private Float Z;
+        private Integer trackCount;
+    }
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    public static class stationDataOri implements Serializable {
+        private Long sequence;
+        private Integer mainCmd;
+        private Integer subCmd;
+        private Integer status;
+        private Integer msgLength;
+        private Integer deviceId;
+        private Integer reserved1;
+        private long frameNum;
+        private Long timestampMicrosec;
+        private Double longitude;
+        private Double latitude;
+        private float angle;
+        private Integer participantCount;
+        private Integer reserved2;
+        private List<Participant> participants;
+        private Long frontCameraTs;
+        private Long bodyCameraTs;
+        private Long rearCameraTs;
+        private Integer reserved3;
+        private Integer checksum;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    @JsonPropertyOrder({
+            "timeStamp",
+            "id",
+            "plateNo",
+            "plateColor",
+            "vehicleType",
+            "speed",
+            "longitude",
+            "latitude",
+            "carAngle",
+            "laneNo",
+            "direction",
+            "stakeId",
+            "mileage",
+            "originalType",
+            "originalColor"
+    })
+    public static class PathPoint1 implements Serializable{
+        private Integer direction;
+        private long id;
+        private Integer laneNo;
+        private Integer mileage;
+        private String plateNo;
+        private float speed;
+        private String timeStamp;
+        private Integer plateColor;
+        private Integer vehicleType;
+        private double longitude;
+        private double latitude;
+        private double carAngle;
+        private String stakeId;
+        private Integer originalType;
+        private Integer originalColor;
+        private String specialFlag;
+
+    }
     /**
      * 桩号、经纬度 对应方法 的JSON数据 的 数据结构
      */
@@ -231,7 +327,7 @@ public class Utils {
     @Setter
     public static class PathPointData {
         long lastReceivedTime;
-        LinkedList<Float> speedWindow = new LinkedList<>();
+        private ConcurrentLinkedDeque<Float> speedWindow = new ConcurrentLinkedDeque<>();
         String timeStamp;
         Long id;
         String plateNo;
@@ -566,7 +662,7 @@ public class Utils {
 
     public static String convertToTimestampString(long timestamp) {
         // 定义日期时间格式
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:sss");
 
         // 将时间戳转换为 Instant 对象
         Instant instant = Instant.ofEpochMilli(timestamp);

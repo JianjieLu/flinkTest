@@ -30,6 +30,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 import static whu.edu.ljj.flink.utils.LocationOP.UseSKgetLL;
 import static whu.edu.ljj.flink.utils.calAngle.calculateBearing;
@@ -60,7 +61,7 @@ public class VehicleStateProcessor extends KeyedProcessFunction<Long, PathPoint,
         PathPointData currentData = vehicleState.get(point.getId());
         if (currentData == null) {
             currentData = PPToPD(point);
-            currentData.setSpeedWindow(new LinkedList<>());
+            currentData.setSpeedWindow(new ConcurrentLinkedDeque<>());
         }
         updateState(currentData, point);
         vehicleState.put(point.getId(), currentData);
@@ -124,7 +125,7 @@ public class VehicleStateProcessor extends KeyedProcessFunction<Long, PathPoint,
         pathPoint.setOriginalType(Point.getOriginalType());
         pathPoint.setVehicleType(Point.getVehicleType());
         pathPoint.setTimeStamp(Point.getTimeStamp());
-        pathPoint.setSpeedWindow(new LinkedList<>());
+        pathPoint.setSpeedWindow(new ConcurrentLinkedDeque<>());
 
         return pathPoint;
     }

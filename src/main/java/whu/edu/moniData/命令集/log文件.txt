@@ -5,3 +5,5 @@ vim /opt/bigdata/hadoop-2.7.7/etc/hadoop/core-site.xml
 /opt/bigdata/hbase-1.4.9/conf/hbase-env.sh
 
 
+vim /opt/bigdata/kafka_2.12-2.4.1/config/server.properties
+

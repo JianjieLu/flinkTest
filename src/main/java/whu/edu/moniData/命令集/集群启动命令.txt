@@ -68,3 +68,7 @@ $FLINK_HOME/bin/start-cluster.sh
 
 
 $FLINK_HOME/bin/stop-cluster.sh
+
+
+启动问题：
+stopping hbasecat:/tmp/hbase-root-master.pid: No such file or directory：先start-hbase，再stop-hbase

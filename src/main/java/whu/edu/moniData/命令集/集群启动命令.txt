@@ -2,8 +2,12 @@
 hdfs namenode -format
 # 启动 HDFS
 $HADOOP_HOME/sbin/start-dfs.sh
+$HADOOP_HOME/sbin/stop-dfs.sh
 # 启动 YARN
 $HADOOP_HOME/sbin/start-yarn.sh
+$HADOOP_HOME/sbin/stop-yarn.sh
+
+vT8&bS6=m
 
 验证hadoop:
 jps  # NameNode 应有 NameNode、ResourceManager
@@ -27,14 +31,23 @@ y
 hadoop出问题：https://blog.csdn.net/psp0001060/article/details/90110954
 每个节点：
 cd /opt/bigdata/hadoop-2.7.7/
-rm -r tmp
-
+rm -rf tmp
 mkdir tmp
-rm -r dfs
-
+rm -rf dfs
 mkdir dfs
 cd dfs
-mkdir data(name)
+mkdir name
+
+
+cd /opt/bigdata/hadoop-2.7.7/
+rm -rf tmp
+mkdir tmp
+rm -rf dfs
+mkdir dfs
+cd dfs
+mkdir data
+
+
 
 删除redis
 rm -r /usr/local/redis-app/8006
@@ -65,10 +78,37 @@ $KAFKA_HOME/bin/kafka-server-stop.sh -daemon $KAFKA_HOME/config/server.propertie
 
 启动flink（独立模式）：
 $FLINK_HOME/bin/start-cluster.sh
-
-
 $FLINK_HOME/bin/stop-cluster.sh
+
+vim $FLINK_HOME/bin/config.sh
+/opt/bigdata/flink-1.16.0/tmp
+
+
+
+
+
+
 
 
 启动问题：
 stopping hbasecat:/tmp/hbase-root-master.pid: No such file or directory：先start-hbase，再stop-hbase
+
+[root@namenode ~]#  ssh-copy-id datanode4
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+mktemp: 无法通过模板"/root/.ssh/ssh-copy-id_id.XXXXXXXXXX" 创建文件: 权限不够
+/usr/bin/ssh-copy-id: ERROR: mktemp failed
+解决：
+# 移除所有特殊属性（递归处理）
+sudo chattr -iaR /root/.ssh
+# 验证属性已移除
+lsattr -R /root/.ssh
+sestatus
+如果是 Enforcing 状态：
+bash
+# 临时禁用 SELinux
+setenforce 0
+# 尝试删除操作
+rm -rf /root/.ssh
+再重新生成ras，再copy
+
+

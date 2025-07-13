@@ -1,10 +1,10 @@
 package whu.edu.moniData.UDPRece;
 
+import com.google.gson.Gson;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -18,32 +18,31 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class UDPReceiverWithParser {
+public class UDPReceiverWithParser82 {
 
     private static final int PORT = 7171;
     private static final int BUFFER_SIZE = 4096;
 
     // Kafka配置
-    private static final String KAFKA_BROKERS1 = "100.65.38.40:9092";
-    private static final String KAFKA_BROKERS2 = "10.48.53.82:9092";
+    private static final String KAFKA_BROKERS = "10.48.53.82:9092";
     private static final String OUTPUT_TOPIC = "smartBS_xg";
 
     // Gson实例用于JSON序列化
     private static final Gson gson = new Gson();
 
     public static void main(String[] args) {
-        // 创建第一个Kafka生产者配置
-        Properties props1 = createProducerConfig(KAFKA_BROKERS1);
-        // 创建第二个Kafka生产者配置
-        Properties props2 = createProducerConfig(KAFKA_BROKERS2);
+        Properties props = new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_BROKERS);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.put(ProducerConfig.ACKS_CONFIG, "1");
+        props.put(ProducerConfig.RETRIES_CONFIG, 3);
 
-        try (
-                KafkaProducer<String, String> producer1 = new KafkaProducer<>(props1);
-                KafkaProducer<String, String> producer2 = new KafkaProducer<>(props2);
-                DatagramSocket socket = new DatagramSocket(PORT)
-        ) {
+        try (KafkaProducer<String, String> producer = new KafkaProducer<>(props);
+             DatagramSocket socket = new DatagramSocket(PORT)) {
+
             System.out.println("UDP Receiver started on port " + PORT);
-            System.out.println("Kafka Producers initialized. Brokers: " + KAFKA_BROKERS1 + " and " + KAFKA_BROKERS2);
+            System.out.println("Kafka Producer initialized. Brokers: " + KAFKA_BROKERS);
             byte[] buffer = new byte[BUFFER_SIZE];
 
             while (true) {
@@ -55,17 +54,28 @@ public class UDPReceiverWithParser {
                         packet.getAddress().getHostAddress() + ":" + packet.getPort());
 
                 try {
+                    // 解析协议
                     E1Frame frame = parse(data);
+
+                    // 转换为UDPData格式
                     UDPData udpData = convertToUDPData(frame);
-                    if (udpData != null) {
+                    if(udpData!=null){
+                        // 转换为JSON
                         String jsonData = gson.toJson(udpData);
                         System.out.println("Parsed JSON: " + jsonData);
 
-                        // 发送到第一个Kafka集群
-                        sendToKafka(producer1, jsonData, "Cluster1");
-                        // 发送到第二个Kafka集群
-                        sendToKafka(producer2, jsonData, "Cluster2");
+                        // 发送到Kafka
+                        ProducerRecord<String, String> record = new ProducerRecord<>(OUTPUT_TOPIC, jsonData);
+                        producer.send(record, (metadata, exception) -> {
+                            if (exception != null) {
+                                System.err.println("Kafka send failed: " + exception.getMessage());
+                            } else {
+                                System.out.printf("Sent to Kafka -> Topic: %s, Partition: %d, Offset: %d%n",
+                                        metadata.topic(), metadata.partition(), metadata.offset());
+                            }
+                        });
                     }
+
                 } catch (Exception e) {
                     System.err.println("Error processing packet: " + e.getMessage());
                     e.printStackTrace();
@@ -77,31 +87,6 @@ public class UDPReceiverWithParser {
             System.err.println("I/O error: " + e.getMessage());
         }
     }
-
-    // 创建Kafka生产者配置的通用方法
-    private static Properties createProducerConfig(String brokers) {
-        Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, brokers);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(ProducerConfig.ACKS_CONFIG, "1");
-        props.put(ProducerConfig.RETRIES_CONFIG, 3);
-        return props;
-    }
-
-    // Kafka发送的通用方法
-    private static void sendToKafka(KafkaProducer<String, String> producer, String data, String clusterName) {
-        ProducerRecord<String, String> record = new ProducerRecord<>(OUTPUT_TOPIC, data);
-        producer.send(record, (metadata, exception) -> {
-            if (exception != null) {
-                System.err.println("Kafka send failed (" + clusterName + "): " + exception.getMessage());
-            } else {
-//                System.out.printf("Sent to %s Kafka -> Topic: %s, Partition: %d, Offset: %d%n",
-//                        clusterName, metadata.topic(), metadata.partition(), metadata.offset());
-            }
-        });
-    }
-
 
     public static E1Frame parse(byte[] data) {
         ByteBuffer buffer = ByteBuffer.wrap(data).order(ByteOrder.BIG_ENDIAN);
@@ -284,18 +269,18 @@ public class UDPReceiverWithParser {
             p.altitude = Float.parseFloat(df1.format(fused.altitude));          // 海拔（米）
 
             // 运动信息（假设原始数据单位是0.01，转换为标准单位）
-            p.speed = Float.parseFloat(df1.format( fused.speed));        // 转换为m/s
+            p.speed = Float.parseFloat(df1.format( fused.speed * 0.01f));        // 转换为m/s
             p.heading =  Float.parseFloat(df1.format(fused.heading * 0.01f));     // 转换为度
 
             // 尺寸信息
-            p.length = Float.parseFloat(df1.format( fused.length));       // 转换为米
-            p.width =  Float.parseFloat(df1.format(fused.width ));         // 转换为米
-            p.height = Float.parseFloat(df1.format( fused.height ));       // 转换为米
+            p.length = Float.parseFloat(df1.format( fused.length * 0.01f));       // 转换为米
+            p.width =  Float.parseFloat(df1.format(fused.width * 0.01f));         // 转换为米
+            p.height = Float.parseFloat(df1.format( fused.height * 0.01f));       // 转换为米
 
             // 坐标信息
-            p.X =  Float.parseFloat(df1.format(fused.x ));                // 转换为米
-            p.Y = Float.parseFloat(df1.format( fused.y ));                // 转换为米
-            p.Z =  Float.parseFloat(df1.format(fused.z));                // 转换为米
+            p.X =  Float.parseFloat(df1.format(fused.x * 0.01f));                // 转换为米
+            p.Y = Float.parseFloat(df1.format( fused.y * 0.01f));                // 转换为米
+            p.Z =  Float.parseFloat(df1.format(fused.z * 0.01f));                // 转换为米
 
             p.trackCount = fused.hitCount;         // 跟踪击中次数
 

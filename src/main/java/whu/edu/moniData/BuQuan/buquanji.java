@@ -95,6 +95,9 @@ public class buquanji {
                     PathTData data1 = null;
 //                    if(myTools.getNString(jsonStr,2,10).equals("pathList")) {
                     data1 = JSON.parseObject(jsonStr, PathTData.class);
+                    for(PathPoint p:data1.getPathList()){
+                        p.setStakeId(p.getStakeId().split("-")[1]);
+                    }
                     out.collect(data1);
 //                    }
                 } catch (Exception e) {
@@ -116,12 +119,13 @@ public class buquanji {
                             list = firstEnterInitializePointMap(pathTData);
                             pathTData1.setPathList(list);
                         } else {
-                            putNowDataIntoTempMap(pathTData, ts);
 
+                            putNowDataIntoTempMap(pathTData, ts);
 
                             for (Map.Entry<Long, PathPoint> entry : tempMap.entrySet()) {//当前的所有数据直接加入
                                 PathPoint p = entry.getValue();
                                 if (p.getStakeId() != null && p.getTimeStamp() != null) list.add(p);
+
                             }
 //                        }
 //                    }
@@ -130,7 +134,7 @@ public class buquanji {
 //                        tempMap.clear();
 //                }
 //
-                            System.out.println("tempMap.size():  "+tempMap.size()+"  content:"+tempMap);
+//                            System.out.println("tempMap.size():  "+tempMap.size()+"  content:"+tempMap);
 
                             //如果里程越界，会被移除
                             for (Map.Entry<Long, PathPointData> entry : pointMap.entrySet()) {
@@ -140,6 +144,8 @@ public class buquanji {
 
                                         list.add(PDToPP(pdInPointMap));
                                         pointMap.put(pdInPointMap.getId(), pdInPointMap);
+                                    }else{
+                                        list.add(new PathPoint(0,entry.getKey(),0,0,"0",0,"0",0,0,0,0,0,"0",0,0,0,new eventInfo()));
                                     }
                                 }
                             }
@@ -190,7 +196,7 @@ public class buquanji {
 
             writeIntoKafka(endPathTDataStream);
             System.out.println("ok:"+(System.currentTimeMillis()-currentTimeMillis));
-            env.execute("Flink completion to Kafka1 : completed.pathdata");
+            env.execute("Flink completion to Kafkaji : completed.pathdata");
         }//flink env
 
     }//main
@@ -208,6 +214,7 @@ public class buquanji {
             System.out.println("已移除 "+pdInPointMap.getId());
             return null;
         }
+        if(a3.getValue()[1]==pdInPointMap.getLatitude())return null;
         double carangle=calculateBearing(a3.getValue()[1],a3.getValue()[0],pdInPointMap.getLatitude(),pdInPointMap.getLongitude());
         pdInPointMap.setCarAngle(carangle);
         pdInPointMap.setMileage((int) (a2[0]));
@@ -246,6 +253,7 @@ public class buquanji {
         String lastStake=data.getStakeId();
         char a=lastStake.charAt(0);
         String newStake="";
+        System.out.println("last:"+lastStake+"   deta:"+deta+"  id:"+data.getId());
         double[]d = new double[2];
         if(a=='A'){
             newStake="AK"+MileageToStake((int)distance);

@@ -1,5 +1,15 @@
 package whu.edu.moniData;
 
+import com.google.gson.Gson;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
+import whu.edu.moniData.Utils.TrafficEventUtils;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -7,21 +17,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.UUID;
-
-import com.google.gson.Gson;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.kafka.clients.producer.*;
-import org.apache.kafka.common.serialization.StringSerializer;
-import whu.edu.moniData.Utils.TrafficEventUtils;
-
-import java.util.Properties;
 
 
-public class FiberGratingData2 {
+public class FiberGratingData2AllData {
     private static TrafficEventUtils.MileageConverter mileageConverter1;
     private static TrafficEventUtils.MileageConverter mileageConverter2;
+
     static {
         try {
             mileageConverter1 = new TrafficEventUtils.MileageConverter("sx_json.json");
@@ -61,17 +62,6 @@ public class FiberGratingData2 {
             1173790   // K1173+790
     };
 
-//    // 里程分段配置
-//    private static final long SEGMENT1_END = MIN_MILEAGE + 53175;   // 第一段结束位置（含）
-//    private static final long SEGMENT2_END = SEGMENT1_END + 53175;  // 第二段结束位置（含）
-//
-//
-//    private static final String[] TOPICS = {
-//            "fiberDataTest1",  // 第一段Topic
-//            "fiberDataTest2",  // 第二段Topic
-//            "fiberDataTest3"   // 第三段Topic
-//    };
-
     // 十一个Kafka主题
     private static final String[] TOPICS = new String[11];
     static {
@@ -80,9 +70,6 @@ public class FiberGratingData2 {
         }
     }
 
-//    private static final KafkaProducerUtil producer1 = new KafkaProducerUtil(TOPICS[0]); // 分段1主题
-//    private static final KafkaProducerUtil producer2 = new KafkaProducerUtil(TOPICS[1]); // 分段2主题
-//    private static final KafkaProducerUtil producer3 = new KafkaProducerUtil(TOPICS[2]); // 第三段Topic
     // 十一个Producer实例（使用列表管理）
     private static final List<KafkaProducerUtil> producers = new ArrayList<>();
     static {
@@ -105,7 +92,7 @@ public class FiberGratingData2 {
     private static final int MIN_SAFE_DISTANCE = 10; // 最小安全距离10米
     private static final double NOISE_POINT_PROBABILITY = 0; // 0.1%概率生成噪声点（可调整）
 
-    private static final double INCOMING_VEHICLE_PROBABILITY = 0.2; // 20%概率生成新驶入车辆
+//    private static final double INCOMING_VEHICLE_PROBABILITY = 0.2; // 20%概率生成新驶入车辆
 
 
     // ------------------- 新增：时间分段配置 -------------------
@@ -114,19 +101,19 @@ public class FiberGratingData2 {
     private static final int PEAK_START_EVENING = 17;  // 晚高峰开始时间
     private static final int PEAK_END_EVENING = 19;    // 晚高峰结束时间
 
-    private static final double PEAK_INCOMING_PROB = 0;   // 高峰期车辆驶入概率（50%）
-    private static final double OFFPEAK_INCOMING_PROB = 0; // 低谷期车辆驶入概率（15%）
+//    private static final double PEAK_INCOMING_PROB = 0;   // 高峰期车辆驶入概率（50%）
+//    private static final double OFFPEAK_INCOMING_PROB = 0; // 低谷期车辆驶入概率（15%）
 
-//    private static final double PEAK_INCOMING_PROB = 0.5 / 2;   // 高峰期车辆驶入概率（50%）
-//    private static final double OFFPEAK_INCOMING_PROB = 0.15 / 2; // 低谷期车辆驶入概率（15%）
+    private static double PEAK_INCOMING_PROB = 0.5 / 2;   // 高峰期车辆驶入概率（50%）
+    private static double OFFPEAK_INCOMING_PROB = 0.15 / 2; // 低谷期车辆驶入概率（15%）
 
-    private static final int PEAK_INITIAL_VEHICLES = 3;   // 高峰期初始车辆数
-    private static final int OFFPEAK_INITIAL_VEHICLES = 3;  // 低谷期初始车辆数
-//    private static final int PEAK_INITIAL_VEHICLES = 100;   // 高峰期初始车辆数
-//    private static final int OFFPEAK_INITIAL_VEHICLES = 30;  // 低谷期初始车辆数
+//    private static final int PEAK_INITIAL_VEHICLES = 3;   // 高峰期初始车辆数
+//    private static final int OFFPEAK_INITIAL_VEHICLES = 3;  // 低谷期初始车辆数
+    private static int PEAK_INITIAL_VEHICLES = 3;   // 高峰期初始车辆数
+    private static int OFFPEAK_INITIAL_VEHICLES = 3;  // 低谷期初始车辆数
     // 桥梁范围配置（里程：米）
-//    private static final long BRIDGE_START = 1050000; // 桥起点（包含）
-//    private static final long BRIDGE_END = 1055000;   // 桥终点（包含）
+    private static final long BRIDGE_START = 1050000; // 桥起点（包含）
+    private static final long BRIDGE_END = 1055000;   // 桥终点（包含）
 
     // ------------------- 卡口相关新增代码 -------------------
     // 卡口基础信息
@@ -197,7 +184,6 @@ public class FiberGratingData2 {
             new TollGate("KKJK-46", 1168000),
             new TollGate("KKJK-48", 1172890)
     );
-
     // 卡口记录数据类（按用户要求修改字段名和时间格式）
     static class TollData {
         String plateNumber;     // 车牌（原plateNo）
@@ -304,7 +290,6 @@ public class FiberGratingData2 {
         }
 
     }
-
     public static class FiberGratingJsonData {
         int SN;
         String timeStamp;
@@ -334,7 +319,6 @@ public class FiberGratingData2 {
                     (pathNum > 0 ? "\n车辆详情:\n" + pathList : "\n（无车辆信息，全部驶出高速）");
         }
     }
-
     private static String generateCarNumber(Random random) {
         // 1. 随机选择省级行政区简称（如：鄂、豫）
         String provinceCode = PROVINCE_CODES.get(random.nextInt(PROVINCE_CODES.size()));
@@ -354,9 +338,6 @@ public class FiberGratingData2 {
 
         return provinceCode + cityLetter + suffix.toString();
     }
-
-
-
     private static List<TData> generateInitialVehicleData(Random random, long timestamp) {
         int initialCount = isPeakTime(timestamp) ? PEAK_INITIAL_VEHICLES : OFFPEAK_INITIAL_VEHICLES;
         List<TData> vehicles = new ArrayList<>();
@@ -373,12 +354,10 @@ public class FiberGratingData2 {
         }
         return ensureSafeInitialPositions(vehicles); // 初始化时确保安全间距
     }
-
     private static double generateInitialSpeed(Random random) {
         double rawSpeed = 80 + random.nextDouble() * 40; // 初始速度80-120km/h
         return TData.formatSpeed(rawSpeed);
     }
-
     private static long generateInitialPosition(Random random) {
         // 在 [MIN_MILEAGE, MAX_MILEAGE] 范围内生成随机位置（包含边界）
         long range = 900;
@@ -388,12 +367,6 @@ public class FiberGratingData2 {
         TrafficEventUtils.MileageConverter converter = (direc == 1) ? mileageConverter1 : mileageConverter2;
         return converter.findCoordinate((int) tpointno).getLnglat();
     }
-
-    /**
-     * 生成噪声车辆（凭空出现的异常数据点）
-     * @param random 随机数生成器
-     * @return 噪声车辆数据
-     */
     private static TData generateNoiseVehicle(Random random) {
         long randomMileage = MIN_MILEAGE + (long) (random.nextDouble() * (MAX_MILEAGE - MIN_MILEAGE + 1));
         double randomSpeed = generateInitialSpeed(random); //
@@ -407,7 +380,6 @@ public class FiberGratingData2 {
 
         return new TData(noiseId, randomPlate, randomType, randomSpeed, randomLane, randomMileage, randomDirection);
     }
-
     private static List<TData> updateVehiclePositions(List<TData> vehicles, double elapsedTime, Random random) {
         List<TData> updatedVehicles = new ArrayList<>();
 
@@ -454,7 +426,6 @@ public class FiberGratingData2 {
         // 6. 处理碰撞（按车道和方向分组，调整位置确保安全间距）
         return resolveCollisions(updatedVehicles);
     }
-
     private static boolean hasCloseVehicle(List<TData> vehicles, int lane, long position, int direction, TData currentVehicle) {
         return vehicles.stream()
                 .anyMatch(v ->
@@ -464,7 +435,6 @@ public class FiberGratingData2 {
                                 Math.abs(v.mileage - position) < MIN_SAFE_DISTANCE
                 );
     }
-
     private static List<TData> resolveCollisions(List<TData> vehicles) {
         // 1. 按车道和方向分组（车道升序，方向0/1）
         Map<Integer, Map<Integer, List<TData>>> laneDirectionMap = new TreeMap<>();
@@ -520,7 +490,6 @@ public class FiberGratingData2 {
 
         return safeVehicles;
     }
-
     private static List<TData> ensureSafeInitialPositions(List<TData> vehicles) {
         Map<Integer, Map<Integer, List<TData>>> laneDirectionMap = new TreeMap<>();
         for (TData v : vehicles) {
@@ -567,7 +536,6 @@ public class FiberGratingData2 {
         }
         return safeVehicles;
     }
-
     private static List<TData> generateIncomingVehicles(List<TData> currentVehicles, Random random, long timestamp) {
         List<TData> newVehicles = new ArrayList<>(currentVehicles);
         double incomingProb = isPeakTime(timestamp) ? PEAK_INCOMING_PROB : OFFPEAK_INCOMING_PROB;
@@ -592,13 +560,11 @@ public class FiberGratingData2 {
 
         return newVehicles;
     }
-
     private static boolean isLaneSafeForEntry(List<TData> vehicles, int lane, int direction, long entryPosition) {
         return vehicles.stream()
                 .noneMatch(v -> v.laneNo == lane && v.direction == direction &&
                         Math.abs(v.mileage - entryPosition) < MIN_SAFE_DISTANCE);
     }
-
     private static TData createNewVehicle(int lane, int direction, Random random) {
         long entryPosition = (direction == 1) ? MIN_MILEAGE : MAX_MILEAGE; // 上行从起点进入，下行从终点进入
         int id = Math.abs(UUID.randomUUID().hashCode());
@@ -606,12 +572,10 @@ public class FiberGratingData2 {
         double speed = generateInitialSpeed(random);
         return new TData(id, carNumber, random.nextInt(10), speed, lane, entryPosition, direction);
     }
-
     private static String formatToSecondPrecision(String timestampWithMs) {
         // 输入：yyyy-MM-dd HH:mm:ss:SSS，输出：yyyy-MM-dd HH:mm:ss
         return timestampWithMs.split(":")[0] + ":" + timestampWithMs.split(":")[1] + ":" + timestampWithMs.split(":")[2];
     }
-
     // 判断是否为高峰期（根据小时判断，简化逻辑）
     private static boolean isPeakTime(long timestamp) {
         Calendar calendar = Calendar.getInstance();
@@ -620,8 +584,16 @@ public class FiberGratingData2 {
         return (hour >= PEAK_START_MORNING && hour < PEAK_END_MORNING) ||
                 (hour >= PEAK_START_EVENING && hour < PEAK_END_EVENING);
     }
-
     public static void main(String[] args) {
+        parseCommandLineArguments(args);
+
+        // 输出参数值（验证）
+        System.out.println("运行时参数配置：");
+        System.out.printf(" - PEAK_INCOMING_PROB: %.4f%n", PEAK_INCOMING_PROB);
+        System.out.printf(" - OFFPEAK_INCOMING_PROB: %.4f%n", OFFPEAK_INCOMING_PROB);
+        System.out.printf(" - PEAK_INITIAL_VEHICLES: %d%n", PEAK_INITIAL_VEHICLES);
+        System.out.printf(" - OFFPEAK_INITIAL_VEHICLES: %d%n", OFFPEAK_INITIAL_VEHICLES);
+        System.out.println();
         long baseTime = System.currentTimeMillis();
         List<TData> activeVehicles = generateInitialVehicleData(new Random(), baseTime); // 初始车辆
         int sn = 1;
@@ -642,8 +614,14 @@ public class FiberGratingData2 {
                 System.out.println("【噪声点】生成异常车辆: " + noiseVehicle.toString());
             }
 
+            System.out.printf(
+                    "SN: %d | 时间: %s | 当前车辆数: %d ",
+                    sn,
+                    new SimpleDateFormat("HH:mm:ss.SSS").format(new Date(startTime)),
+                    activeVehicles.size()
+            );
             // 创建原始数据（包含所有车辆）
-            long currentTime = baseTime + (long) (sn * 200); // 每条数据间隔200毫秒
+            long currentTime = baseTime + (long) (sn * 200L); // 每条数据间隔200毫秒
             FiberGratingJsonData originalData = new FiberGratingJsonData(sn++, currentTime, activeVehicles);
 
             // 按十一段分段
@@ -767,149 +745,52 @@ public class FiberGratingData2 {
         }
         producerToll.close();
     }
+    private static void parseCommandLineArguments(String[] args) {
+        if (args == null || args.length == 0) {
+            System.out.println("未提供参数，使用默认配置");
+            return;
+        }
 
+        try {
+            // 参数1：高峰期驶入概率
+            PEAK_INCOMING_PROB = Double.parseDouble(args[0]);
 
-//    public static void main(String[] args) {
-//        int initialVehicleCount = 50;
-//        int duration = 60*10;
-//        long baseTime = System.currentTimeMillis();
-//
-//        List<FiberGratingJsonData> dataList = generateFiberGratingData(initialVehicleCount, duration, baseTime);
-//
-//        for (FiberGratingJsonData originalData : dataList) {
-//            List<List<TData>> segmentVehicles = new ArrayList<>(Arrays.asList(
-//                    new ArrayList<>(),
-//                    new ArrayList<>(),
-//                    new ArrayList<>()
-//            ));
-//
-//            List<TollData> tollDataList = new ArrayList<>();
-//            for (TData vehicle : originalData.pathList) {
-//                long vehicleMileage = vehicle.mileage;
-//                int vehicleDirection = vehicle.direction;
-//
-//                // ------------------- 分段逻辑 -------------------
-//                if (vehicleMileage <= SEGMENT1_END) {
-//                    segmentVehicles.get(0).add(vehicle);
-//                } else if (vehicleMileage <= SEGMENT2_END) {
-//                    segmentVehicles.get(1).add(vehicle);
-//                } else {
-//                    segmentVehicles.get(2).add(vehicle);
-//                }
-//                // ------------------- 原有卡口逻辑 -------------------
-//                if (vehicleDirection == 0) {
-//                    UP_Toll_GATES.forEach(gate -> {
-//                        if (vehicleMileage >= (gate.mileage - 20) && vehicleMileage <= gate.mileage &&
-//                                !vehicle.getPassedTollGates().contains(gate.id)) {
-//                            tollDataList.add(new TollData(
-//                                    vehicle.plateNo,
-//                                    vehicle.vehicleType,
-//                                    formatToSecondPrecision(originalData.timeStamp), // 转换为秒级时间,
-//                                    gate.id,
-//                                    vehicle.laneNo
-//                            ));
-//                            vehicle.getPassedTollGates().add(gate.id);
-//                        }
-//                    });
-//                }
-//
-//                if (vehicleDirection == 1) {
-//                    DOWN_Toll_GATES.forEach(gate -> {
-//                        if (vehicleMileage <= gate.mileage && vehicleMileage >= (gate.mileage - 20) &&
-//                                !vehicle.getPassedTollGates().contains(gate.id)) {
-//                            tollDataList.add(new TollData(
-//                                    vehicle.plateNo,
-//                                    vehicle.vehicleType,
-//                                    formatToSecondPrecision(originalData.timeStamp), // 转换为秒级时间,
-//                                    gate.id,
-//                                    vehicle.laneNo
-//                            ));
-//                            vehicle.getPassedTollGates().add(gate.id);
-//                        }
-//                    });
-//                }
-//            }
-//
-//
-//
-//            // ------------------- 发送卡口数据到专属主题 -------------------
-//            if (!tollDataList.isEmpty()) {
-//                Gson gson = new Gson();
-//                String tollJson = gson.toJson(tollDataList);
-//                producerToll.sendData("tollDataTest", String.valueOf(originalData.SN), tollJson);
-//            }
-//
-//
-////            // ------------------- 光纤分段数据打印 -------------------
-////            for (int i = 0; i < segmentVehicles.size(); i++) {
-////                List<TData> segmentData = segmentVehicles.get(i);
-////                if (segmentData.isEmpty()) continue;
-////
-////                System.out.println("\n--- 分段 " + (i + 1) + " 光纤数据 SN: " + originalData.SN + " ---");
-////                System.out.println("时间戳: " + originalData.timeStamp);
-////                System.out.println("车辆数: " + segmentData.size());
-////                segmentData.forEach(vehicle -> System.out.println("  " + vehicle.toString()));
-////            }
-//
-//            // ------------------- Kafka发送逻辑-------------------
-//            for (int i = 0; i < segmentVehicles.size(); i++) {
-//                List<TData> segmentData = segmentVehicles.get(i);
-//                if (segmentData.isEmpty()) continue;
-//                long timeObs;
-//                try {
-//                    // 尝试按三位毫秒格式解析
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS");
-//                    LocalDateTime localDateTime = LocalDateTime.parse(originalData.timeStamp, formatter);
-//                    timeObs = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-//                } catch (Exception e) {
-//                    // 若三位毫秒格式解析失败，尝试按两位毫秒格式解析
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SS");
-//                    LocalDateTime localDateTime = LocalDateTime.parse(originalData.timeStamp, formatter);
-//                    timeObs = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-//                }
-//
-//                FiberGratingJsonData newData = new FiberGratingJsonData(
-//                        originalData.SN,
-//                        timeObs,
-//                        segmentData
-//                );
-//
-//                // 根据分段索引选择对应的Producer实例（保留原注释代码）
-//                switch (i) {
-//                    case 0:
-//                        producer1.sendData(newData);
-//                        break;
-//                    case 1:
-//                        producer2.sendData(newData);
-//                        break;
-//                    case 2:
-//                        producer3.sendData(newData);
-//                        break;
-//                }
-//            }
-//            // ------------------- 保留Producer关闭逻辑（即使未发送数据）-------------------
-//        }
-//
-//        // 保留Producer关闭逻辑
-//        producer1.close();
-//        producer2.close();
-//        producer3.close();
-//        producerToll.close();
-//    }
+            // 参数2：低谷期驶入概率
+            if (args.length > 1) {
+                OFFPEAK_INCOMING_PROB = Double.parseDouble(args[1]);
+            }
 
+            // 参数3：高峰期初始车辆数
+            if (args.length > 2) {
+                PEAK_INITIAL_VEHICLES = Integer.parseInt(args[2]);
+            }
 
-
-
-
+            // 参数4：低谷期初始车辆数
+            if (args.length > 3) {
+                OFFPEAK_INITIAL_VEHICLES = Integer.parseInt(args[3]);
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("参数格式错误，重置为默认配置");
+            e.printStackTrace();
+            resetToDefaultValues(); // 重置为默认值
+        }
+    }
+    // 重置默认值
+    private static void resetToDefaultValues() {
+        PEAK_INCOMING_PROB = 0.5 / 2;
+        OFFPEAK_INCOMING_PROB = 0.15 / 2;
+        PEAK_INITIAL_VEHICLES = 3;
+        OFFPEAK_INITIAL_VEHICLES = 3;
+    }
     public static class KafkaProducerUtil implements AutoCloseable {
-        private final String BOOTSTRAP_SERVERS = "100.65.38.40:9092";
-        private final String TOPIC;
+    private final String TOPIC;
         private final Producer<String, String> producer;
         private final Gson gson = new Gson();
 
         public KafkaProducerUtil(String topic) {
             this.TOPIC = topic;
             Properties props = new Properties();
+            String BOOTSTRAP_SERVERS = "100.65.38.40:9092";
             props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
             props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
             props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());

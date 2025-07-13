@@ -1,0 +1,4 @@
+DailyTrafficCounter：
+将每天的流量存入daily_vehicle_count表
+HourlyTrafficFlowJob：
+关老师说的统计信息存储

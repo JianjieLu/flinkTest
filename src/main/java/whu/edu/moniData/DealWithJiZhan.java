@@ -102,7 +102,8 @@ public class DealWithJiZhan {
             pp.setLongitude(lon);
             pp.setLatitude(lat);
             pp.setCarAngle(Double.parseDouble(df.format(s.getAngle())));
-            pp.setStakeId(stake);
+            pp.setStakeId("K1122+200-"+stake);
+            pp.setWeight(0);
             plist.add(pp);
 
         }
@@ -160,12 +161,24 @@ public class DealWithJiZhan {
                 .setProperty("message.max.bytes", "629145600") // Kafka Broker 的 message.max.bytes
                 .setProperty("delivery.timeout.ms",String.valueOf(24*60*60*1000))
                 .build();
-
+// 创建第二个KafkaSink（新集群）
+        KafkaSink<String> secondarySink = KafkaSink.<String>builder()
+                .setBootstrapServers("10.48.53.82:9092") // 新增集群
+                .setRecordSerializer(
+                        KafkaRecordSerializationSchema.builder()
+                                .setTopic("MergedPathData")
+                                .setValueSerializationSchema(new SimpleStringSchema())
+                                .build()
+                )
+                .setProperty("max.request.size", "629145600")
+                .setProperty("delivery.timeout.ms", String.valueOf(24 * 60 * 60 * 1000))
+                .build();
         DataStream<String> jsonStream = endPathTDataStream
                 .map(JSON::toJSONString)
                 .returns(String.class);
 
         jsonStream.sinkTo(dealStreamSink);
+        jsonStream.sinkTo(secondarySink);
     }
     private static int stakeToMileage(String input) {
         String[] parts = input.split("\\+");

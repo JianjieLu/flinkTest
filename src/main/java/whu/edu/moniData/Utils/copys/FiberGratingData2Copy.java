@@ -1,4 +1,14 @@
-package whu.edu.moniData;
+package whu.edu.moniData.Utils.copys;
+
+import com.google.gson.Gson;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
+import whu.edu.moniData.Utils.TrafficEventUtils;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -7,19 +17,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.UUID;
-
-import com.google.gson.Gson;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.kafka.clients.producer.*;
-import org.apache.kafka.common.serialization.StringSerializer;
-import whu.edu.moniData.Utils.TrafficEventUtils;
-
-import java.util.Properties;
 
 
-public class FiberGratingData2 {
+public class FiberGratingData2Copy {
     private static TrafficEventUtils.MileageConverter mileageConverter1;
     private static TrafficEventUtils.MileageConverter mileageConverter2;
     static {

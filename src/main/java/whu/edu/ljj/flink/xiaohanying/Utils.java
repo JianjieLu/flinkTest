@@ -167,8 +167,6 @@ public class Utils {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @Getter
-    @Setter
     @JsonPropertyOrder({
             "timeStamp",
             "id",
@@ -184,7 +182,8 @@ public class Utils {
             "stakeId",
             "mileage",
             "originalType",
-            "originalColor"
+            "originalColor",
+            "weight"
     })
     public static class PathPoint implements Serializable{
         private Integer direction;
@@ -202,6 +201,12 @@ public class Utils {
         private String stakeId;
         private Integer originalType;
         private Integer originalColor;
+        private double weight;
+        private eventInfo eventinfo;
+    }
+
+    @Data
+    public static class eventInfo implements Serializable{
 
     }
     @Data
@@ -343,6 +348,7 @@ public class Utils {
         Integer mileage;
         Integer originalType;
         Integer originalColor;
+        long lastUpdateTime;
     }
     /**
      * VehicleData 缓存车辆信息，速度窗口

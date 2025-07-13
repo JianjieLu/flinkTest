@@ -10,6 +10,12 @@ redis-cli -c -p 8001 -a 123456 cluster nodes
 pkill -15 -f "redis-server"
 pgrep -f "redis-server"
 
+
+
+
+
+
+启动：
 每个节点执行：
 redis-server /etc/redis/redis-8001.conf
 redis-server /etc/redis/redis-8002.conf
@@ -17,9 +23,13 @@ redis-server /etc/redis/redis-8003.conf
 redis-server /etc/redis/redis-8004.conf
 redis-server /etc/redis/redis-8005.conf
 redis-server /etc/redis/redis-8006.conf
-
 然后任意节点执行：
 redis-cli -a 123456 --cluster create --cluster-replicas 1 100.65.38.139:8001 100.65.38.140:8002 100.65.38.141:8003 100.65.38.142:8004 100.65.38.36:8005 100.65.38.37:8006
+
+
+
+
+
 
 连接任意节点：
 redis-cli -a 123456 -c -h 100.65.38.139 -p 8001

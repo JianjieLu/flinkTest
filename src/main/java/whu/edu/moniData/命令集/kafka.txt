@@ -6,19 +6,23 @@ kafka-topics.sh --describe --topic completed.pathdata --bootstrap-server 100.65.
 kafka-topics.sh --describe --topic fiberData1 --bootstrap-server 100.65.38.40:9092
 kafka-topics.sh --describe --topic UDPDecoder --bootstrap-server 100.65.38.40:9092
 kafka-configs.sh --bootstrap-server 100.65.38.139:9092,100.65.38.140:9092,100.65.38.141:9092,100.65.38.142:9092,100.65.38.36:9092,100.65.38.37:9092,100.65.38.38:9092 --entity-type topics --entity-name fiberData1 --describe
+
+
 清理kafka：
-find . -name "*.log" -size +1000M -exec rm -f {} \;
+          查看占用：cd / && du -h -x --max-depth=1
+          清理：find . -name "*.log" -size +1000M -exec rm -f {} \;
 
 kafka-console-consumer.sh --bootstrap-server 100.65.38.139:9092 --topic fiberData1 --from-beginning --max-messages 1
 
 
 查看所有topic：
-/kafka-topics.sh --zookeeper 100.65.38.139:2181 --list
+kafka-topics.sh --zookeeper 100.65.38.139:2181 --list
 
 
 创建topic：
 
-vim /home/ljj/sh/createTopic.sh,修改要创建的topic名
+vim /home/ljj/sh/createTopic.sh
+,修改要创建的topic名
 
 kafka-topics.sh --create \
   --bootstrap-server 100.65.38.139:9092 \

@@ -208,8 +208,11 @@ public class buquan4 {
         List<PathPoint> p=pathTData.getPathList();
         for(PathPoint m:p){
             PathPointData pp=PPToPD(m);
-            pp.setLastReceivedTime(pathTData.getTime());
+            pp.setLastReceivedTime(0);
             pp.getSpeedWindow().add(m.getSpeed());
+            String ts=pathTData.getTimeStamp();
+            pp.setTimeStamp(ts);
+            m.setTimeStamp(ts);
             pointMap.put(m.getId(),pp);
         }
         firstEnter = false;

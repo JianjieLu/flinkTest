@@ -64,7 +64,7 @@ public class cunUPDOWN {
         bigIdToSmallId.put("XG01","C7370151-2116-470A-8E26-5F878B3C9D78");
         idTid.put("C7370151-2116-470A-8E26-5F878B3C9D78", 8);
         firstInput.put("C7370151-2116-470A-8E26-5F878B3C9D78", true);
-        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,100.65.38.36,100.65.38.37,100.65.38.38");
+        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,10.48.53.80");
         conf.set("hbase.zookeeper.property.clientPort", "2181");
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(3);

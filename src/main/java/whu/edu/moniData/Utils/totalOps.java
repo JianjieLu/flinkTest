@@ -24,7 +24,7 @@ public class totalOps {
     public static List<Pair<whu.edu.moniData.Utils.TrafficEventUtils.CongestionEvent,Long>>getCongestionEvent(String tableName, List<Long> time){
         List<Pair<whu.edu.moniData.Utils.TrafficEventUtils.CongestionEvent,Long>> congs = new ArrayList<>();
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,100.65.38.36,100.65.38.37,100.65.38.38");
+        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,10.48.53.80");
         conf.set("hbase.zookeeper.property.clientPort", "2181");
         List<String> ss=new ArrayList<>();
         try (Connection connection = ConnectionFactory.createConnection(conf)) {
@@ -62,7 +62,7 @@ public class totalOps {
 
         List<Pair<whu.edu.moniData.Utils.TrafficEventUtils.CongestionEvent,Long>> congs = new ArrayList<>();
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,100.65.38.36,100.65.38.37,100.65.38.38");
+        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,10.48.53.80");
         conf.set("hbase.zookeeper.property.clientPort", "2181");
         boolean a=true;
         int i=0;
@@ -120,7 +120,7 @@ public class totalOps {
     }
     public static void getByRowkey(String tableName,String rowkey) throws IOException {
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,100.65.38.36,100.65.38.37,100.65.38.38");  // Zookeeper 地址
+        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,10.48.53.80");  // Zookeeper 地址
         conf.set("hbase.zookeeper.property.clientPort", "2181");  // Zookeeper 端口
         try (Connection connection = ConnectionFactory.createConnection(conf);
              Table table = connection.getTable(TableName.valueOf(tableName))) {
@@ -146,7 +146,7 @@ public class totalOps {
     public static List<whu.edu.moniData.Utils.TrafficEventUtils.VehicleSeg> getVeByRowkey(String tableName, String rowkey) {
         List<whu.edu.moniData.Utils.TrafficEventUtils.VehicleSeg> vehicleSegs = new ArrayList<>();
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,100.65.38.36,100.65.38.37,100.65.38.38");
+        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,10.48.53.80");
         conf.set("hbase.zookeeper.property.clientPort", "2181");
 
         try (Connection connection = ConnectionFactory.createConnection(conf)) {

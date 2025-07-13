@@ -1,5 +1,6 @@
 package whu.edu.moniData.BuQuan;
 
+
 import com.alibaba.fastjson2.JSON;
 import com.github.luben.zstd.ZstdOutputStream;
 import com.google.gson.Gson;
@@ -41,9 +42,8 @@ import static whu.edu.ljj.flink.utils.calAngle.calculateBearing;
 import static whu.edu.moniData.BuQuan.buquanji.predictSpeedWindow;
 import static whu.edu.moniData.BuQuan.buquanji.predictStake;
 
-
-public class buquan1 {
-    private static final int WINDOW_SIZE = 20;//用来预测的窗口大小
+public class buquan1v1 {
+    private static final int WINDOW_SIZE = 20; // 用来预测的窗口大小
     private static final Map<Long, PathPointData> pointMap = new ConcurrentHashMap<>();
     static boolean firstEnter = true;
     static Map<Long, PathPoint> tempMap = new ConcurrentHashMap<>();
@@ -58,6 +58,11 @@ public class buquan1 {
     static List<Location> roadBKDataList;
     static List<Location> roadCKDataList;
     static List<Location> roadDKDataList;
+
+    // 添加清理相关常量
+    private static final long CLEANUP_INTERVAL = 60000; // 清理间隔1分钟
+    private static final long EXPIRATION_TIME = 10 * 60 * 1000; // 10分钟超时
+
     static {
         try {
             mileageConverter1 = new TrafficEventUtils.MileageConverter("sx_json.json");
@@ -69,18 +74,52 @@ public class buquan1 {
             roadCKDataList = JsonReader.readJsonFile("CK_locations.json");
             roadDKDataList = JsonReader.readJsonFile("DK_locations.json");
 
+            // 启动清理线程
+            startCleanupThread();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    //        60817                        62914                         62914
-    //生产者端max.request.size必须小于集群的message.max.bytes以及消费者的max.partition.fetch.bytes
-    //MergedPathData.sceneTest.1 "fiberDataTest1", "fiberDataTest2", "fiberDataTest3" 100.65.38.139:9092
+
+    // 清理线程
+    private static void startCleanupThread() {
+        Thread cleanupThread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(CLEANUP_INTERVAL);
+                    cleanExpiredVehicles();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+        cleanupThread.setDaemon(true);
+        cleanupThread.start();
+    }
+
+    // 清理过期车辆
+    private static void cleanExpiredVehicles() {
+        long now = System.currentTimeMillis();
+        Iterator<Map.Entry<Long, PathPointData>> iterator = pointMap.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<Long, PathPointData> entry = iterator.next();
+            PathPointData data = entry.getValue();
+
+            // 检查是否超过10分钟未更新
+            if (now - data.getLastUpdateTime() > EXPIRATION_TIME) {
+                iterator.remove();
+                System.out.println("清理过期车辆: " + data.getId() + " | 车牌: " + data.getPlateNo());
+            }
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         try (StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()) {
             env.setParallelism(8);
             String brokers = args[0];
-            List<String> topics  = Arrays.asList("fiberData1","fiberData2","fiberData3","fiberData4","fiberData5","fiberData6","fiberData7","fiberData8","fiberData9","fiberData10","fiberData11");
+            List<String> topics = Arrays.asList("fiberData1", "fiberData2", "fiberData3", "fiberData4", "fiberData5", "fiberData6", "fiberData7", "fiberData8", "fiberData9", "fiberData10", "fiberData11");
             String groupId = "flink_consumer_group1";
             // 从Kafka读取数据
             KafkaSource<String> source = KafkaSource.<String>builder()
@@ -89,33 +128,28 @@ public class buquan1 {
                     .setGroupId(groupId)
                     .setStartingOffsets(OffsetsInitializer.latest())
                     .setValueOnlyDeserializer(new SimpleStringSchema())
-//                    .setProperty("max.request.size", "608174080")
                     .setProperty("max.partition.fetch.bytes", "629145600")
                     .build();
-            // 从Kafka读取数据
-//            DataStreamSource<String> kafkaStream = env.fromSource(buildSource(brokers, topics), WatermarkStrategy.noWatermarks(), "Kafka Source1");
             DataStreamSource<String> kafkaStream = env.fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka Source1");
 
-//读取基站数据，返回StationStream
-            DataStream<PathTData> StationStream=kafkaStream.flatMap((String jsonStr, Collector<PathTData> out)-> {
+            // 读取基站数据，返回StationStream
+            DataStream<PathTData> StationStream = kafkaStream.flatMap((String jsonStr, Collector<PathTData> out) -> {
                 try {
-                    PathTData data1 = null;
-//                    if(myTools.getNString(jsonStr,2,10).equals("pathList")) {
-                    data1 = JSON.parseObject(jsonStr, PathTData.class);
+                    PathTData data1 = JSON.parseObject(jsonStr, PathTData.class);
                     out.collect(data1);
-//                    }
                 } catch (Exception e) {
-                    System.err.println("JSON解析失败: "+ e.getMessage());
+                    System.err.println("JSON解析失败: " + e.getMessage());
                 }
             }).returns(PathTData.class).keyBy(PathTData::getTime);
+
             SingleOutputStreamOperator<PathTData> endPathTDataStream = StationStream.flatMap(new FlatMapFunction<PathTData, PathTData>() {
-                @Override//5.56   33.76  86.64
+                @Override
                 public void flatMap(PathTData pathTData, Collector<PathTData> collector) throws Exception {
                     List<PathPoint> list = new ArrayList<>();
                     PathTData pathTData1 = initResPathTDate(pathTData);
                     String ts = pathTData.getTimeStamp();
                     temp = initCurrentTime(ts);
-//                    System.out.println(pathTData.getTimeStamp());
+
                     if (!pathTData.getPathList().isEmpty()) {
                         if (firstEnter) {
                             list = firstEnterInitializePointMap(pathTData);
@@ -123,161 +157,144 @@ public class buquan1 {
                         } else {
                             putNowDataIntoTempMap(pathTData, ts);
 
-
-                            for (Map.Entry<Long, PathPoint> entry : tempMap.entrySet()) {//当前的所有数据直接加入
+                            // 当前的所有数据直接加入
+                            for (Map.Entry<Long, PathPoint> entry : tempMap.entrySet()) {
                                 PathPoint p = entry.getValue();
-                                if (p.getStakeId() != null && p.getTimeStamp() != null) list.add(p);
+                                if (p.getStakeId() != null && p.getTimeStamp() != null) {
+                                    list.add(p);
+                                }
                             }
-//                        }
-//                    }
-//                                            pathTData1.setPathList(list);
-//                        collector.collect(pathTData1);
-//                        tempMap.clear();
-//                }
-//
-//                            System.out.println("tempMap.size():  "+tempMap.size()+"  content:"+tempMap);
 
-                            //如果里程越界，会被移除
+                            // 如果里程越界，会被移除
                             for (Map.Entry<Long, PathPointData> entry : pointMap.entrySet()) {
-                                if (tempMap.get(entry.getKey()) == null) {//PointMap中有，但是当前tempMap中没有，车辆缺失
+                                if (tempMap.get(entry.getKey()) == null) {
+                                    // 检查是否过期
+                                    long currentTime = System.currentTimeMillis();
+                                    if (currentTime - entry.getValue().getLastUpdateTime() > EXPIRATION_TIME) {
+                                        pointMap.remove(entry.getKey());
+                                        continue;
+                                    }
+
                                     PathPointData pdInPointMap = predictNextMixed(entry.getKey(), pathTData.getTimeStamp());
                                     if (pdInPointMap != null) {
-
                                         list.add(PDToPP(pdInPointMap));
                                         pointMap.put(pdInPointMap.getId(), pdInPointMap);
-//                                        System.out.println("putted id:"+pdInPointMap.getId());
                                     }
                                 }
                             }
-                            //更新pointmap
-//                            for(PathPoint p:pathTData.getPathList()) {
-//                                long keyId=p.getId();
-//                                if (pointMap.get(keyId) == null) {//即前面没有，当前有，是个新车。（会不会是重新出现的车呢）反正在这个if里是个绝对的新车
-//                                    PathPointData ppp = PPToPDAndinitLastRecAndWindow(p);
-//                                    pointMap.put(keyId, ppp);
-//                                } else {//pointmap有，当前有，看前一条是不是预测的
-//                                    if(  pointMap.get(keyId).getLastReceivedTime() ==1) {//说明前面是预测的
-//                                        //重新出现，怎么处理？把前面的先全部删掉,然后再全部加入。那么会不会跟前面的《当前的所有数据直接加入》重复呢？不会，前面的没有改变pointmap，只是加入list
-//                                        pointMap.remove(keyId);
-//                                        PathPointData pdpd= PPToPD(p);
-//                                        ConcurrentLinkedDeque<Float> c = new ConcurrentLinkedDeque<>();
-//                                        c.add(p.getSpeed());
-//                                        pdpd.setSpeedWindow(c);
-//                                        pdpd.setLastReceivedTime(0);
-//                                        pointMap.put(keyId,pdpd);
-//                                    }else{//前面有，当前有，且前面的不是预测的
-//                                        pointMap.get(keyId).getSpeedWindow().add(tempMap.get(keyId).getSpeed());
-//                                    }
-//                                }
-//
-//                            }
-
                         }
                         pathTData1.setPathList(list);
                         collector.collect(pathTData1);
                         tempMap.clear();
-//                        System.out.println("list.size():  "+list.size());
-                        Set<Long> se=new HashSet<>();
-                        List<String >s=new ArrayList<>();
-//                        for(PathPoint p:list){
-//                            se.add(p.getId());
-////                            System.out.println(p);
-//                            s.add(p.getPlateNo()+"  "+p.getStakeId());
-//                        }
-//                        System.out.println("se.size():  "+se.size());
-//                        System.out.println(s);
-                    }//pathlist.empty
-                }//flatMap
+                    }
+                }
             });
+
             writeIntoKafka(endPathTDataStream);
             env.execute("Flink completion to Kafka1 : completed.pathdata");
-        }//flink env
+        }
+    }
 
-    }//main
-    private static PathPointData PPToPDAndinitLastRecAndWindow(PathPoint pp){
-        PathPointData pd=PPToPD(pp);
+    private static PathPointData PPToPDAndinitLastRecAndWindow(PathPoint pp) {
+        PathPointData pd = PPToPD(pp);
         ConcurrentLinkedDeque<Float> c = new ConcurrentLinkedDeque<>();
         c.add(pp.getSpeed());
         pd.setSpeedWindow(c);
         pd.setLastReceivedTime(0);
+        pd.setLastUpdateTime(System.currentTimeMillis()); // 设置初始更新时间
         return pd;
     }
-    private static PathPointData predictNextMixed(long keyInPointMap,String timestamp){
-        PathPointData pdInPointMap=pointMap.get(keyInPointMap);
-        Pair<ConcurrentLinkedDeque<Float>,Float> a1=predictSpeedWindow(pdInPointMap);//速度窗口、预测的速度
-        double[] a2=predictNewMileage(pdInPointMap,a1.getValue());//新里程、驶过的距离
-        if(a2[0]<1016020||a2[1]>1173790){
-            pointMap.remove(keyInPointMap);tempMap.remove(keyInPointMap);
-            return null;
-        }
-        Pair<String,double[]> a3=predictStake(pdInPointMap,a2[0],a2[1]);//新桩号、新经纬度lonlng
-        if(a3==null) {
-//            System.out.println("已移除 "+pdInPointMap.getId());
+
+    private static PathPointData predictNextMixed(long keyInPointMap, String timestamp) {
+        PathPointData pdInPointMap = pointMap.get(keyInPointMap);
+        if (pdInPointMap == null) return null;
+
+        // 检查是否超过10分钟未更新
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - pdInPointMap.getLastUpdateTime() > EXPIRATION_TIME) {
+            pointMap.remove(keyInPointMap);
+            tempMap.remove(keyInPointMap);
             return null;
         }
 
-        double carangle=calculateBearing(a3.getValue()[1],a3.getValue()[0],pdInPointMap.getLatitude(),pdInPointMap.getLongitude());
+        Pair<ConcurrentLinkedDeque<Float>, Float> a1 = predictSpeedWindow(pdInPointMap);
+        double[] a2 = predictNewMileage(pdInPointMap, a1.getValue());
+
+        if (a2[0] < 1016020 || a2[1] > 1173790) {
+            pointMap.remove(keyInPointMap);
+            tempMap.remove(keyInPointMap);
+            return null;
+        }
+
+        Pair<String, double[]> a3 = predictStake(pdInPointMap, a2[0], a2[1]);
+        if (a3 == null) {
+            return null;
+        }
+
+        double carangle = calculateBearing(a3.getValue()[1], a3.getValue()[0], pdInPointMap.getLatitude(), pdInPointMap.getLongitude());
         pdInPointMap.setCarAngle(carangle);
         pdInPointMap.setMileage((int) (a2[0]));
         pdInPointMap.setSpeed(a1.getValue());
-//        pdInPointMap.setTimeStamp(pathTimeStamp);//未接收到，不更新
         pdInPointMap.setLatitude(a3.getValue()[1]);
         pdInPointMap.setLongitude(a3.getValue()[0]);
         pdInPointMap.setSpeedWindow(a1.getKey());
         pdInPointMap.setStakeId(a3.getKey());
         pdInPointMap.setTimeStamp(timestamp);
         pdInPointMap.setLastReceivedTime(1);
+        pdInPointMap.setLastUpdateTime(System.currentTimeMillis()); // 更新最后更新时间
 
-        if(!pdInPointMap.getPlateNo().endsWith("值"))pdInPointMap.setPlateNo(pdInPointMap.getPlateNo()+" "+"预测值");
-        else{
-            pdInPointMap.setPlateNo(pdInPointMap.getPlateNo().substring(0,7)+" "+"预测值");
+        if (!pdInPointMap.getPlateNo().endsWith("值")) {
+            pdInPointMap.setPlateNo(pdInPointMap.getPlateNo() + " " + "预测值");
+        } else {
+            pdInPointMap.setPlateNo(pdInPointMap.getPlateNo().substring(0, 7) + " " + "预测值");
         }
-
-        PathPoint pp=PDToPP(pdInPointMap);
-//        System.out.println(pdInPointMap.getId()+"  "+ pdInPointMap.getPlateNo());
 
         return pdInPointMap;
     }
 
-
-    public static double[] predictNewMileage(PathPointData data,float speed){
-
-        double[]d={0,0};
+    public static double[] predictNewMileage(PathPointData data, float speed) {
+        double[] d = {0, 0};
         d[1] = myTools.calculateDistance(speed, 200);
-        if(data.getDirection()==1) {
+        if (data.getDirection() == 1) {
             d[0] = data.getMileage() + d[1]; // 更新里程点
-        }else {
+        } else {
             d[0] = data.getMileage() - d[1]; // 更新里程点
         }
-        //问题：新里程是否过大
         return d;
     }
 
-    private static void putNowDataIntoTempMap(PathTData pathTData,String time){
-        List<PathPoint> p=pathTData.getPathList();
-        for(PathPoint m:p){
+    private static void putNowDataIntoTempMap(PathTData pathTData, String time) {
+        List<PathPoint> p = pathTData.getPathList();
+        for (PathPoint m : p) {
             m.setTimeStamp(time);
-            tempMap.put(m.getId(),m);
-        }
+            tempMap.put(m.getId(), m);
 
+            // 更新pointMap中车辆的最后更新时间
+            PathPointData existing = pointMap.get(m.getId());
+            if (existing != null) {
+                existing.setLastUpdateTime(System.currentTimeMillis());
+            }
+        }
     }
-    private static List<PathPoint> firstEnterInitializePointMap (PathTData pathTData){
-        List<PathPoint> p=pathTData.getPathList();
-        for(PathPoint m:p){
-            PathPointData pp=PPToPD(m);
+
+    private static List<PathPoint> firstEnterInitializePointMap(PathTData pathTData) {
+        List<PathPoint> p = pathTData.getPathList();
+        for (PathPoint m : p) {
+            PathPointData pp = PPToPD(m);
             pp.setLastReceivedTime(0);
             pp.getSpeedWindow().add(m.getSpeed());
-            String ts=pathTData.getTimeStamp();
+            String ts = pathTData.getTimeStamp();
             pp.setTimeStamp(ts);
+            pp.setLastUpdateTime(System.currentTimeMillis()); // 设置初始更新时间
             m.setTimeStamp(ts);
-            pointMap.put(m.getId(),pp);
+            pointMap.put(m.getId(), pp);
         }
         firstEnter = false;
         return p;
     }
+
     private static PathPoint PDToPP(PathPointData Point) {
         PathPoint pathPoint = new PathPoint();
-
         pathPoint.setMileage(Point.getMileage());
         pathPoint.setId(Point.getId());
         pathPoint.setSpeed(Point.getSpeed());
@@ -295,6 +312,7 @@ public class buquan1 {
         pathPoint.setTimeStamp(Point.getTimeStamp());
         return pathPoint;
     }
+
     private static PathPointData PPToPD(PathPoint Point) {
         PathPointData pathPoint = new PathPointData();
         pathPoint.setMileage(Point.getMileage());
@@ -313,25 +331,25 @@ public class buquan1 {
         pathPoint.setVehicleType(Point.getVehicleType());
         pathPoint.setTimeStamp(Point.getTimeStamp());
         pathPoint.setSpeedWindow(new ConcurrentLinkedDeque<>());
-
+        pathPoint.setLastUpdateTime(System.currentTimeMillis()); // 初始化最后更新时间
         return pathPoint;
     }
-    public static long initCurrentTime(String time){
+
+    public static long initCurrentTime(String time) {
         try {
-            // 尝试按三位毫秒格式解析
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS");
             LocalDateTime localDateTime = LocalDateTime.parse(time, formatter);
             return localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         } catch (Exception e) {
-            // 若三位毫秒格式解析失败，尝试按两位毫秒格式解析
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SS");
             LocalDateTime localDateTime = LocalDateTime.parse(time, formatter);
             return localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         }
     }
-    public static PathTData initResPathTDate(PathTData pathTData){
-        pathTimeStamp=pathTData.getTimeStamp();
-        pathTime= pathTData.getTime();
+
+    public static PathTData initResPathTDate(PathTData pathTData) {
+        pathTimeStamp = pathTData.getTimeStamp();
+        pathTime = pathTData.getTime();
         PathTData pathTData1 = new PathTData();
         pathTData.setTime(pathTime);
         pathTData.setTimeStamp(pathTimeStamp);
@@ -340,19 +358,18 @@ public class buquan1 {
         pathTData.setWaySectionName(pathTData1.getWaySectionName());
         return pathTData1;
     }
+
     public static void writeIntoKafka(SingleOutputStreamOperator<PathTData> endPathTDataStream) {
-        // Kafka生产者配置
         Properties producerProps = new Properties();
         producerProps.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "100.65.38.40:9092");
-        producerProps.setProperty(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, "10485760"); // 10MB
-        producerProps.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "zstd"); // ZSTD压缩
-        producerProps.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, "1048576"); // 1MB批处理大小
+        producerProps.setProperty(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, "10485760");
+        producerProps.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "zstd");
+        producerProps.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, "1048576");
 
-        // 动态分块配置
-        final int MAX_UNCOMPRESSED_SIZE = 5 * 1024 * 1024; // 5MB原始数据阈值
-        final int MIN_CHUNK_SIZE = 50; // 最小分块车辆数
-        final int MAX_CHUNK_SIZE = 1000; // 最大分块车辆数
-        final double TARGET_COMPRESSION_RATIO = 0.4; // 目标压缩比
+        final int MAX_UNCOMPRESSED_SIZE = 5 * 1024 * 1024;
+        final int MIN_CHUNK_SIZE = 50;
+        final int MAX_CHUNK_SIZE = 1000;
+        final double TARGET_COMPRESSION_RATIO = 0.4;
 
         DataStream<String> jsonStream = endPathTDataStream
                 .flatMap(new RichFlatMapFunction<PathTData, String>() {
@@ -367,30 +384,24 @@ public class buquan1 {
                     @Override
                     public void flatMap(PathTData data, Collector<String> out) {
                         try {
-                            // 1. 元数据提取
                             long baseTime = data.getTime();
                             String baseTimestamp = data.getTimeStamp();
                             int totalPoints = data.getPathList().size();
 
-                            // 2. 动态分块策略
                             int chunkSize = calculateDynamicChunkSize(totalPoints);
                             List<List<PathPoint>> chunks = partitionData(data.getPathList(), chunkSize);
 
-                            // 3. 分块处理
                             for (int i = 0; i < chunks.size(); i++) {
-                                // 创建分块数据
                                 PathTData chunkData = new PathTData();
                                 chunkData.setTime(baseTime);
                                 chunkData.setTimeStamp(baseTimestamp);
                                 chunkData.setPathNum(chunks.get(i).size());
                                 chunkData.setPathList(chunks.get(i));
 
-                                // 序列化并压缩
                                 String json = gson.toJson(chunkData);
                                 byte[] jsonBytes = json.getBytes(StandardCharsets.UTF_8);
 
                                 if (jsonBytes.length > MAX_UNCOMPRESSED_SIZE) {
-                                    // 大块数据使用ZSTD压缩
                                     try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
                                          ZstdOutputStream zos = new ZstdOutputStream(bos)) {
                                         zos.write(jsonBytes);
@@ -399,15 +410,8 @@ public class buquan1 {
                                         out.collect("ZSTD:" + Base64.getEncoder().encodeToString(compressed));
                                     }
                                 } else {
-                                    // 小块数据直接发送
                                     out.collect(json);
                                 }
-
-//                                // 日志记录
-//                                System.out.printf("发送分块 %d/%d | 车辆数: %d | 原始大小: %.2fMB | 压缩后: %.2fMB%n",
-//                                        i+1, chunks.size(), chunks.get(i).size(),
-//                                        jsonBytes.length / 1024.0 / 1024.0,
-//                                        (jsonBytes.length * TARGET_COMPRESSION_RATIO) / 1024.0 / 1024.0);
                             }
                         } catch (Exception e) {
                             System.err.println("消息处理出错: " + e.getMessage());
@@ -415,7 +419,6 @@ public class buquan1 {
                         }
                     }
 
-                    // 动态计算分块大小
                     private int calculateDynamicChunkSize(int totalPoints) {
                         if (totalPoints <= 1000) return Math.max(MIN_CHUNK_SIZE, totalPoints / 2);
                         if (totalPoints <= 5000) return 300;
@@ -423,7 +426,6 @@ public class buquan1 {
                         return MAX_CHUNK_SIZE;
                     }
 
-                    // 高效数据分区
                     private List<List<PathPoint>> partitionData(List<PathPoint> points, int chunkSize) {
                         List<List<PathPoint>> chunks = new ArrayList<>();
                         int from = 0;
@@ -437,7 +439,6 @@ public class buquan1 {
                 })
                 .returns(String.class);
 
-        // 构建Kafka Sink
         KafkaSink<String> sink = KafkaSink.<String>builder()
                 .setBootstrapServers("100.65.38.40:9092")
                 .setRecordSerializer(
@@ -451,4 +452,4 @@ public class buquan1 {
 
         jsonStream.sinkTo(sink);
     }
-}//public buquan class
+}

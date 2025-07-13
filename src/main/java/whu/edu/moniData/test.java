@@ -68,8 +68,33 @@ package whu.edu.moniData;//package whu.edu.moniData;
 //    }
 //}
 
+import javafx.util.Pair;
+import whu.edu.ljj.flink.xiaohanying.Utils;
+
+import static whu.edu.ljj.flink.utils.LocationOP.UseSKgetLL;
+import static whu.edu.moniData.BuQuan.buquanji.predictStake;
+import static whu.edu.moniData.buquanCopy.roadCKDataList;
+
 public class test {
     public static void main(String[] args) {
-        System.out.println(20971520+629145600);
+//        System.out.println(20971520+629145600);
+//        Utils.Location l=UseSKgetLL("CK0+414", roadCKDataList, 3.1,779);
+//        System.out.println(l);
+
+        int a=0;
+        long t=System.currentTimeMillis();
+        while(a<1000000){
+            a++;
+        }
+        long t2=System.currentTimeMillis();
+        System.out.println("从0加到一百万时间差："+(t2-t));
+        a=0;
+         t=System.currentTimeMillis();
+        while(a<100000000){
+            a++;
+        }
+         t2=System.currentTimeMillis();
+        System.out.println("从0加到一亿时间差："+(t2-t));
+
     }
 }

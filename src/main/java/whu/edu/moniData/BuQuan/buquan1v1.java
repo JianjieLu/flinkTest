@@ -161,7 +161,7 @@ public class buquan1v1 {
                             for (Map.Entry<Long, PathPoint> entry : tempMap.entrySet()) {
                                 PathPoint p = entry.getValue();
                                 if (p.getStakeId() != null && p.getTimeStamp() != null) {
-                                    list.add(p);
+//                                    list.add(p);
                                 }
                             }
 
@@ -174,9 +174,11 @@ public class buquan1v1 {
                                         pointMap.remove(entry.getKey());
                                         continue;
                                     }
+                                    System.out.println("进入预测，id："+entry.getKey());
 
                                     PathPointData pdInPointMap = predictNextMixed(entry.getKey(), pathTData.getTimeStamp());
                                     if (pdInPointMap != null) {
+                                        System.out.println("预测结果："+pdInPointMap.getPlateNo()+"   里程:"+pdInPointMap.getMileage());
                                         list.add(PDToPP(pdInPointMap));
                                         pointMap.put(pdInPointMap.getId(), pdInPointMap);
                                     }
@@ -197,7 +199,7 @@ public class buquan1v1 {
 
     private static PathPointData PPToPDAndinitLastRecAndWindow(PathPoint pp) {
         PathPointData pd = PPToPD(pp);
-        ConcurrentLinkedDeque<Float> c = new ConcurrentLinkedDeque<>();
+        ConcurrentLinkedDeque<Double> c = new ConcurrentLinkedDeque<>();
         c.add(pp.getSpeed());
         pd.setSpeedWindow(c);
         pd.setLastReceivedTime(0);
@@ -217,7 +219,7 @@ public class buquan1v1 {
             return null;
         }
 
-        Pair<ConcurrentLinkedDeque<Float>, Float> a1 = predictSpeedWindow(pdInPointMap);
+        Pair<ConcurrentLinkedDeque<Double>, Double> a1 = predictSpeedWindow(pdInPointMap);
         double[] a2 = predictNewMileage(pdInPointMap, a1.getValue());
 
         if (a2[0] < 1016020 || a2[1] > 1173790) {
@@ -233,7 +235,7 @@ public class buquan1v1 {
 
         double carangle = calculateBearing(a3.getValue()[1], a3.getValue()[0], pdInPointMap.getLatitude(), pdInPointMap.getLongitude());
         pdInPointMap.setCarAngle(carangle);
-        pdInPointMap.setMileage((int) (a2[0]));
+        pdInPointMap.setMileage(a2[0]);
         pdInPointMap.setSpeed(a1.getValue());
         pdInPointMap.setLatitude(a3.getValue()[1]);
         pdInPointMap.setLongitude(a3.getValue()[0]);
@@ -252,7 +254,7 @@ public class buquan1v1 {
         return pdInPointMap;
     }
 
-    public static double[] predictNewMileage(PathPointData data, float speed) {
+    public static double[] predictNewMileage(PathPointData data, double speed) {
         double[] d = {0, 0};
         d[1] = myTools.calculateDistance(speed, 200);
         if (data.getDirection() == 1) {
@@ -361,7 +363,7 @@ public class buquan1v1 {
 
     public static void writeIntoKafka(SingleOutputStreamOperator<PathTData> endPathTDataStream) {
         Properties producerProps = new Properties();
-        producerProps.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "100.65.38.40:9092");
+        producerProps.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "10.48.53.82:9092");
         producerProps.setProperty(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, "10485760");
         producerProps.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "zstd");
         producerProps.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, "1048576");
@@ -440,7 +442,7 @@ public class buquan1v1 {
                 .returns(String.class);
 
         KafkaSink<String> sink = KafkaSink.<String>builder()
-                .setBootstrapServers("100.65.38.40:9092")
+                .setBootstrapServers("10.48.53.82:9092")
                 .setRecordSerializer(
                         KafkaRecordSerializationSchema.builder()
                                 .setTopic("completed.pathdata")

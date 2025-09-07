@@ -99,7 +99,7 @@ public class SegCarIngestMoniOfi {
                                     // 如果找不到direction字段，给予默认值
                                     mileage = -1000;
                                 }
-//                                int mileage = tdataObject.getInt("mileage");
+//                                double mileage = tdataObject.getInt("mileage");
                                 // 截取到公里级别
                                 double mileageKm = Math.floor(mileage / 1000);
 

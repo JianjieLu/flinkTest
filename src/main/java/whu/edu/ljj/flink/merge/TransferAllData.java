@@ -42,7 +42,7 @@ public class TransferAllData {
     static List<Location> roadCKDataList;
     static List<Location> roadDKDataList;
     private static String pathTimeStamp="";
-    private static float predictedSpeed=0;//预测速度
+    private static double predictedSpeed=0;//预测速度
     private static double distanceDiff=0;
     private static long pathTime=0;
     private static int newscount=0;

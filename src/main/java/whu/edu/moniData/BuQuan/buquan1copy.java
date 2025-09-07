@@ -155,7 +155,7 @@ public class buquan1copy {
                                             //重新出现，怎么处理？把前面的先全部删掉,然后再全部加入。那么会不会跟前面的《当前的所有数据直接加入》重复呢？不会，前面的没有改变pointmap，只是加入list
                                             pointMap.remove(keyId);
                                             PathPointData pdpd= PPToPD(p);
-                                            ConcurrentLinkedDeque<Float> c = new ConcurrentLinkedDeque<>();
+                                            ConcurrentLinkedDeque<Double> c = new ConcurrentLinkedDeque<>();
                                             c.add(p.getSpeed());
                                             pdpd.setSpeedWindow(c);
                                             pdpd.setLastReceivedTime(0);
@@ -191,7 +191,7 @@ public class buquan1copy {
     }//main
     private static PathPointData PPToPDAndinitLastRecAndWindow(PathPoint pp){
         PathPointData pd=PPToPD(pp);
-        ConcurrentLinkedDeque<Float> c = new ConcurrentLinkedDeque<>();
+        ConcurrentLinkedDeque<Double> c = new ConcurrentLinkedDeque<>();
         c.add(pp.getSpeed());
         pd.setSpeedWindow(c);
         pd.setLastReceivedTime(0);
@@ -199,7 +199,7 @@ public class buquan1copy {
     }
     private static PathPointData predictNextMixed(long keyInPointMap,String timestamp){
         PathPointData pdInPointMap=pointMap.get(keyInPointMap);
-        Pair<ConcurrentLinkedDeque<Float>,Float> a1=predictSpeedWindow(pdInPointMap);//速度窗口、预测的速度
+        Pair<ConcurrentLinkedDeque<Double>,Double> a1=predictSpeedWindow(pdInPointMap);//速度窗口、预测的速度
         double[] a2=predictNewMileage(pdInPointMap,a1.getValue());//新里程、驶过的距离
         if(a2[0]<1016020||a2[1]>1173790){
             pointMap.remove(keyInPointMap);tempMap.remove(keyInPointMap);
@@ -213,7 +213,7 @@ public class buquan1copy {
 
         double carangle=calculateBearing(a3.getValue()[1],a3.getValue()[0],pdInPointMap.getLatitude(),pdInPointMap.getLongitude());
         pdInPointMap.setCarAngle(carangle);
-        pdInPointMap.setMileage((int) (a2[0]));
+        pdInPointMap.setMileage((a2[0]));
         pdInPointMap.setSpeed(a1.getValue());
 //        pdInPointMap.setTimeStamp(pathTimeStamp);//未接收到，不更新
         pdInPointMap.setLatitude(a3.getValue()[1]);
@@ -235,7 +235,7 @@ public class buquan1copy {
     }
 
 
-    public static double[] predictNewMileage(PathPointData data,float speed){
+    public static double[] predictNewMileage(PathPointData data,double speed){
 
         double[]d={0,0};
         d[1] = myTools.calculateDistance(speed, 200);

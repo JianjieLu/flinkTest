@@ -386,7 +386,7 @@ public class FiberGratingData2Copy {
     }
     private static double[] generateInitialJingWei(long tpointno,int direc) {
         TrafficEventUtils.MileageConverter converter = (direc == 1) ? mileageConverter1 : mileageConverter2;
-        return converter.findCoordinate((int) tpointno).getLnglat();
+        return converter.findCoordinate(tpointno).getLnglat();
     }
 
     /**

@@ -137,7 +137,7 @@
 //                if (currentTime - PathTData.getTime() >= TIMEOUT_MS && !data.getSpeedWindow().isEmpty()) {
 //
 //                    // 使用车辆独立窗口计算
-//                    Float predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
+//                    double predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
 //                    data.getSpeedWindow().addLast(predictedSpeed);
 //                    data.getSpeedWindow().removeFirst();
 //                    int distanceDiff = (int) (predictedSpeed * 0.2); // 米
@@ -173,7 +173,7 @@
 //                if (currentTime-data.getLastReceivedTime()<80000000) {
 //
 //                    // 使用车辆独立窗口计算
-//                    Float predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
+//                    double predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
 //                    data.getSpeedWindow().addLast(predictedSpeed);
 //                    data.getSpeedWindow().removeFirst();
 //                    double distanceDiff = predictedSpeed * 0.2; // 米
@@ -183,7 +183,7 @@
 //                    }else {
 //                        newTpointno = data.getMileage() - distanceDiff; // 更新里程点
 //                    }
-//                    data.setMileage((int)newTpointno);
+//                    data.setMileage(newTpointno);
 //                    long carid = data.getId();
 //                    int carType = data.getVehicleType();
 //                    // 输出预测结果
@@ -200,7 +200,7 @@
 //    private static float calculateMovingAverage(LinkedList<Float> speedWindow) {
 //        synchronized (speedWindow) {
 //            return (float) speedWindow.stream()
-//                    .mapToDouble(Float::doubleValue)
+//                    .mapToDouble(Double::doubleValue)
 //                    .average()
 //                    .orElse(Double.NaN);
 //        }

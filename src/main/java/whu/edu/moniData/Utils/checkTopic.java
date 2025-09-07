@@ -40,7 +40,7 @@ public class checkTopic {
     private static final long mainRoadMinMillage = 0;//主路上的最小里程
     private static final long mainRoadMaxMillage = 1111111111;//主路上的最大里程
     private static String pathTimeStamp = "";
-    private static float predictedSpeed = 0;//预测速度
+    private static double predictedSpeed = 0;//预测速度
     private static double distanceDiff = 0;
     private static long pathTime = 0;
     private static int tcount = 0;
@@ -96,7 +96,7 @@ public class checkTopic {
         List<PathPoint> plist=new ArrayList<>();
         for(StationTarget s: data.getTargetList()){
             //mileage\originalType\originalColor
-            int mileage=s.getEnGap();
+            double mileage=s.getEnGap();
             double lon=s.getLon();
             double lat=s.getLat();
 
@@ -115,7 +115,7 @@ public class checkTopic {
             System.out.println("nullnullnull");
             return null;
         }
-        ConcurrentLinkedDeque<Float> spw=data.getSpeedWindow();
+        ConcurrentLinkedDeque<Double> spw=data.getSpeedWindow();
         predictedSpeed=calculateMovingAverage(spw);
         spw.addLast(predictedSpeed);
         if(spw.size()>WINDOW_SIZE)spw.removeFirst();
@@ -132,7 +132,7 @@ public class checkTopic {
         //问题；角度
         double carangle=89;
         data.setCarAngle(carangle);
-        data.setMileage((int)newTpointno);
+        data.setMileage(newTpointno);
         data.setSpeed(predictedSpeed);
 //        data.setTimeStamp(pathTimeStamp);//未接收到，不更新
         data.setLatitude(d[1]);
@@ -189,16 +189,16 @@ public class checkTopic {
         }
         return list;
     }
-    private static int stakeToMileage(String stakeId) {
-        return Integer.parseInt(stakeId.split("\\+")[0].substring(1)) * 1000 + Integer.parseInt(stakeId.split("\\+")[1]);
+    private static double stakeToMileage(String stakeId) {
+        return Double.parseDouble(stakeId.split("\\+")[0].substring(1)) * 1000 + Double.parseDouble(stakeId.split("\\+")[1]);
     }
 
     private static String MileageToStake(int newMileage) {
         return newMileage/1000+"+"+(newMileage-(newMileage/1000*1000));
     }
-    private static float calculateMovingAverage(ConcurrentLinkedDeque<Float> speedWindow) {
+    private static float calculateMovingAverage(ConcurrentLinkedDeque<Double> speedWindow) {
         return (float) speedWindow.stream()
-                .mapToDouble(Float::doubleValue)
+                .mapToDouble(Double::doubleValue)
                 .average()
                 .orElse(Double.NaN);
     }

@@ -36,7 +36,7 @@ public class CarTrajStorageJobJT {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        String brokers = "100.65.38.40:9092";
+        String brokers = "10.48.53.82:9092";
         String groupId = "storage-group";
         String topic = "JTtrajectoryoutput";
 

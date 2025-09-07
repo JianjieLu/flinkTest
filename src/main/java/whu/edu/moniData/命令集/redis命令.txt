@@ -1,4 +1,5 @@
-
+ /usr/local/bin/redis-cli -p  6380
+ AUTH whdx123cgz666
 
 redis-cli -p 8001 -a 123456 shutdown
 redis-cli -a 1234563 -c -h 100.65.38.139 -p 8001

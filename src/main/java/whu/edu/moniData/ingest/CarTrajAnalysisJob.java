@@ -25,12 +25,15 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class CarTrajAnalysisJob {
     private static final long SESSION_TIMEOUT_MS = 10000;
-    private static final long SAMPLING_INTERVAL_MS = 5000;
+    private static final long SAMPLING_INTERVAL_MS = 1000;
 
     // 使用id作为键的线程安全Map
     private static final Map<String, List<Tuple5<Double, Double, Integer, Integer, Double>>> map = new ConcurrentHashMap<>();
     private static final Map<String, String> mapTimeSeg = new ConcurrentHashMap<>();
     private static final Map<String, Integer> mapType = new ConcurrentHashMap<>();
+    private static final Map<String, Integer> mapVehicleColor = new ConcurrentHashMap<>();
+    private static final Map<String, Double> mapVehicleWeight = new ConcurrentHashMap<>();
+    private static final Map<String, String> mapSpecialFlag = new ConcurrentHashMap<>();
     private static final Map<String, Long> lastSeenTime = new ConcurrentHashMap<>();
     private static final Map<String, Long> lastSampleTime = new ConcurrentHashMap<>();
 
@@ -45,14 +48,40 @@ public class CarTrajAnalysisJob {
         }
     }
 
+    private static int getVehicleColorSafely(JSONObject tdataObject) {
+        try {
+            return tdataObject.getInt("vehicleColor");
+        } catch (JSONException e) {
+            return 0; // 默认值
+        }
+    }
+
+    private static double getVehicleWeightSafely(JSONObject tdataObject) {
+        try {
+            return tdataObject.getDouble("vehicleWeight");
+        } catch (JSONException e) {
+            return 0.0; // 默认值
+        }
+    }
+
+    private static String getSpecialFlagSafely(JSONObject tdataObject) {
+        try {
+            return tdataObject.getString("specialFlag");
+        } catch (JSONException e) {
+            return "0"; // 默认值
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        String brokers = "100.65.38.40:9092";
+        String brokers = "10.48.53.82:9092";
         String groupId = "flink-group";
-        List<String> topics = Arrays.asList("fiberData1", "fiberData2", "fiberData3",
-                "fiberData4", "fiberData5", "fiberData6", "fiberData7",
-                "fiberData8", "fiberData9", "fiberData10", "fiberData11");
+        List<String> topics = Arrays.asList(
+                "fiberData1", "fiberData2", "fiberData3",
+                "fiberData4", "fiberData5", "fiberData6",
+                "fiberData7", "fiberData8", "fiberData9",
+                "fiberData10", "fiberData11");
 
         KafkaSource<String> kafkaSource = KafkaSource.<String>builder()
                 .setBootstrapServers(brokers)
@@ -129,9 +158,17 @@ public class CarTrajAnalysisJob {
                                     // 如果该id不存在轨迹，初始化状态
                                     if (!map.containsKey(id)) {
                                         int type = tdataObject.getInt("vehicleType");
+                                        int vehicleColor = getVehicleColorSafely(tdataObject);
+                                        double vehicleWeight = getVehicleWeightSafely(tdataObject);
+                                        String specialFlag = getSpecialFlagSafely(tdataObject);
+
                                         // 新RowKey格式：时间戳-车牌号-id
                                         mapTimeSeg.put(id, timeObs + "-" + plateNo + "-" + id);
                                         mapType.put(id, type);
+                                        mapVehicleColor.put(id, vehicleColor);
+                                        mapVehicleWeight.put(id, vehicleWeight);
+                                        mapSpecialFlag.put(id, specialFlag);
+
                                         List<Tuple5<Double, Double, Integer, Integer, Double>> list = new ArrayList<>();
                                         list.add(new Tuple5<>(tdataObject.getDouble("longitude"),
                                                 tdataObject.getDouble("latitude"),
@@ -169,7 +206,13 @@ public class CarTrajAnalysisJob {
                                     JSONObject trajectoryJson = new JSONObject();
                                     trajectoryJson.put("timeSeg", mapTimeSeg.get(id));
                                     trajectoryJson.put("type", mapType.get(id));
+                                    trajectoryJson.put("vehicleColor", mapVehicleColor.get(id));
+                                    trajectoryJson.put("vehicleWeight", mapVehicleWeight.get(id));
+                                    trajectoryJson.put("specialFlag", mapSpecialFlag.get(id));
                                     trajectoryJson.put("latestTime", lastSeenTime.get(id));
+
+                                    // 添加空的事件列表
+                                    trajectoryJson.put("eventList", new JSONArray());
 
                                     JSONArray trajectoryArray = new JSONArray();
                                     for (Tuple5<Double, Double, Integer, Integer, Double> point : map.get(id)) {
@@ -189,12 +232,16 @@ public class CarTrajAnalysisJob {
                                     map.remove(id);
                                     mapTimeSeg.remove(id);
                                     mapType.remove(id);
+                                    mapVehicleColor.remove(id);
+                                    mapVehicleWeight.remove(id);
+                                    mapSpecialFlag.remove(id);
                                     lastSeenTime.remove(id);
                                     lastSampleTime.remove(id);
                                 }
                             }
                         } catch (Exception e) {
-                            // 错误处理（可选）
+                            // 错误处理
+                            e.printStackTrace();
                         } finally {
                             stateLock.unlock();
                         }

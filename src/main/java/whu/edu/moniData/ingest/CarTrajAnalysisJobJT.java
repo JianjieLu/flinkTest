@@ -24,7 +24,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class CarTrajAnalysisJobJT {
     private static final long SESSION_TIMEOUT_MS = 10000;
-    private static final long SAMPLING_INTERVAL_MS = 5000;
+    private static final long SAMPLING_INTERVAL_MS = 1000;
 
     // 使用id作为键的线程安全Map
     private static final Map<String, List<Tuple5<Double, Double, Integer, Integer, Double>>> map = new ConcurrentHashMap<>();
@@ -47,7 +47,7 @@ public class CarTrajAnalysisJobJT {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        String brokers = "100.65.38.40:9092";
+        String brokers = "10.48.53.82:9092";
         String groupId = "flink-group";
         List<String> topics = Arrays.asList("MergedPathData.sceneTest.1",
                 "MergedPathData.sceneTest.2",

@@ -74,7 +74,7 @@
 //            synchronized (data) {
 //                if (currentTime - data.getLastReceivedTime() >= TIMEOUT_MS && !data.getSpeedWindow().isEmpty()) {
 //                    // 使用车辆独立窗口计算
-//                    Float predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
+//                    double predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
 //                    data.getSpeedWindow().addLast(predictedSpeed);
 //                    data.getSpeedWindow().removeFirst();
 //                    int distanceDiff = (int) (predictedSpeed * 0.2 ); // 米
@@ -120,7 +120,7 @@
 //    private static float calculateMovingAverage(LinkedList<Float> speedWindow) {
 //        synchronized (speedWindow) {
 //            return (float) speedWindow.stream()
-//                    .mapToDouble(Float::doubleValue)
+//                    .mapToDouble(Double::doubleValue)
 //                    .average()
 //                    .orElse(Double.NaN);
 //        }

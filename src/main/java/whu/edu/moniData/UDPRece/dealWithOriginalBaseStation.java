@@ -166,7 +166,7 @@ public class dealWithOriginalBaseStation {
 
         jsonStream.sinkTo(dealStreamSink);
     }
-    private static int stakeToMileage(String input) {
+    private static double stakeToMileage(String input) {
         String[] parts = input.split("\\+");
         if (parts.length != 2) {
             throw new IllegalArgumentException("输入格式无效，应包含一个加号分隔符");
@@ -238,7 +238,7 @@ public class dealWithOriginalBaseStation {
         double longitude;
         double latitude;
         float altitude;
-        float speed;
+        double speed;
         float heading;
         float length;
         float width;

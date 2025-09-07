@@ -68,7 +68,7 @@ public class Utils {
         private String Carnumber;
         private byte Type;
         private Integer[] Scope;
-        private float Speed;
+        private Double Speed;
         private byte Wayno;
         private Integer Tpointno;
         private byte Boolean;
@@ -118,8 +118,8 @@ public class Utils {
         String orgCode;
         int passTime;
         String picLicense;
-        float speed;
-        float speedAvg;
+        double speed;
+        double speedAvg;
         int station;
     }
     /**
@@ -189,9 +189,9 @@ public class Utils {
         private Integer direction;
         private long id;
         private Integer laneNo;
-        private Integer mileage;
+        private Double mileage;
         private String plateNo;
-        private float speed;
+        private double speed;
         private String timeStamp;
         private Integer plateColor;
         private Integer vehicleType;
@@ -203,6 +203,7 @@ public class Utils {
         private Integer originalColor;
         private double weight;
         private eventInfo eventinfo;
+
     }
 
     @Data
@@ -225,7 +226,7 @@ public class Utils {
         private Double longitude;
         private Double latitude;
         private Float altitude;
-        private Float speed;
+        private double speed;
         private Float heading;
         private Float length;
         private Float width;
@@ -289,9 +290,9 @@ public class Utils {
         private Integer direction;
         private long id;
         private Integer laneNo;
-        private Integer mileage;
+        private Double mileage;
         private String plateNo;
-        private float speed;
+        private double speed;
         private String timeStamp;
         private Integer plateColor;
         private Integer vehicleType;
@@ -332,23 +333,24 @@ public class Utils {
     @Setter
     public static class PathPointData {
         long lastReceivedTime;
-        private ConcurrentLinkedDeque<Float> speedWindow = new ConcurrentLinkedDeque<>();
+        private ConcurrentLinkedDeque<Double> speedWindow = new ConcurrentLinkedDeque<>();
         String timeStamp;
         Long id;
         String plateNo;
         Integer plateColor;
         Integer vehicleType;
-        float speed;
+        double speed;
         double longitude;
         double latitude;
         double carAngle;
         Integer laneNo;
         Integer direction;
         String stakeId;
-        Integer mileage;
+        Double mileage;
         Integer originalType;
         Integer originalColor;
         long lastUpdateTime;
+
     }
     /**
      * VehicleData 缓存车辆信息，速度窗口
@@ -474,7 +476,7 @@ public class Utils {
         private String tollPlateNumber = null;
         private int headLaneCode = 0; // >=1有效
         private int direction = 0; // 1和2有效
-        private int mileage = -1; // > 0有效
+        private double mileage = -1; // > 0有效
         // 一定有plateColor值
         private int plateColor;
         private Integer tollPlateColor = null;
@@ -500,7 +502,7 @@ public class Utils {
     @Setter
     public static class GantryInfo implements Serializable{
         private String id;
-        private Integer mileage;
+        private Double mileage;
         private Integer direction;
         @Override
         public String toString() {
@@ -536,7 +538,7 @@ public class Utils {
 
             for (Row row : sheet) {
                 String id = row.getCell(0).getStringCellValue();
-                int mileage = (int)row.getCell(3).getNumericCellValue();
+                double mileage = (int)row.getCell(3).getNumericCellValue();
                 int direction = (int) row.getCell(5).getNumericCellValue();
                 GantryInfo gantry = new GantryInfo(id, mileage, direction);
                 List<GantryInfo> sideGantries;
@@ -555,7 +557,7 @@ public class Utils {
             return Pair.of(gantriesByDirection, gantriesByID);
         }
 
-        private int binarySearchClosest(List<GantryInfo> sortedList, int targetMileage) {
+        private int binarySearchClosest(List<GantryInfo> sortedList, double targetMileage) {
             int left = 0;
             int right = sortedList.size() - 1;
             if(left == right)
@@ -563,7 +565,7 @@ public class Utils {
 
             while (left <= right) {
                 int mid = left + (right - left) / 2;
-                int midMileage = sortedList.get(mid).getMileage();
+                double midMileage = sortedList.get(mid).getMileage();
 
                 if (Math.abs(midMileage - targetMileage) <= 50) {
                     return mid;
@@ -577,8 +579,8 @@ public class Utils {
             // 检查左侧和右侧哪个更接近目标里程
             int closestIndex = left;
             if (closestIndex > 0) {
-                int leftDistance = Math.abs(sortedList.get(closestIndex - 1).getMileage() - targetMileage);
-                int rightDistance = (closestIndex < sortedList.size()) ?
+                double leftDistance = Math.abs(sortedList.get(closestIndex - 1).getMileage() - targetMileage);
+                double rightDistance = (closestIndex < sortedList.size()) ?
                         Math.abs(sortedList.get(closestIndex).getMileage() - targetMileage) : Integer.MAX_VALUE;
                 if (rightDistance < leftDistance) {
                     closestIndex = right;
@@ -588,16 +590,16 @@ public class Utils {
             return closestIndex;
         }
 
-        public int assignGantry(PathPoint ppoint) {
+        public double assignGantry(PathPoint ppoint) {
             if (gantriesByDirection.isEmpty()) {
                 return 0;
             }
 
-            int vehicleMileage = ppoint.getMileage();
+            double vehicleMileage = ppoint.getMileage();
 
             // 将 Map 转换为按里程排序的列表
             List<GantryInfo> sortedGantries = new ArrayList<>(gantriesByDirection.get(ppoint.getDirection()));
-            sortedGantries.sort(Comparator.comparingInt(GantryInfo::getMileage));
+            sortedGantries.sort(Comparator.comparingDouble(GantryInfo::getMileage));
             System.out.println(sortedGantries);
 
             // 使用二分查找法找到最接近的卡口
@@ -608,7 +610,7 @@ public class Utils {
             }
 
             GantryInfo closest = sortedGantries.get(index);
-            int distance = Math.abs(closest.getMileage() - vehicleMileage);
+            double distance = Math.abs(closest.getMileage() - vehicleMileage);
 
             if (distance <= 100) { // 100米
                 return closest.getMileage();
@@ -625,7 +627,7 @@ public class Utils {
 
             while (left <= right) {
                 Integer mid = left + (right - left) / 2;
-                Integer midMileage = sortedList.get(mid).getMileage();
+                double midMileage = sortedList.get(mid).getMileage();
 
                 if (Math.abs(midMileage - targetMileage) <= 50) {
                     return mid;
@@ -639,8 +641,8 @@ public class Utils {
             // 检查左侧和右侧哪个更接近目标里程
             Integer closestIndex = left;
             if (closestIndex > 0) {
-                Integer leftDistance = Math.abs(sortedList.get(closestIndex - 1).getMileage() - targetMileage);
-                Integer rightDistance = (closestIndex < sortedList.size()) ?
+                double leftDistance = Math.abs(sortedList.get(closestIndex - 1).getMileage() - targetMileage);
+                double rightDistance = (closestIndex < sortedList.size()) ?
                         Math.abs(sortedList.get(closestIndex).getMileage() - targetMileage) : Integer.MAX_VALUE;
                 if (rightDistance < leftDistance) {
                     closestIndex = right;

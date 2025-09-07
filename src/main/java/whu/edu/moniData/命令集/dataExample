@@ -1,0 +1,159 @@
+Topic: fiberData1
+Partition: 0
+Offset: 6743293
+Key: 330
+数据: {"SN":330,"timeStamp":"2025-08-03 14:44:21:271","pathNum":80,"pathList":[
+{"id":366779369,"plateNo":"桂HT5272","vehicleType":4,"speed":107.12,"laneNo":1,"mileage":1016094,"direction":1,"stakeId":"K1016+094","passedTollGates":[],"longitude":114.2313768018135,"latitude":31.829175541411498,"specialFlag":"0","vehicleColor":0,"vehicleWeight":15.7},
+{"id":1028101850,"plateNo":"宁E17115","vehicleType":1,"speed":120.0,"laneNo":1,"mileage":1016158,"direction":1,"stakeId":"K1016+158","passedTollGates":[],"longitude":114.23107082689282,"latitude":31.82866215918611,"specialFlag":"0","vehicleColor":4,"vehicleWeight":27.7},
+{"id":422058614,"plateNo":"贵A9TDK9","vehicleType":15,"speed":95.39,"laneNo":1,"mileage":1016184,"direction":1,"stakeId":"K1016+184","passedTollGates":[],"longitude":114.23094258511684,"latitude":31.828455274009787,"specialFlag":"0","vehicleColor":10,"vehicleWeight":14.3},
+{"id":194487552,"plateNo":"渝C46535","vehicleType":16,"speed":103.45,"laneNo":1,"mileage":1016219,"direction":1,"stakeId":"K1016+219","passedTollGates":[],"longitude":114.23076995286465,"latitude":31.828176774530863,"specialFlag":"0","vehicleColor":9,"vehicleWeight":21.8},
+{"id":1547035774,"plateNo":"冀A83341","vehicleType":14,"speed":80.0,"laneNo":1,"mileage":1016438,"direction":1,"stakeId":"K1016+438","passedTollGates":[],"longitude":114.22968391046514,"latitude":31.826436829299883,"specialFlag":"0","vehicleColor":3,"vehicleWeight":25.6},
+{"id":1051885292,"plateNo":"桂B30433","vehicleType":4,"speed":120.0,"laneNo":1,"mileage":1016602,"direction":1,"stakeId":"K1016+602","passedTollGates":[],"longitude":114.22885137308582,"latitude":31.82514265100812,"specialFlag":"19","vehicleColor":10,"vehicleWeight":20.1},
+{"id":2025334184,"plateNo":"云DG2610","vehicleType":11,"speed":88.19,"laneNo":1,"mileage":1016612,"direction":1,"stakeId":"K1016+612","passedTollGates":[],"longitude":114.2288004347257,"latitude":31.82506381839893,"specialFlag":"1","vehicleColor":1,"vehicleWeight":21.2},
+{"id":1563993051,"plateNo":"藏C9K0I8","vehicleType":12,"speed":105.24,"laneNo":1,"mileage":1016622,"direction":1,"stakeId":"K1016+622","passedTollGates":[],"longitude":114.22874949645258,"latitude":31.82498498576945,"specialFlag":"0","vehicleColor":0,"vehicleWeight":16.3},
+{"id":2054806175,"plateNo":"黑C55271","vehicleType":2,"speed":120.0,"laneNo":1,"mileage":1016851,"direction":1,"stakeId":"K1016+851","passedTollGates":[],"longitude":114.22763309795255,"latitude":31.823157443791565,"specialFlag":"0","vehicleColor":10,"vehicleWeight":4.4},
+{"id":2029811686,"plateNo":"冀D69807","vehicleType":12,"speed":80.0,"laneNo":1,"mileage":1016861,"direction":1,"stakeId":"K1016+861","passedTollGates":[],"longitude":114.22758715047485,"latitude":31.8230764277528,"specialFlag":"0","vehicleColor":1,"vehicleWeight":5.7},
+{"id":295694509,"plateNo":"苏G559CL","vehicleType":16,"speed":91.55,"laneNo":1,"mileage":1016871,"direction":1,"stakeId":"K1016+871","passedTollGates":[],"longitude":114.22754130098308,"latitude":31.822995372003543,"specialFlag":"0","vehicleColor":9,"vehicleWeight":14.8},
+{"id":2114589594,"plateNo":"藏D09516","vehicleType":1,"speed":99.27,"laneNo":1,"mileage":1016961,"direction":1,"stakeId":"K1016+961","passedTollGates":[],"longitude":114.22713646694278,"latitude":31.822262762424604,"specialFlag":"0","vehicleColor":3,"vehicleWeight":17.1},
+{"id":1983584505,"plateNo":"宁H90284","vehicleType":15,"speed":84.73,"laneNo":1,"mileage":1016971,"direction":1,"stakeId":"K1016+971","passedTollGates":[],"longitude":114.22709334490519,"latitude":31.82218063289033,"specialFlag":"0","vehicleColor":6,"vehicleWeight":26.1},
+{"id":1460560199,"plateNo":"蒙B17Q29","vehicleType":11,"speed":80.0,"laneNo":1,"mileage":1017031,"direction":1,"stakeId":"K1017+031","passedTollGates":[],"longitude":114.22683414129341,"latitude":31.821688035502728,"specialFlag":"0","vehicleColor":6,"vehicleWeight":28.3},
+{"id":1497730831,"plateNo":"鄂D09028","vehicleType":3,"speed":87.49,"laneNo":1,"mileage":1017384,"direction":1,"stakeId":"K1017+384","passedTollGates":[],"longitude":114.22550269048946,"latitude":31.818723139590055,"specialFlag":"0","vehicleColor":4,"vehicleWeight":19.0},
+{"id":1728530616,"plateNo":"津H27936","vehicleType":1,"speed":100.22,"laneNo":1,"mileage":1017542,"direction":1,"stakeId":"K1017+542","passedTollGates":[],"longitude":114.22501317037334,"latitude":31.817364492124014,"specialFlag":"0","vehicleColor":0,"vehicleWeight":28.6},
+{"id":1482065967,"plateNo":"津C101T5","vehicleType":4,"speed":116.22,"laneNo":1,"mileage":1017613,"direction":1,"stakeId":"K1017+613","passedTollGates":[],"longitude":114.22480504420072,"latitude":31.816751079825096,"specialFlag":"0","vehicleColor":0,"vehicleWeight":25.5},
+]}
+
+
+Topic: fiberData1
+Partition: 0
+Offset: 6743293
+Key: 330
+数据: {"SN":330,"timeStamp":"2025-08-03 14:44:21:271","pathNum":80,"pathList":[
+{"id":366779369,"plateNo":"桂HT5272","vehicleType":4,"speed":107.12,"laneNo":1,"mileage":1016094,"direction":1,"stakeId":"K1016+094","passedTollGates":[],"longitude":114.2313768018135,"latitude":31.829175541411498,"specialFlag":"0","vehicleColor":0,"vehicleWeight":15.7},
+{"id":1028101850,"plateNo":"宁E17115","vehicleType":1,"speed":120.0,"laneNo":1,"mileage":1016158,"direction":1,"stakeId":"K1016+158","passedTollGates":[],"longitude":114.23107082689282,"latitude":31.82866215918611,"specialFlag":"0","vehicleColor":4,"vehicleWeight":27.7},
+{"id":422058614,"plateNo":"贵A9TDK9","vehicleType":15,"speed":95.39,"laneNo":1,"mileage":1016184,"direction":1,"stakeId":"K1016+184","passedTollGates":[],"longitude":114.23094258511684,"latitude":31.828455274009787,"specialFlag":"0","vehicleColor":10,"vehicleWeight":14.3},
+{"id":194487552,"plateNo":"渝C46535","vehicleType":16,"speed":103.45,"laneNo":1,"mileage":1016219,"direction":1,"stakeId":"K1016+219","passedTollGates":[],"longitude":114.23076995286465,"latitude":31.828176774530863,"specialFlag":"0","vehicleColor":9,"vehicleWeight":21.8},
+{"id":1547035774,"plateNo":"冀A83341","vehicleType":14,"speed":80.0,"laneNo":1,"mileage":1016438,"direction":1,"stakeId":"K1016+438","passedTollGates":[],"longitude":114.22968391046514,"latitude":31.826436829299883,"specialFlag":"0","vehicleColor":3,"vehicleWeight":25.6},
+{"id":1051885292,"plateNo":"桂B30433","vehicleType":4,"speed":120.0,"laneNo":1,"mileage":1016602,"direction":1,"stakeId":"K1016+602","passedTollGates":[],"longitude":114.22885137308582,"latitude":31.82514265100812,"specialFlag":"19","vehicleColor":10,"vehicleWeight":20.1},
+{"id":2025334184,"plateNo":"云DG2610","vehicleType":11,"speed":88.19,"laneNo":1,"mileage":1016612,"direction":1,"stakeId":"K1016+612","passedTollGates":[],"longitude":114.2288004347257,"latitude":31.82506381839893,"specialFlag":"1","vehicleColor":1,"vehicleWeight":21.2},
+{"id":1563993051,"plateNo":"藏C9K0I8","vehicleType":12,"speed":105.24,"laneNo":1,"mileage":1016622,"direction":1,"stakeId":"K1016+622","passedTollGates":[],"longitude":114.22874949645258,"latitude":31.82498498576945,"specialFlag":"0","vehicleColor":0,"vehicleWeight":16.3},
+{"id":2054806175,"plateNo":"黑C55271","vehicleType":2,"speed":120.0,"laneNo":1,"mileage":1016851,"direction":1,"stakeId":"K1016+851","passedTollGates":[],"longitude":114.22763309795255,"latitude":31.823157443791565,"specialFlag":"0","vehicleColor":10,"vehicleWeight":4.4},
+{"id":2029811686,"plateNo":"冀D69807","vehicleType":12,"speed":80.0,"laneNo":1,"mileage":1016861,"direction":1,"stakeId":"K1016+861","passedTollGates":[],"longitude":114.22758715047485,"latitude":31.8230764277528,"specialFlag":"0","vehicleColor":1,"vehicleWeight":5.7},
+{"id":295694509,"plateNo":"苏G559CL","vehicleType":16,"speed":91.55,"laneNo":1,"mileage":1016871,"direction":1,"stakeId":"K1016+871","passedTollGates":[],"longitude":114.22754130098308,"latitude":31.822995372003543,"specialFlag":"0","vehicleColor":9,"vehicleWeight":14.8},
+{"id":2114589594,"plateNo":"藏D09516","vehicleType":1,"speed":99.27,"laneNo":1,"mileage":1016961,"direction":1,"stakeId":"K1016+961","passedTollGates":[],"longitude":114.22713646694278,"latitude":31.822262762424604,"specialFlag":"0","vehicleColor":3,"vehicleWeight":17.1},
+{"id":1983584505,"plateNo":"宁H90284","vehicleType":15,"speed":84.73,"laneNo":1,"mileage":1016971,"direction":1,"stakeId":"K1016+971","passedTollGates":[],"longitude":114.22709334490519,"latitude":31.82218063289033,"specialFlag":"0","vehicleColor":6,"vehicleWeight":26.1},
+{"id":1460560199,"plateNo":"蒙B17Q29","vehicleType":11,"speed":80.0,"laneNo":1,"mileage":1017031,"direction":1,"stakeId":"K1017+031","passedTollGates":[],"longitude":114.22683414129341,"latitude":31.821688035502728,"specialFlag":"0","vehicleColor":6,"vehicleWeight":28.3},
+{"id":1497730831,"plateNo":"鄂D09028","vehicleType":3,"speed":87.49,"laneNo":1,"mileage":1017384,"direction":1,"stakeId":"K1017+384","passedTollGates":[],"longitude":114.22550269048946,"latitude":31.818723139590055,"specialFlag":"0","vehicleColor":4,"vehicleWeight":19.0},
+{"id":1728530616,"plateNo":"津H27936","vehicleType":1,"speed":100.22,"laneNo":1,"mileage":1017542,"direction":1,"stakeId":"K1017+542","passedTollGates":[],"longitude":114.22501317037334,"latitude":31.817364492124014,"specialFlag":"0","vehicleColor":0,"vehicleWeight":28.6},
+{"id":1482065967,"plateNo":"津C101T5","vehicleType":4,"speed":116.22,"laneNo":1,"mileage":1017613,"direction":1,"stakeId":"K1017+613","passedTollGates":[],"longitude":114.22480504420072,"latitude":31.816751079825096,"specialFlag":"0","vehicleColor":0,"vehicleWeight":25.5},
+{"id":57689237,"plateNo":"陕G41G3L","vehicleType":15,"speed":88.65,"laneNo":1,"mileage":1017623,"direction":1,"stakeId":"K1017+623","passedTollGates":[],"longitude":114.2247783604371,"latitude":31.816664053103604,"specialFlag":"0","vehicleColor":3,"vehicleWeight":11.9},
+{"id":576837980,"plateNo":"津E12137","vehicleType":3,"speed":85.15,"laneNo":1,"mileage":1017633,"direction":1,"stakeId":"K1017+633","passedTollGates":[],"longitude":114.22475167672378,"latitude":31.816577026376525,"specialFlag":"0","vehicleColor":2,"vehicleWeight":7.6},
+{"id":1196202374,"plateNo":"甘F242H6","vehicleType":11,"speed":81.59,"laneNo":1,"mileage":1017643,"direction":1,"stakeId":"K1017+643","passedTollGates":[],"longitude":114.22472499306076,"latitude":31.816489999643885,"specialFlag":"0","vehicleColor":1,"vehicleWeight":29.6},
+{"id":1173606741,"plateNo":"川C57525","vehicleType":4,"speed":108.41,"laneNo":1,"mileage":1017653,"direction":1,"stakeId":"K1017+653","passedTollGates":[],"longitude":114.224698309448,"latitude":31.816402972905678,"specialFlag":"0","vehicleColor":5,"vehicleWeight":15.0},
+{"id":23448952,"plateNo":"湘EF6585","vehicleType":13,"speed":112.08,"laneNo":1,"mileage":1017663,"direction":1,"stakeId":"K1017+663","passedTollGates":[],"longitude":114.22467162588556,"latitude":31.816315946161897,"specialFlag":"15","vehicleColor":6,"vehicleWeight":24.6},
+{"id":1377759743,"plateNo":"湘C35Q84","vehicleType":11,"speed":100.19,"laneNo":1,"mileage":1017673,"direction":1,"stakeId":"K1017+673","passedTollGates":[],"longitude":114.22464494237342,"latitude":31.816228919412556,"specialFlag":"0","vehicleColor":5,"vehicleWeight":29.3},
+{"id":1738790837,"plateNo":"黑B19544","vehicleType":15,"speed":84.57,"laneNo":2,"mileage":1016165,"direction":1,"stakeId":"K1016+165","passedTollGates":[],"longitude":114.23103630020425,"latitude":31.828606459343604,"specialFlag":"0","vehicleColor":2,"vehicleWeight":10.9},
+{"id":691275301,"plateNo":"京G70456","vehicleType":1,"speed":113.44,"laneNo":2,"mileage":1016414,"direction":1,"stakeId":"K1016+414","passedTollGates":[],"longitude":114.22980480227011,"latitude":31.8266266583742,"specialFlag":"0","vehicleColor":11,"vehicleWeight":12.2},
+{"id":414937033,"plateNo":"浙H84621","vehicleType":15,"speed":92.27,"laneNo":2,"mileage":1016424,"direction":1,"stakeId":"K1016+424","passedTollGates":[],"longitude":114.22975443062428,"latitude":31.82654756294045,"specialFlag":"0","vehicleColor":6,"vehicleWeight":20.8},
+{"id":342300445,"plateNo":"吉H18203","vehicleType":13,"speed":120.0,"laneNo":2,"mileage":1016896,"direction":1,"stakeId":"K1016+896","passedTollGates":[],"longitude":114.22742826916667,"latitude":31.822792087288324,"specialFlag":"15","vehicleColor":2,"vehicleWeight":23.2},
+{"id":1955066090,"plateNo":"陕C31022","vehicleType":4,"speed":86.66,"laneNo":2,"mileage":1016906,"direction":1,"stakeId":"K1016+906","passedTollGates":[],"longitude":114.2273830565795,"latitude":31.822710773374258,"specialFlag":"0","vehicleColor":6,"vehicleWeight":12.2},
+{"id":1506567577,"plateNo":"川E25348","vehicleType":2,"speed":94.38,"laneNo":2,"mileage":1016916,"direction":1,"stakeId":"K1016+916","passedTollGates":[],"longitude":114.22733771403765,"latitude":31.82262951209708,"specialFlag":"0","vehicleColor":0,"vehicleWeight":17.8},
+{"id":1736756705,"plateNo":"晋D0H204","vehicleType":12,"speed":93.97,"laneNo":2,"mileage":1016926,"direction":1,"stakeId":"K1016+926","passedTollGates":[],"longitude":114.22729186163227,"latitude":31.82254845728759,"specialFlag":"0","vehicleColor":2,"vehicleWeight":20.3},
+{"id":1191039607,"plateNo":"藏H7477J","vehicleType":13,"speed":114.37,"laneNo":2,"mileage":1016936,"direction":1,"stakeId":"K1016+936","passedTollGates":[],"longitude":114.2272460093074,"latitude":31.822467402461648,"specialFlag":"0","vehicleColor":6,"vehicleWeight":25.5},
+{"id":2914437,"plateNo":"青H39807","vehicleType":16,"speed":115.75,"laneNo":2,"mileage":1016993,"direction":1,"stakeId":"K1016+993","passedTollGates":[],"longitude":114.22699847669247,"latitude":31.82199994786374,"specialFlag":"0","vehicleColor":9,"vehicleWeight":24.8},
+{"id":925237073,"plateNo":"贵DU8685","vehicleType":1,"speed":107.36,"laneNo":2,"mileage":1017003,"direction":1,"stakeId":"K1017+003","passedTollGates":[],"longitude":114.22695535490034,"latitude":31.821917818282934,"specialFlag":"0","vehicleColor":0,"vehicleWeight":11.4},
+{"id":842538093,"plateNo":"青B99430","vehicleType":4,"speed":95.44,"laneNo":2,"mileage":1017298,"direction":1,"stakeId":"K1017+298","passedTollGates":[],"longitude":114.22579880723268,"latitude":31.819454445803036,"specialFlag":"0","vehicleColor":5,"vehicleWeight":12.6},
+{"id":439844493,"plateNo":"陕E248FY","vehicleType":15,"speed":89.44,"laneNo":2,"mileage":1017308,"direction":1,"stakeId":"K1017+308","passedTollGates":[],"longitude":114.22576356933904,"latitude":31.819369644625603,"specialFlag":"0","vehicleColor":11,"vehicleWeight":16.6},
+{"id":1124827628,"plateNo":"湘C1F8X8","vehicleType":3,"speed":101.78,"laneNo":2,"mileage":1017517,"direction":1,"stakeId":"K1017+517","passedTollGates":[],"longitude":114.22509016070128,"latitude":31.817579593597557,"specialFlag":"0","vehicleColor":4,"vehicleWeight":3.7},
+{"id":1170676811,"plateNo":"皖F48462","vehicleType":3,"speed":90.4,"laneNo":2,"mileage":1017527,"direction":1,"stakeId":"K1017+527","passedTollGates":[],"longitude":114.22505936452707,"latitude":31.81749355301371,"specialFlag":"0","vehicleColor":1,"vehicleWeight":25.3},
+{"id":1467183022,"plateNo":"鲁GP1393","vehicleType":12,"speed":87.04,"laneNo":2,"mileage":1017537,"direction":1,"stakeId":"K1017+537","passedTollGates":[],"longitude":114.22502856841024,"latitude":31.817407512422427,"specialFlag":"0","vehicleColor":5,"vehicleWeight":10.3},
+{"id":1435839452,"plateNo":"冀HG25D7","vehicleType":15,"speed":94.86,"laneNo":2,"mileage":1017547,"direction":1,"stakeId":"K1017+547","passedTollGates":[],"longitude":114.22499777235079,"latitude":31.817321471823746,"specialFlag":"0","vehicleColor":9,"vehicleWeight":26.8},
+{"id":3287122,"plateNo":"赣F99630","vehicleType":2,"speed":120.0,"laneNo":2,"mileage":1017679,"direction":1,"stakeId":"K1017+679","passedTollGates":[],"longitude":114.22462893229024,"latitude":31.816176703360277,"specialFlag":"23","vehicleColor":11,"vehicleWeight":15.6},
+{"id":1737562740,"plateNo":"沪A8O448","vehicleType":14,"speed":87.24,"laneNo":2,"mileage":1017695,"direction":1,"stakeId":"K1017+695","passedTollGates":[],"longitude":114.22458623882368,"latitude":31.816037460544397,"specialFlag":"0","vehicleColor":3,"vehicleWeight":6.2},
+{"id":1034481619,"plateNo":"渝G619S5","vehicleType":14,"speed":94.02,"laneNo":2,"mileage":1017910,"direction":1,"stakeId":"K1017+910","passedTollGates":[],"longitude":114.22408568449245,"latitude":31.814151416041042,"specialFlag":"0","vehicleColor":11,"vehicleWeight":17.4},
+{"id":2007549309,"plateNo":"青A79625","vehicleType":4,"speed":103.87,"laneNo":3,"mileage":1016060,"direction":1,"stakeId":"K1016+060","passedTollGates":[],"longitude":114.23155122866758,"latitude":31.829442958281433,"specialFlag":"0","vehicleColor":0,"vehicleWeight":25.6},
+{"id":1502364799,"plateNo":"豫G753H4","vehicleType":3,"speed":95.37,"laneNo":3,"mileage":1016127,"direction":1,"stakeId":"K1016+127","passedTollGates":[],"longitude":114.23121862075543,"latitude":31.82891099746035,"specialFlag":"0","vehicleColor":9,"vehicleWeight":4.5},
+{"id":1304563466,"plateNo":"黑A21630","vehicleType":12,"speed":102.0,"laneNo":3,"mileage":1016543,"direction":1,"stakeId":"K1016+543","passedTollGates":[],"longitude":114.22915191118132,"latitude":31.825607762989332,"specialFlag":"0","vehicleColor":11,"vehicleWeight":27.7},
+{"id":1402233333,"plateNo":"赣E5N403","vehicleType":3,"speed":92.48,"laneNo":3,"mileage":1016744,"direction":1,"stakeId":"K1016+744","passedTollGates":[],"longitude":114.22813614740754,"latitude":31.82401955752704,"specialFlag":"2","vehicleColor":12,"vehicleWeight":4.2},
+{"id":464831784,"plateNo":"粤GQB700","vehicleType":2,"speed":87.29,"laneNo":3,"mileage":1016754,"direction":1,"stakeId":"K1016+754","passedTollGates":[],"longitude":114.22808862456709,"latitude":31.823939200068104,"specialFlag":"0","vehicleColor":9,"vehicleWeight":2.9},
+{"id":1732555353,"plateNo":"豫EA7019","vehicleType":11,"speed":110.12,"laneNo":3,"mileage":1017078,"direction":1,"stakeId":"K1017+078","passedTollGates":[],"longitude":114.22663802797288,"latitude":31.821299687292687,"specialFlag":"0","vehicleColor":2,"vehicleWeight":25.9},
+{"id":457992100,"plateNo":"琼B7443Q","vehicleType":13,"speed":106.96,"laneNo":3,"mileage":1017088,"direction":1,"stakeId":"K1017+088","passedTollGates":[],"longitude":114.22659866576461,"latitude":31.821216205922003,"specialFlag":"0","vehicleColor":12,"vehicleWeight":1.1},
+{"id":24468378,"plateNo":"青C36817","vehicleType":15,"speed":81.07,"laneNo":3,"mileage":1017215,"direction":1,"stakeId":"K1017+215","passedTollGates":[],"longitude":114.22610057816337,"latitude":31.820155390357574,"specialFlag":"0","vehicleColor":4,"vehicleWeight":20.8},
+{"id":918507557,"plateNo":"湘G2W582","vehicleType":3,"speed":98.3,"laneNo":3,"mileage":1017410,"direction":1,"stakeId":"K1017+410","passedTollGates":[],"longitude":114.22541968335764,"latitude":31.818500227380646,"specialFlag":"0","vehicleColor":6,"vehicleWeight":1.3},
+{"id":1732717635,"plateNo":"琼A93913","vehicleType":16,"speed":117.54,"laneNo":3,"mileage":1017575,"direction":1,"stakeId":"K1017+575","passedTollGates":[],"longitude":114.22491154368964,"latitude":31.817080558107964,"specialFlag":"0","vehicleColor":11,"vehicleWeight":9.8},
+{"id":1896308538,"plateNo":"粤CF9070","vehicleType":2,"speed":82.03,"laneNo":3,"mileage":1017585,"direction":1,"stakeId":"K1017+585","passedTollGates":[],"longitude":114.22488074784826,"latitude":31.816994517481106,"specialFlag":"0","vehicleColor":2,"vehicleWeight":17.9},
+{"id":1078719625,"plateNo":"渝E927L1","vehicleType":2,"speed":89.21,"laneNo":3,"mileage":1017596,"direction":1,"stakeId":"K1017+596","passedTollGates":[],"longitude":114.22485040671428,"latitude":31.816899025238893,"specialFlag":"0","vehicleColor":0,"vehicleWeight":6.6},
+{"id":1616813983,"plateNo":"晋F43L37","vehicleType":1,"speed":90.12,"laneNo":3,"mileage":1017625,"direction":1,"stakeId":"K1017+625","passedTollGates":[],"longitude":114.22477302369043,"latitude":31.816646647758628,"specialFlag":"2","vehicleColor":5,"vehicleWeight":9.9},
+{"id":1225585844,"plateNo":"川A418R7","vehicleType":12,"speed":103.48,"laneNo":4,"mileage":1016076,"direction":1,"stakeId":"K1016+076","passedTollGates":[],"longitude":114.23146778697814,"latitude":31.829317743484033,"specialFlag":"7","vehicleColor":11,"vehicleWeight":25.2},
+{"id":634048408,"plateNo":"陕H27300","vehicleType":15,"speed":106.75,"laneNo":4,"mileage":1016133,"direction":1,"stakeId":"K1016+133","passedTollGates":[],"longitude":114.23119149478828,"latitude":31.828862207752035,"specialFlag":"0","vehicleColor":11,"vehicleWeight":21.0},
+{"id":1578316770,"plateNo":"宁F490C9","vehicleType":11,"speed":94.0,"laneNo":4,"mileage":1016143,"direction":1,"stakeId":"K1016+143","passedTollGates":[],"longitude":114.23114481279428,"latitude":31.82878151596011,"specialFlag":"0","vehicleColor":12,"vehicleWeight":28.3},
+{"id":421877461,"plateNo":"云FVY362","vehicleType":3,"speed":98.28,"laneNo":4,"mileage":1016153,"direction":1,"stakeId":"K1016+153","passedTollGates":[],"longitude":114.23109548883872,"latitude":31.82870194478219,"specialFlag":"0","vehicleColor":6,"vehicleWeight":28.6},
+{"id":503297075,"plateNo":"湘ED3383","vehicleType":12,"speed":95.25,"laneNo":4,"mileage":1016696,"direction":1,"stakeId":"K1016+696","passedTollGates":[],"longitude":114.22837922563376,"latitude":31.82439856907823,"specialFlag":"0","vehicleColor":6,"vehicleWeight":26.3},
+{"id":602732751,"plateNo":"沪G6E6C9","vehicleType":4,"speed":102.98,"laneNo":4,"mileage":1016706,"direction":1,"stakeId":"K1016+706","passedTollGates":[],"longitude":114.22832972564943,"latitude":31.824319077903407,"specialFlag":"0","vehicleColor":6,"vehicleWeight":6.8},
+{"id":225709274,"plateNo":"冀D3N970","vehicleType":13,"speed":109.91,"laneNo":4,"mileage":1016730,"direction":1,"stakeId":"K1016+730","passedTollGates":[],"longitude":114.2282063363603,"latitude":31.824130414460097,"specialFlag":"0","vehicleColor":1,"vehicleWeight":24.8},
+{"id":1205505174,"plateNo":"甘B28879","vehicleType":3,"speed":95.01,"laneNo":4,"mileage":1016740,"direction":1,"stakeId":"K1016+740","passedTollGates":[],"longitude":114.2281551565669,"latitude":31.824051700505674,"specialFlag":"0","vehicleColor":0,"vehicleWeight":29.2},
+{"id":341233499,"plateNo":"津B3Z04T","vehicleType":2,"speed":105.46,"laneNo":4,"mileage":1016771,"direction":1,"stakeId":"K1016+771","passedTollGates":[],"longitude":114.22800783592818,"latitude":31.823802592347377,"specialFlag":"16","vehicleColor":11,"vehicleWeight":10.6},
+{"id":960169964,"plateNo":"蒙A19254","vehicleType":2,"speed":82.81,"laneNo":4,"mileage":1017029,"direction":1,"stakeId":"K1017+029","passedTollGates":[],"longitude":114.22684283166893,"latitude":31.821704436269332,"specialFlag":"0","vehicleColor":5,"vehicleWeight":17.3},
+{"id":82832683,"plateNo":"沪HA4E54","vehicleType":13,"speed":89.08,"laneNo":4,"mileage":1017073,"direction":1,"stakeId":"K1017+073","passedTollGates":[],"longitude":114.22665770910373,"latitude":31.821341427973493,"specialFlag":"28","vehicleColor":6,"vehicleWeight":2.9},
+{"id":1401348087,"plateNo":"鄂G80254","vehicleType":1,"speed":80.0,"laneNo":4,"mileage":1017083,"direction":1,"stakeId":"K1017+083","passedTollGates":[],"longitude":114.22661834685985,"latitude":31.821257946608846,"specialFlag":"0","vehicleColor":4,"vehicleWeight":14.4},
+{"id":668754589,"plateNo":"津CV8TC2","vehicleType":1,"speed":94.29,"laneNo":4,"mileage":1017102,"direction":1,"stakeId":"K1017+102","passedTollGates":[],"longitude":114.22654355879261,"latitude":31.821099331982673,"specialFlag":"0","vehicleColor":3,"vehicleWeight":28.1},
+{"id":619666039,"plateNo":"青DZ071N","vehicleType":16,"speed":114.19,"laneNo":4,"mileage":1017400,"direction":1,"stakeId":"K1017+400","passedTollGates":[],"longitude":114.2254504802033,"latitude":31.818586267877723,"specialFlag":"0","vehicleColor":9,"vehicleWeight":12.4},
+{"id":1504348266,"plateNo":"陕D16911","vehicleType":13,"speed":93.74,"laneNo":4,"mileage":1017410,"direction":1,"stakeId":"K1017+410","passedTollGates":[],"longitude":114.22541968335764,"latitude":31.818500227380646,"specialFlag":"0","vehicleColor":12,"vehicleWeight":9.1},
+{"id":1150344543,"plateNo":"青H63231","vehicleType":2,"speed":115.3,"laneNo":4,"mileage":1017421,"direction":1,"stakeId":"K1017+421","passedTollGates":[],"longitude":114.2253858068937,"latitude":31.818405582825267,"specialFlag":"0","vehicleColor":3,"vehicleWeight":2.9},
+{"id":25394007,"plateNo":"豫A68673","vehicleType":15,"speed":100.51,"laneNo":4,"mileage":1017437,"direction":1,"stakeId":"K1017+437","passedTollGates":[],"longitude":114.22533653216101,"latitude":31.818267918001446,"specialFlag":"0","vehicleColor":12,"vehicleWeight":13.6},
+{"id":1155011013,"plateNo":"鄂A88380","vehicleType":14,"speed":83.22,"laneNo":4,"mileage":1017447,"direction":1,"stakeId":"K1017+447","passedTollGates":[],"longitude":114.22530573552767,"latitude":31.818181877476913,"specialFlag":"0","vehicleColor":2,"vehicleWeight":12.5},
+{"id":1510313877,"plateNo":"蒙C5P739","vehicleType":4,"speed":85.03,"laneNo":4,"mileage":1017547,"direction":1,"stakeId":"K1017+547","passedTollGates":[],"longitude":114.22499777235079,"latitude":31.817321471823746,"specialFlag":"16","vehicleColor":5,"vehicleWeight":10.3},
+{"id":1179578175,"plateNo":"鲁E10395","vehicleType":4,"speed":104.64,"laneNo":4,"mileage":1017614,"direction":1,"stakeId":"K1017+614","passedTollGates":[],"longitude":114.22480237582211,"latitude":31.816742377153208,"specialFlag":"0","vehicleColor":5,"vehicleWeight":3.2},
+{"id":14135909,"plateNo":"宁EV1JB1","vehicleType":3,"speed":101.63,"laneNo":4,"mileage":1017624,"direction":1,"stakeId":"K1017+624","passedTollGates":[],"longitude":114.22477569206352,"latitude":31.816655350431144,"specialFlag":"0","vehicleColor":10,"vehicleWeight":26.2},
+{"id":963621752,"plateNo":"吉C8PO18","vehicleType":4,"speed":86.22,"laneNo":4,"mileage":1017634,"direction":1,"stakeId":"K1017+634","passedTollGates":[],"longitude":114.22474900835522,"latitude":31.81656832370351,"specialFlag":"0","vehicleColor":5,"vehicleWeight":21.0},
+{"id":870256038,"plateNo":"皖F65164","vehicleType":12,"speed":120.0,"laneNo":4,"mileage":1017785,"direction":1,"stakeId":"K1017+785","passedTollGates":[],"longitude":114.22436940390025,"latitude":31.81524939923172,"specialFlag":"0","vehicleColor":6,"vehicleWeight":3.5},
+{"id":691911389,"plateNo":"青G408BP","vehicleType":14,"speed":110.57,"laneNo":4,"mileage":1017795,"direction":1,"stakeId":"K1017+795","passedTollGates":[],"longitude":114.22434605195403,"latitude":31.815161683717957,"specialFlag":"0","vehicleColor":11,"vehicleWeight":28.5},
+{"id":680422874,"plateNo":"陕F72V59","vehicleType":14,"speed":85.53,"laneNo":1,"mileage":1016020,"direction":1,"stakeId":"K1016+020","passedTollGates":[],"longitude":114.23175983388164,"latitude":31.829755995036717,"specialFlag":"0","vehicleColor":10,"vehicleWeight":29.8}]}
+
+
+
+
+completed.path:
+
+
+
+
+smart_bs:
+{"sequence":0,"mainCmd":225,"subCmd":2,"status":0,"msgLength":418,"deviceId":8,"reserved1":0,"frameNum":0,
+"timestampMicrosec":1754222936123,"longitude":114.0370868,"latitude":30.9191303,"angle":91.0,"participantCount":3,
+"reserved2":0,"participants":[{"id":24691,"type":0,"confidence":0.0,"color":0,"source":2,"signBit":0,"cameraId":0,
+"longitude":114.0369077,"latitude":30.9193715,"altitude":0.0,"speed":2.0,"heading":2.09,"length":407.0,"width":171.0
+,"height":153.0,"X":2646.0,"Y":1756.0,"Z":-448.0,"trackCount":0},{"id":24703,"type":6,"confidence":0.0,"color":0,
+"source":2,"signBit":2,"cameraId":0,"longitude":114.0382517,"latitude":30.9192022,"altitude":0.0,"speed":1966.0,
+"heading":2.71,"length":707.0,"width":229.0,"height":270.0,"X":992.0,"Y":11110.0,"Z":-345.0,"trackCount":0},
+{"id":24705,"type":6,"confidence":0.0,"color":0,"source":2,"signBit":0,"cameraId":0,"longitude":114.0368133,
+"latitude":30.9193713,"altitude":0.0,"speed":280.0,"heading":2.71,"length":682.0,"width":240.0,"height":307.0,
+"X":2628.0,"Y":2658.0,"Z":-377.0,"trackCount":0}],"frontCameraTs":0,"bodyCameraTs":0,"rearCameraTs":0,
+"reserved3":0,"checksum":33}
+
+
+scenetest:
+{"pathList":[{"direction":1,"id":345243918,"laneNo":1,"latitude":31.63233,"longitude":114.1517,"mileage":1039530,"plateColor":0,"plateNo":"苏A32672","speed":94.18,"stakeId":"K1039+530","timeStamp":"2025-08-04 23:11:28:871","vehicleType":3},
+{"direction":2,"id":1294435933,"laneNo":4,"latitude":31.615963,"longitude":114.14418,"mileage":1041478,"plateColor":0,"plateNo":"桂C452N9","speed":101.79,"stakeId":"K1041+478","timeStamp":"2025-08-04 23:11:28:871","vehicleType":12},
+{"direction":2,"id":1957045010,"laneNo":4,"latitude":31.617582,"longitude":114.14476,"mileage":1041290,"plateColor":0,"plateNo":"京BN8779","speed":95.29,"stakeId":"K1041+290","timeStamp":"2025-08-04 23:11:28:871","vehicleType":4},
+{"direction":2,"id":1842746569,"laneNo":4,"latitude":31.618744,"longitude":114.14517,"mileage":1041155,"plateColor":0,"plateNo":"闽D95732","speed":107.13,"stakeId":"K1041+155","timeStamp":"2025-08-04 23:11:28:871","vehicleType":16},
+{"direction":2,"id":1549935055,"laneNo":4,"latitude":31.620344,"longitude":114.145744,"mileage":1040969,"plateColor":0,"plateNo":"冀G99D56","speed":111.94,"stakeId":"K1040+969","timeStamp":"2025-08-04 23:11:28:871","vehicleType":15},
+{"direction":2,"id":2146668400,"laneNo":4,"latitude":31.62043,"longitude":114.145775,"mileage":1040959,"plateColor":0,"plateNo":"皖H26094","speed":92.3,"stakeId":"K1040+959","timeStamp":"2025-08-04 23:11:28:871","vehicleType":1},
+{"direction":2,"id":1980254158,"laneNo":4,"latitude":31.623043,"longitude":114.14681,"mileage":1040652,"plateColor":0,"plateNo":"青B12726","speed":90.9,"stakeId":"K1040+652","timeStamp":"2025-08-04 23:11:28:871","vehicleType":11},
+{"direction":2,"id":1267576532,"laneNo":4,"latitude":31.624878,"longitude":114.14766,"mileage":1040433,"plateColor":0,"plateNo":"川D963W8","speed":89.35,"stakeId":"K1040+433","timeStamp":"2025-08-04 23:11:28:871","vehicleType":16},
+{"direction":2,"id":574878126,"laneNo":4,"latitude":31.625683,"longitude":114.14808,"mileage":1040335,"plateColor":0,"plateNo":"苏DF1665","speed":94.17,"stakeId":"K1040+335","timeStamp":"2025-08-04 23:11:28:871","vehicleType":3},
+{"direction":2,"id":1515784682,"laneNo":4,"latitude":31.640446,"longitude":114.15458,"mileage":1038572,"plateColor":0,"plateNo":"青G78176","speed":89.95,"stakeId":"K1038+572","timeStamp":"2025-08-04 23:11:28:871","vehicleType":4},
+{"direction":2,"id":646349354,"laneNo":4,"latitude":31.643396,"longitude":114.15482,"mileage":1038243,"plateColor":0,"plateNo":"蒙B524W1","speed":86.54,"stakeId":"K1038+243","timeStamp":"2025-08-04 23:11:28:871","vehicleType":1},
+{"direction":2,"id":2109897077,"laneNo":4,"latitude":31.645687,"longitude":114.15491,"mileage":1037988,"plateColor":0,"plateNo":"鄂F7RC32","speed":87.1,"stakeId":"K1037+988","timeStamp":"2025-08-04 23:11:28:871","vehicleType":3}]
+,"pathNum":248,"time":1754320288871,"timeStamp":"2025-08-04 23:11:28:871"}
+
+Topic: e1_data_XG01
+数据: {"orgCode":"XG01","frameNum":2470815,"targetNum":2,"targetList":[
+{"id":532827,"carType":3,"carColor":0,"lane":14,"station":8,"lon":114.0368319,"lat":30.9194097,"speed":3.0,"angle":270.2,"picLicense":"豫FB3896","firstReceiveTime":"2025-08-17 13:30:17.738","enGap":0,"licenseColor":1,"speedAvg":0.0,"passTime":474,"stakeNum":"K123+880","disBefore":-1,"inOrOut":2},
+{"id":532846,"carType":1,"carColor":1,"lane":17,"station":10,"lon":114.040361,"lat":30.9190532,"speed":49.0,"angle":89.9,"picLicense":"鄂AKQ331","firstReceiveTime":"2025-08-17 13:37:46.931","enGap":0,"licenseColor":1,"speedAvg":0.0,"passTime":24,"stakeNum":"K123+549","disBefore":-1,"inOrOut":1}],
+"globalTime":"2025-08-17 13:38:11:809"}
+
+
+Topic: MergedPathData
+数据: {"timeStamp":"2025-08-21 19:29:58:668","pathNum":1,"pathList":[
+{"timeStamp":"2025-08-21 19:29:58:668","id":545335,"plateNo":"默A00000","plateColor":0,"speed":45.0,"longitude":114.0443114,"latitude":30.9207133,"carAngle":183.9,"laneNo":26,"stakeId":"K1122+200-CK0+199","mileage":199,"originalType":1,"weight":0.0}]
+,"time":1755775798668,"entryTime":1755775797991}

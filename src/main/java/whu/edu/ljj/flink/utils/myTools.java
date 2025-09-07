@@ -171,7 +171,7 @@ public class myTools {
         // 安全截取前N个字符
         return str.substring(n, Math.min(str.length(), m));
     }
-    public static double calculateDistance(float speedKmh, int timeMs) {
+    public static double calculateDistance(double speedKmh, int timeMs) {
         // 参数校验
         if (speedKmh < 0 || timeMs < 0) {
             System.out.println("speedKmh: "+speedKmh+"  time: "+timeMs);

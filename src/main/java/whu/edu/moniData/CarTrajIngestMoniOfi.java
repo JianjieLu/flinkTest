@@ -35,7 +35,7 @@ public class CarTrajIngestMoniOfi {
 
     // 会话超时配置
     private static final long SESSION_TIMEOUT_MS = 5000; // 5秒会话超时
-    private static final long SAMPLING_INTERVAL_MS = 5000; // 5秒采样间隔
+    private static final long SAMPLING_INTERVAL_MS = 1000; // 5秒采样间隔
 
     // 存储结构
     private static final Map<String, List<Tuple5<Double,Double, Integer, Integer, Double>>> map = new LinkedHashMap<>();

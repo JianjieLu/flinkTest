@@ -1,6 +1,8 @@
 scan 'STCar_20250619_00',FILTER=>"ColumnPrefixFilter('VehicleSegments')"
-scan 'ZCarTraj_20250712',FILTER=>"ColumnPrefixFilter('type')"
+scan 'ZCarTraj_20250828',FILTER=>"ColumnPrefixFilter('type')"
 
+
+create 'Car_Feature','cf1'
 
 查询表STCar_20250617_15的VehicleSegments列的所有数据
 

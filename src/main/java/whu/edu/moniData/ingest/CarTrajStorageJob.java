@@ -4,7 +4,7 @@ import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.java.tuple.Tuple4;
-import org.apache.flink.api.java.tuple.Tuple5;
+import org.apache.flink.api.java.tuple.Tuple9;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -33,7 +33,7 @@ public class CarTrajStorageJob {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        String brokers = "100.65.38.40:9092";
+        String brokers = "10.48.53.82:9092";
         String groupId = "storage-group";
         String topic = "trajectoryoutput";
 
@@ -51,16 +51,21 @@ public class CarTrajStorageJob {
         DataStream<String> kafkaStream = env.fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka Source");
 
         kafkaStream
-                .flatMap(new FlatMapFunction<String, Tuple5<String, Integer, Long, List<Tuple4<Double, Double, Integer, Double>>, Integer>>() {
+                .flatMap(new FlatMapFunction<String, Tuple9<String, Integer, Long, List<Tuple4<Double, Double, Integer, Double>>, Integer, Integer, Double, String, String>>() {
                     @Override
-                    public void flatMap(String jsonString, Collector<Tuple5<String, Integer, Long, List<Tuple4<Double, Double, Integer, Double>>, Integer>> out) {
+                    public void flatMap(String jsonString, Collector<Tuple9<String, Integer, Long, List<Tuple4<Double, Double, Integer, Double>>, Integer, Integer, Double, String, String>> out) {
                         try {
                             JSONObject jsonObject = new JSONObject(jsonString);
 
                             String timeSeg = jsonObject.getString("timeSeg");
                             int type = jsonObject.getInt("type");
+                            int vehicleColor = jsonObject.getInt("vehicleColor");
+                            double vehicleWeight = jsonObject.getDouble("vehicleWeight");
+                            String specialFlag = jsonObject.getString("specialFlag");
                             long latestTime = jsonObject.getLong("latestTime");
                             JSONArray trajectoryArray = jsonObject.getJSONArray("trajectory");
+                            String eventList = jsonObject.getJSONArray("eventList").toString();
+
                             int dir = trajectoryArray.getJSONObject(0).getInt("direction");
                             List<Tuple4<Double, Double, Integer, Double>> trajectory = new ArrayList<>();
 
@@ -73,7 +78,8 @@ public class CarTrajStorageJob {
                                         point.getDouble("speed")
                                 ));
                             }
-                            out.collect(new Tuple5<>(timeSeg, type, latestTime, trajectory, dir));
+                            out.collect(new Tuple9<>(timeSeg, type, latestTime, trajectory, dir,
+                                    vehicleColor, vehicleWeight, specialFlag, eventList));
                         } catch (JSONException e) {
                             System.err.println("解析轨迹JSON时出错: " + e.getMessage());
                         }
@@ -84,7 +90,7 @@ public class CarTrajStorageJob {
         env.execute("Trajectory Storage Job");
     }
 
-    private static class DynamicHBaseSink extends RichSinkFunction<Tuple5<String, Integer, Long, List<Tuple4<Double, Double, Integer, Double>>, Integer>> {
+    private static class DynamicHBaseSink extends RichSinkFunction<Tuple9<String, Integer, Long, List<Tuple4<Double, Double, Integer, Double>>, Integer, Integer, Double, String, String>> {
 
         private final String baseTableName;
         private final String columnFamily;
@@ -117,7 +123,7 @@ public class CarTrajStorageJob {
         }
 
         @Override
-        public void invoke(Tuple5<String, Integer, Long, List<Tuple4<Double, Double, Integer, Double>>, Integer> value, SinkFunction.Context context) throws Exception {
+        public void invoke(Tuple9<String, Integer, Long, List<Tuple4<Double, Double, Integer, Double>>, Integer, Integer, Double, String, String> value, SinkFunction.Context context) throws Exception {
             tableLock.lock();
             try {
                 String rowKey = value.f0;
@@ -131,6 +137,10 @@ public class CarTrajStorageJob {
                 // 插入数据
                 Put put = new Put(Bytes.toBytes(rowKey));
                 put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("type"), Bytes.toBytes(value.f1.toString()));
+                put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("vehicle_color"), Bytes.toBytes(value.f5.toString()));
+                put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("vehicle_weight"), Bytes.toBytes(String.valueOf(value.f6)));
+                put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("special_flag"), Bytes.toBytes(value.f7));
+                put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("event_list"), Bytes.toBytes(value.f8));
                 put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("latest_time"), Bytes.toBytes(value.f2.toString()));
                 put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("trajectory"), Bytes.toBytes(value.f3.toString()));
                 put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("direction"), Bytes.toBytes(value.f4.toString()));

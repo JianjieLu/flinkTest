@@ -314,7 +314,7 @@
 //    }
 //    private static void PredictNextOne(PathPointData pathPointData) throws IOException {
 //        long currentTime = System.currentTimeMillis();
-//        Float predictedSpeed = calculateMovingAverage(pathPointData.getSpeedWindow());
+//        double predictedSpeed = calculateMovingAverage(pathPointData.getSpeedWindow());
 //        pathPointData.getSpeedWindow().addLast(predictedSpeed);
 //        pathPointData.getSpeedWindow().removeFirst();
 //        //计算以预测速度跑了多远
@@ -325,11 +325,11 @@
 //        }else {
 //            newTpointno = pathPointData.getMileage() - distanceDiff; // 更新里程点
 //        }
-//        pathPointData.setMileage((int)newTpointno);
+//        pathPointData.setMileage(newTpointno);
 //        String carid = pathPointData.getId();
 //        pathPointData.setSpeed(predictedSpeed);
 //        pathPointData.setTimestamp(myTools.toDateTimeString(currentTime));
-//        PathPoint p=new PathPoint(pathPointData.getDirection(),carid,pathPointData.getLaneNo(),(int)newTpointno,pathPointData.getPlateNumber(),predictedSpeed, pathPointData.getTimeStamp());
+//        PathPoint p=new PathPoint(pathPointData.getDirection(),carid,pathPointData.getLaneNo(),newTpointno,pathPointData.getPlateNumber(),predictedSpeed, pathPointData.getTimeStamp());
 //        myTools.printPathPoint(p);
 //
 //        }
@@ -339,7 +339,7 @@
 //            //经过的时间少于某一值（设置时间限制，避免一直计算预测）
 //            if (currentTime-data.getLastReceivedTime()<80000000) {
 //                // 使用车辆独立窗口计算
-//                Float predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
+//                double predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
 //                data.getSpeedWindow().addLast(predictedSpeed);
 //                data.getSpeedWindow().removeFirst();
 //                double distanceDiff = myTools.calculateDistance(predictedSpeed,250); // 米
@@ -349,21 +349,21 @@
 //                }else {
 //                    newTpointno = data.getMileage() - distanceDiff; // 更新里程点
 //                }
-//                data.setMileage((int)newTpointno);
+//                data.setMileage(newTpointno);
 //                String carid = data.getId();
 //                data.setSpeed(predictedSpeed);
 //                data.setTimestamp(myTools.toDateTimeString(currentTime));
 //                // 输出预测结果
 //                Location location1 = LocationOP.getLocation("D:\\learn\\codes\\a_idea_codes\\flinkTest\\src\\main\\java\\whu\\edu\\ljj\\flink\\data\\"+zaMap.get(carid)+"_locations.json", newTpointno);
 //                Location location2 = LocationOP.getLocation("D:\\learn\\codes\\a_idea_codes\\flinkTest\\src\\main\\java\\whu\\edu\\ljj\\flink\\data\\"+zaMap.get(carid)+"_locations.json", newTpointno + (int) (calculateMovingAverage(data.getSpeedWindow()) * 0.2));
-//                PathPoint p=new PathPoint(data.getDirection(),carid,data.getLaneNo(),(int)newTpointno,data.getPlateNumber(),predictedSpeed, data.getTimeStamp());
+//                PathPoint p=new PathPoint(data.getDirection(),carid,data.getLaneNo(),newTpointno,data.getPlateNumber(),predictedSpeed, data.getTimeStamp());
 //                myTools.printPathPoint(p);
 //        }
 //    }
 //    private static float calculateMovingAverage(LinkedList<Float> speedWindow) {
 //        synchronized (speedWindow) {
 //            return (float) speedWindow.stream()
-//                    .mapToDouble(Float::doubleValue)
+//                    .mapToDouble(Double::doubleValue)
 //                    .average()
 //                    .orElse(Double.NaN);
 //        }

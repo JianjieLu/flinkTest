@@ -62,7 +62,7 @@ public class test {
         double longitude;
         double latitude;
         float altitude;
-        float speed;
+        double speed;
         float heading;
         float length;
         float width;

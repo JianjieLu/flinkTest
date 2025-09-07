@@ -1,37 +1,41 @@
 buquan
 java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.buquan  100.65.38.139:9092 fiberDataTest1 fiberDataTest2 fiberDataTest3
-java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.buquanCopy  100.65.38.40:9092 MergedPathData MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
-java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquanji 100.65.38.40:9092
- nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan1 100.65.38.40:9092 > /dev/null 2>&1 &
- nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan2 100.65.38.40:9092 > /dev/null 2>&1 &
- nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan3 100.65.38.40:9092 > /dev/null 2>&1 &
- nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan4 100.65.38.40:9092 > /dev/null 2>&1 &
- nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan5 100.65.38.40:9092 > /dev/null 2>&1 &
- nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquanji 100.65.38.40:9092 > /dev/null 2>&1 &
-flink run -c whu.edu.moniData.BuQuan.buquan1v1 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
-flink run -c whu.edu.moniData.BuQuan.buquan2 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
-flink run -c whu.edu.moniData.BuQuan.buquan3 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
-flink run -c whu.edu.moniData.BuQuan.buquan4 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
-flink run -c whu.edu.moniData.BuQuan.buquan5 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
-flink run -c whu.edu.moniData.BuQuan.buquanji /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
-
+java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.buquanCopy  10.48.53.82:9092 MergedPathData MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
+java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquanji 10.48.53.82:9092
+ nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan1 10.48.53.82:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan2 10.48.53.82:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan3 10.48.53.82:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan4 10.48.53.82:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan5 10.48.53.82:9092 > /dev/null 2>&1 &
+ nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquanji 10.48.53.82:9092 > /dev/null 2>&1 &
+flink run -c whu.edu.moniData.BuQuan.buquan1v1 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
+flink run -c whu.edu.moniData.BuQuan.buquan2 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
+flink run -c whu.edu.moniData.BuQuan.buquan3 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
+flink run -c whu.edu.moniData.BuQuan.buquan4 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
+flink run -c whu.edu.moniData.BuQuan.buquan5 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
+flink run -c whu.edu.moniData.BuQuan.buquanji /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
+java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.BuQuan.buquan1v1 10.48.53.82:9092
+flink run -c whu.edu.moniData.shenZhou.TGCTime1stLocalSV5P6 /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
+java -cp  /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.shenZhou.TGCTime1stLocalSV5P6 10.48.53.82:9092
 **********************************yaorun************************************
 1、模拟数据
-nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData2 &
-nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData2AllData 0.005 0.005 3 3 &
-nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllData 0.25 0.075 300 300 &
-nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllData 0.8 0.8 300 300 &
-nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllData2 0.8 0.8 300 300 &
-nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllData82 0.5 0.5 300 300 &
+nohup java -cp /home/ljj/segingest/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.dataMoNi.FiberGratingData5AllData 0.8 0.8 300 300 &
+nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.dataMoNi.FiberGratingData5AllData2 0.8 0.8 300 300 &
+nohup java -cp /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData. 0.5 0.5 300 300 &
+nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.MoniNoCrowded100 0.5 0.5 10 10 &
 2、单基站解析
 nohup java -cp /home/ljj/udp/flinkTest-1.0-SNAPSHOT.jar  whu.edu.moniData.UDPRece.UDPReceiverWithParser > /dev/null 2>&1 &
-nohup java -cp /home/ljj/udp/flinkTest-1.0-SNAPSHOT.jar  whu.edu.moniData.UDPRece.UDPReceiverWithParser82 > /dev/null 2>&1 &
 3、dealing with jizhan
-flink run -c whu.edu.moniData.DealWithJiZhan /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+flink run -c whu.edu.moniData.DealWithJiZhanWithTimeUsed /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+java -cp /home/ljj/dealwithjizhan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.DealWithJiZhanWithTimeUsed 100.65.38.40:9092 e1_data_XG01
 4、toshow
-java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 completed.pathdata
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 completed.pathdata
+java -jar /home/ljj/33334/33335/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 completed.pathdata
+
+java -jar /home/ljj/33334/33337/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 fiberData1 fiberData2 fiberData3 fiberData4 fiberData5 fiberData6 fiberData7 fiberData8 fiberData9 fiberData10 fiberData11
+java -jar /home/ljj/33334/33336/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 completed.pathdata
 5、补全
-flink run -c whu.edu.moniData.BuQuan.buquanji /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092
+flink run -c whu.edu.moniData.BuQuan.buquanji /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
 7、FlinkQuery
 nohup java -jar /home/ljj/30query/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
 nohup java -jar /home/ljj/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
@@ -39,33 +43,58 @@ nohup java -jar /home/ljj/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
 echo "disable 'ZCarTraj_20250623'; drop 'ZCarTraj_20250623'" | hbase shell -n
 echo "disable 'ZCarTraj_20250624'; drop 'ZCarTraj_20250624'" | hbase shell -n
 9、轨迹存储
+nohup java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllData82 0.5 0.5 300 300 &
 flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJob /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
-flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJobCompleted /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
 flink run -c whu.edu.moniData.ingest.CarTrajStorageJob /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
-
 flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJobZa /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
 flink run -c whu.edu.moniData.ingest.CarTrajStorageJobZa /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
+nohup  /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 11 13 > /dev/null 2>&1 &
+nohup  /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWNLaneRedis 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.FifteenMinuteTrafficFromTotalStatistics > /dev/null 2>&1 &
+flink run -c whu.edu.moniData.ingest.FlinkHourlyTrafficAnalysis /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+flink run -c whu.edu.moniData.ingest.CarFeatureStorageJob /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
 
-flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJobJT /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
-flink run -c whu.edu.moniData.ingest.CarTrajStorageJobJT /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
-
-
-
-
-flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJobCompleted /home/ljj/flinkTest-1.0-SNAPSHOT.jar
-flink run -c whu.edu.moniData.ingest.CarTrajStorageJob /home/ljj/flinkTest-1.0-SNAPSHOT.jar
-flink run -c whu.edu.moniData.ingest.CarTrajStorageJobZa /home/ljj/flinkTest-1.0-SNAPSHOT.jar
-flink run -c whu.edu.moniData.ingest.CarTrajStorageJobJT /home/ljj/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.shenZhou.TGCTime1stLocalSV5P6 /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar 10.48.53.82:9092
 
 
+测试代码：
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajAnalysisJob_NoFeature /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajStorageJob_NoFeature /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar
+nohup java -jar /home/ljj/33334/33366/33366.jar 10.48.53.82:9092 fiberData1 fiberData2 fiberData3 fiberData4 fiberData5 fiberData6 fiberData7 fiberData8 fiberData9 fiberData10 fiberData11 > /dev/null 2>&1 &
+nohup java -jar /home/ljj/33334/33368/33368.jar 10.48.53.82:9092 completed.pathdata > /dev/null 2>&1 &
+
+java -cp /home/ljj/ingest/dailyCount/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.newIngest.soutDirect
+
+flink run -c whu.edu.moniData.shenZhou.ke3Buquan.OnRampInitBSData /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar
+java  -cp /home/ljj/consum/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.shenZhou.ke3Buquan.OnRampInitBSData
+
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369  --kafka.brokers=100.65.38.40:9092  --kafka.topics=fiberData1,fiberData2,fiberData3,fiberData4,fiberData5,fiberData6,fiberData7,fiberData8,fiberData9,fiberData10,fiberData11
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33370  --kafka.brokers=100.65.38.40:9092  --kafka.topics=completed.pathdata
+flink run -c whu.edu.moniData.ingest.UnifiedCarTrajectoryJob /home/ljj/33334/flinkTest-1.0-SNAPSHOT.jar
+java -cp /home/ljj/33334/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.UnifiedCarTrajectoryJob
+
+java -cp /home/ljj/buquan/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.FlinkHourlyTrafficAnalysis 100.65.38.40:9092 e1_data_XG01
+java -cp /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.FlinkHourlyTrafficAnalysis 100.65.38.40:9092 e1_data_XG01
+
+
+
+flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJobJT /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.CarTrajStorageJobJT /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar
+
+flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJobCompleted /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.CarTrajStorageJobCompleted /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar
+
+flink run -c whu.edu.moniData.ingest.FifteenMinuteTrafficFromTotalStatistics /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar
+
+java -cp /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.CarTrajStorageJob
 
 
 存每天的上下行车流量表
 nohup java -cp /home/ljj/ingest/dailyCount/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.DailyTrafficCounter  > /dev/null 2>&1 &
 
 统计信息存储
-flink run -c whu.edu.moniData.ingest.HourlyTrafficFromTotalStatistics /home/ljj/ingest/totalTraffic/flinkTest-1.0-SNAPSHOT.jar
-nohup java -cp /home/ljj/ingest/totalTraffic/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.HourlyTrafficFromTotalStatistics > /dev/null 2>&1 &
+flink run -c whu.edu.moniData.ingest.FifteenMinuteTrafficFromTotalStatistics /home/ljj/ingest/totalTraffic/flinkTest-1.0-SNAPSHOT.jar
+nohup java -cp /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.FifteenMinuteTrafficFromTotalStatistics > /dev/null 2>&1 &
 
 轨迹得出的小时流量存储：
 nohup java -cp /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.HourlyTrafficFromTrajData > /dev/null 2>&1 &
@@ -81,19 +110,13 @@ flink run -c whu.edu.moniData.ingest.CarTrajStorageJob /home/ljj/ingest/flinkTes
 nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData2AllData 0.25 0.075 3 3 &
 nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData2AllData 0.005 0.005 3 3 &
 
-
-
-
 后台运行轨迹消费：
 nohup java -cp /home/ljj/consum/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.MultiTopicConsumerCopy &
 
-
-
-
-
 cunUPDOWN:
-flink run -c whu.edu.moniData.cunUPDOWN /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar 11 13 14 16 17 19
+flink run -c whu.edu.moniData.cunUPDOWN /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar 11 13
 java -cp /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 17 19
+nohup java -cp /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWNLaneRedis 11 13 > /dev/null 2>&1 &
 nohup java -cp /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 11 13 > /dev/null 2>&1 &
 
 接收基站原始数据UDP：
@@ -111,20 +134,18 @@ flink run -c whu.edu.moniData.ingest.SegCarIngestMoniOfiV6 /home/ljj/segingest/f
 nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData2 &
 
 toshow:
-java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
-java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 completed.pathdata
-java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 MergedPathData,MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 completed.pathdata
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 MergedPathData,MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5
 java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.139:9092 fiberDataTest1 fiberDataTest2 fiberDataTest3
-java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 MergedPathData
-java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 100.65.38.40:9092 fiberData1 fiberData2 fiberData3 fiberData4 fiberData5 fiberData6 fiberData7 fiberData8 fiberData9 fiberData10 fiberData11
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 MergedPathData
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 fiberData1 fiberData2 fiberData3 fiberData4 fiberData5 fiberData6 fiberData7 fiberData8 fiberData9 fiberData10 fiberData11
 
 
 DealWithJiZhan:
-flink run -c whu.edu.moniData.DealWithJiZhan /home/ljj/dealwithjizhan/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
-flink run -c whu.edu.moniData.DealWithJiZhan82 /home/ljj/dealwithjizhan/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+flink run -c whu.edu.moniData.DealWithJiZhanYuan /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+flink run -c whu.edu.moniData.DealWithJiZhanYuan /home/ljj/dealwithjizhan/flinkTest-1.0-SNAPSHOT.jar  10.48.53.82:9092 e1_data_XG01
 100.65.38.139，100.65.38.140，100.65.38.141，100.65.38.142，100.65.38.36，100.65.38.37，100.65.38.38
-FlinkQuery:
-nohup java -jar /home/ljj/30query/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
 
 基站原始数据解析：
 nohup java -cp /home/ljj/udp/flinkTest-1.0-SNAPSHOT.jar  whu.edu.moniData.UDPRece.UDPReceiverWithParser > /dev/null 2>&1 &
@@ -132,11 +153,11 @@ nohup java -cp /home/ljj/udp/flinkTest-1.0-SNAPSHOT.jar  whu.edu.moniData.UDPRec
 ps -ef | grep java
 
 查看所有kafka topics
-/opt/bigdata/kafka_2.12-2.4.1/bin/kafka-topics.sh --list --bootstrap-server 100.65.38.40:9092
+/opt/bigdata/kafka_2.12-2.4.1/bin/kafka-topics.sh --list --bootstrap-server 10.48.53.82:9092
 http://100.65.38.139:8080/getByTimeSpatial?startTime=1746757325000&endTime=1746757325000&startMileage=&endMileage=&Longitude1=115.09473447824057&Latitude1=31.514402259737583&Longitude2=114.13713598432462&Latitude2=31.559195282594537
 匝道：
 http://100.65.38.139:8080/getByTimeSpatial?startTime=1747017318723&endTime=1747017348723&startMileage=&endMileage=&Longitude1=114.02746643742528&Latitude1=30.907482277014676&Longitude2=114.04903222272326&Latitude2=30.907482277014676
 http://100.65.38.139:8080/getByTimeSpatial?startTime=1747020883000&endTime=1747020883000&startMileage=&endMileage=&Longitude1=114.034&Latitude1=31.9&Longitude2=114.049&Latitude2=30.113
 http://100.65.38.139:8080/getByTimeSpatial?startTime=1747020883000&endTime=1747020883000&startMileage=&endMileage=&c
-
+http://100.65.38.139:8080/getUpDownChargerByDuration?stationId=C7370151-2116-470A-8E26-5F878B3C9D78&startTime=1754639893327&endTime=1754639893327
 

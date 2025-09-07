@@ -200,6 +200,6 @@ public class CarTrajAnalysisJobZa {
                 })
                 .sinkTo(kafkaSink);
 
-        env.execute("Trajectory Analysis Job");
+        env.execute("Za Trajectory Analysis Job");
     }
 }

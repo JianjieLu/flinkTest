@@ -167,7 +167,7 @@
 //        }
 //        double carangle=calculateBearing(a3.getValue()[1],a3.getValue()[0],pdInPointMap.getLatitude(),pdInPointMap.getLongitude());
 //        pdInPointMap.setCarAngle(carangle);
-//        pdInPointMap.setMileage((int) (a2[0]));
+//        pdInPointMap.setMileage(a2[0]);
 //        pdInPointMap.setSpeed(a1.getValue());
 ////        pdInPointMap.setTimeStamp(pathTimeStamp);//未接收到，不更新
 //        pdInPointMap.setLatitude(a3.getValue()[1]);
@@ -192,7 +192,7 @@
 //        List<PathPoint> plist=new ArrayList<>();
 //        for(StationTarget s: data.getTargetList()){
 //            //mileage\originalType\originalColor
-//            int mileage=s.getEnGap();
+//            double mileage=s.getEnGap();
 //            double lon=s.getLon();
 //            double lat=s.getLat();
 //
@@ -257,7 +257,7 @@
 //        }
 //        return new Pair<>(newStake,d);
 //    }
-//    public static double[] predictNewMileage(PathPointData data,float speed){
+//    public static double[] predictNewMileage(PathPointData data,double speed){
 //
 //        double[]d={0,0};
 //        d[1] = myTools.calculateDistance(speed, 200);
@@ -268,9 +268,9 @@
 //    }
 //    public static Pair<LinkedList<Float>,Float> predictSpeedWindow(PathPointData data){
 //        if(data==null) System.out.println("data is null");
-//        ConcurrentLinkedDeque<Float> spw=data.getSpeedWindow();
+//        ConcurrentLinkedDeque<Double> spw=data.getSpeedWindow();
 //        if(!spw.isEmpty()){
-//            float predictedSpeed=calculateMovingAverage(spw);
+//            double predictedSpeed=calculateMovingAverage(spw);
 //            spw.addLast(predictedSpeed);
 //            if(spw.size()>WINDOW_SIZE)spw.removeFirst();
 //            return new Pair<>(spw,predictedSpeed);
@@ -285,7 +285,7 @@
 //    }
 //    private static float calculateMovingAverage(LinkedList<Float> speedWindow) {
 //        return (float) speedWindow.stream()
-//                .mapToDouble(Float::doubleValue)
+//                .mapToDouble(Double::doubleValue)
 //                .average()
 //                .orElse(Double.NaN);
 //    }

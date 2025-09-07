@@ -145,7 +145,7 @@ public class buquanji {
                                         list.add(PDToPP(pdInPointMap));
                                         pointMap.put(pdInPointMap.getId(), pdInPointMap);
                                     }else{
-                                        list.add(new PathPoint(0,entry.getKey(),0,0,"0",0,"0",0,0,0,0,0,"0",0,0,0,new eventInfo()));
+                                        list.add(new PathPoint(0,entry.getKey(),0,0.0,"0",0,"0",0,0,0,0,0,"0",0,0,0,new eventInfo()));
                                     }
                                 }
                             }
@@ -160,7 +160,7 @@ public class buquanji {
 //                                        //重新出现，怎么处理？把前面的先全部删掉,然后再全部加入。那么会不会跟前面的《当前的所有数据直接加入》重复呢？不会，前面的没有改变pointmap，只是加入list
 //                                        pointMap.remove(keyId);
 //                                        PathPointData pdpd= PPToPD(p);
-//                                        ConcurrentLinkedDeque<Float> c = new ConcurrentLinkedDeque<>();
+//                                        ConcurrentLinkedDeque<Double> c = new ConcurrentLinkedDeque<>();
 //                                        c.add(p.getSpeed());
 //                                        pdpd.setSpeedWindow(c);
 //                                        pdpd.setLastReceivedTime(0);
@@ -207,7 +207,7 @@ public class buquanji {
     }
     private static PathPointData predictNextMixed(long keyInPointMap,String timestamp){
         PathPointData pdInPointMap=pointMap.get(keyInPointMap);
-        Pair<ConcurrentLinkedDeque<Float>,Float> a1=predictSpeedWindow(pdInPointMap);//速度窗口、预测的速度
+        Pair<ConcurrentLinkedDeque<Double>,Double> a1=predictSpeedWindow(pdInPointMap);//速度窗口、预测的速度
         double[] a2=predictNewMileage(pdInPointMap,a1.getValue());//新里程、驶过的距离
         Pair<String,double[]> a3=predictStake(pdInPointMap,a2[0],a2[1]);//新桩号、新经纬度lonlng
         if(a3==null) {
@@ -217,7 +217,7 @@ public class buquanji {
         if(a3.getValue()[1]==pdInPointMap.getLatitude())return null;
         double carangle=calculateBearing(a3.getValue()[1],a3.getValue()[0],pdInPointMap.getLatitude(),pdInPointMap.getLongitude());
         pdInPointMap.setCarAngle(carangle);
-        pdInPointMap.setMileage((int) (a2[0]));
+        pdInPointMap.setMileage(a2[0]);
         pdInPointMap.setSpeed(a1.getValue());
 //        pdInPointMap.setTimeStamp(pathTimeStamp);//未接收到，不更新
         pdInPointMap.setLatitude(a3.getValue()[1]);
@@ -238,7 +238,7 @@ public class buquanji {
 //        List<PathPoint> plist=new ArrayList<>();
 //        for(StationTarget s: data.getTargetList()){
 //            //mileage\originalType\originalColor
-//            int mileage=s.getEnGap();
+//            double mileage=s.getEnGap();
 //            double lon=s.getLon();
 //            double lat=s.getLat();
 //
@@ -253,7 +253,7 @@ public class buquanji {
         String lastStake=data.getStakeId();
         char a=lastStake.charAt(0);
         String newStake="";
-        System.out.println("last:"+lastStake+"   deta:"+deta+"  id:"+data.getId());
+//        System.out.println("last:"+lastStake+"   deta:"+deta+"  id:"+data.getId());
         double[]d = new double[2];
         if(a=='A'){
             newStake="AK"+MileageToStake((int)distance);
@@ -304,7 +304,7 @@ public class buquanji {
         }
         return new Pair<>(newStake,d);
     }
-    public static double[] predictNewMileage(PathPointData data,float speed){
+    public static double[] predictNewMileage(PathPointData data,double speed){
 
         double[]d={0,0};
         d[1] = myTools.calculateDistance(speed, 200);
@@ -313,12 +313,12 @@ public class buquanji {
         //问题：新里程是否过大
         return d;
     }
-    public static Pair<ConcurrentLinkedDeque<Float>,Float> predictSpeedWindow(PathPointData data){
-        ConcurrentLinkedDeque<Float> spw = data.getSpeedWindow();
-        float predictedSpeed = spw.isEmpty() ? data.getSpeed() : calculateMovingAverage(spw);
+    public static Pair<ConcurrentLinkedDeque<Double>,Double> predictSpeedWindow(PathPointData data){
+        ConcurrentLinkedDeque<Double> spw = data.getSpeedWindow();
+        double predictedSpeed = spw.isEmpty() ? data.getSpeed() : calculateMovingAverage(spw);
 
         // 确保窗口操作的原子性
-        ConcurrentLinkedDeque<Float> newWindow = new ConcurrentLinkedDeque<>(spw);
+        ConcurrentLinkedDeque<Double> newWindow = new ConcurrentLinkedDeque<>(spw);
         newWindow.add(predictedSpeed);
         if (newWindow.size() > WINDOW_SIZE) {
             newWindow.poll();
@@ -329,12 +329,12 @@ public class buquanji {
     private static String MileageToStake(int newMileage) {
         return newMileage/1000+"+"+(newMileage-(newMileage/1000*1000));
     }
-    private static float calculateMovingAverage(ConcurrentLinkedDeque<Float> speedWindow) {
+    private static float calculateMovingAverage(ConcurrentLinkedDeque<Double> speedWindow) {
         if (speedWindow.isEmpty()) return 0.0f;
 
         double sum = 0;
         int count = 0;
-        for (Float speed : speedWindow) {
+        for (Double speed : speedWindow) {
             if (speed != null) {
                 sum += speed;
                 count++;

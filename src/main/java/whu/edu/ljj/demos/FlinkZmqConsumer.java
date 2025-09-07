@@ -31,7 +31,7 @@
 //        String carNumber = new String(message, offset + 8, 16, StandardCharsets.UTF_8).trim();
 //        byte type = message[offset + 24];
 //        int[] scope = { byteArrayToIntLittleEndian(message, offset + 25), byteArrayToIntLittleEndian(message, offset + 29) };
-//        float speed = Float.intBitsToFloat(byteArrayToIntLittleEndian(message, offset + 33));
+//        double speed = Float.intBitsToFloat(byteArrayToIntLittleEndian(message, offset + 33));
 //        byte wayno = message[offset + 37];
 //        int tpointno = byteArrayToIntLittleEndian(message, offset + 38);
 //        byte booleanValue = message[offset + 42];

@@ -390,14 +390,14 @@
 //        //经过的时间少于某一值（设置时间限制，避免一直计算预测）
 //        if (currentTime-data.getLastReceivedTime()<80000000) {
 //            // 使用车辆独立窗口计算
-//            Float predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
+//            double predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
 //            data.getSpeedWindow().addLast(predictedSpeed);
 //            data.getSpeedWindow().removeFirst();
 //            double distanceDiff = myTools.calculateDistance(predictedSpeed,250); // 米
 //            double newTpointno=0;
 //            if(data.getDirection()==1) newTpointno = data.getMileage() + distanceDiff; // 更新里程点
 //            else newTpointno = data.getMileage() - distanceDiff; // 更新里程点
-//            data.setMileage((int)newTpointno);
+//            data.setMileage(newTpointno);
 //            long carid = data.getId();
 //            data.setSpeed(predictedSpeed);
 //            data.setTimeStamp(myTools.toDateTimeString(currentTime));
@@ -415,7 +415,7 @@
 //            double carangle=myTools.calculateBearing(data.getLatitude(),data.getLongitude(),sec.getLatitude(),sec.getLongitude());
 //            //mark:==0还有问题
 //            if(data.getCarAngle()==0)data.setCarAngle(carangle);
-//            p=new PathPoint(data.getDirection(), data.getId(),data.getLaneNo(),(int) newTpointno, data.getPlateNo(), data.getSpeed(),data.getTimeStamp(), data.getPlateColor(), data.getVehicleType(),data.getLongitude(),data.getLatitude(),data.getCarAngle(),data.getStakeId(),  data.getOriginalType(), data.getPlateColor());
+//            p=new PathPoint(data.getDirection(), data.getId(),data.getLaneNo(),newTpointno, data.getPlateNo(), data.getSpeed(),data.getTimeStamp(), data.getPlateColor(), data.getVehicleType(),data.getLongitude(),data.getLatitude(),data.getCarAngle(),data.getStakeId(),  data.getOriginalType(), data.getPlateColor());
 //            myTools.printmergePoint(p);
 //        }
 //        myTools.printmergePoint(p);
@@ -424,7 +424,7 @@
 //    //主路上的预测
 //    private static PathPoint PredictNextOne(PathPointData data) throws IOException {
 //        long currentTime = System.currentTimeMillis();
-//        Float predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
+//        double predictedSpeed = calculateMovingAverage(data.getSpeedWindow());
 //        data.getSpeedWindow().addLast(predictedSpeed);
 //        data.getSpeedWindow().removeFirst();
 //        //计算以预测速度跑了多远
@@ -435,7 +435,7 @@
 //        }else {
 //            newTpointno = data.getMileage() - distanceDiff; // 更新里程点
 //        }
-//        data.setMileage((int)newTpointno);
+//        data.setMileage(newTpointno);
 //        long carid = data.getId();
 //        data.setSpeed(predictedSpeed);
 //        data.setTimeStamp(myTools.toDateTimeString(currentTime));
@@ -453,7 +453,7 @@
 ////        mark:孝汉应==89，别的的话还得改
 //        double carangle=89;
 //        data.setCarAngle(carangle);
-//        PathPoint p=new PathPoint(data.getDirection(), data.getId(),data.getLaneNo(),(int) newTpointno, data.getPlateNo(), data.getSpeed(),data.getTimeStamp(), data.getPlateColor(), data.getVehicleType(),data.getLongitude(),data.getLatitude(),data.getCarAngle(),data.getStakeId(),  data.getOriginalType(), data.getPlateColor());
+//        PathPoint p=new PathPoint(data.getDirection(), data.getId(),data.getLaneNo(),newTpointno, data.getPlateNo(), data.getSpeed(),data.getTimeStamp(), data.getPlateColor(), data.getVehicleType(),data.getLongitude(),data.getLatitude(),data.getCarAngle(),data.getStakeId(),  data.getOriginalType(), data.getPlateColor());
 ////        myTools.printPathPoint(p);
 //        return p;
 //    }
@@ -472,7 +472,7 @@
 //    private static float calculateMovingAverage(LinkedList<Float> speedWindow) {
 //        synchronized (speedWindow) {
 //            return (float) speedWindow.stream()
-//                    .mapToDouble(Float::doubleValue)
+//                    .mapToDouble(Double::doubleValue)
 //                    .average()
 //                    .orElse(Double.NaN);
 //        }

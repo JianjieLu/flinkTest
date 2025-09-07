@@ -1,3 +1,2 @@
-sudo date -s "2025-05-28 11:32:36"
-cd /home/sz
-bash sync_time.sh
+sudo date -s "2025-08-19 15:58:05"
+bash /home/sz/sync_time.sh

@@ -1,3 +1,85 @@
+存储轨迹（测试阶段）：
+java -cp /home/ljj/ingest/dailyCount/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.VehicleTrajectoryProcessorWithRedis
+java -cp /home/ljj/ingest/zaIngest/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.HBaseBatchImportDS zzz trj.txt 10
+java -cp /home/ljj/ingest/dailyCount/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.CombinedCarTrajAnalysisJob_Redis
+java -cp /home/ljj/ingest/dailyCount/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.CombinedCarTrajAnalysisJob_RedisAndHBase
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajAnalysisJob_NoFeature_WithStatis_Minutes /home/ljj/ingest/zaIngest/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.ASJob /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar
+nohup java -cp /home/ljj/dailyTotal/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.CombinedTrafficProcessingJob &
+flink run -c whu.edu.moniData.ingest.CombinedTrafficProcessingJob  /home/ljj/dailyTotal/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.CombinedTrafficProcessingJobByMinute  /home/ljj/dailyTotal/flinkTest-1.0-SNAPSHOT.jar
+java -cp   /home/ljj/dailyTotal/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.CombinedTrafficProcessingJobByMinute
+lscan
+
+模拟数据：
+nohup java -cp /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllDataNoCrowded 0.5 0.5 300 300 &
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllDataNoCrowded 0.5 0.5 300 300 &
+
+数据分析：
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajAnalysisJob_NoFeature /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar
+数据存储：
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajStorageJob_NoFeature /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar
+java -cp  /home/ljj/ingest/totalTraffic/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajStorageJob_NoFeature
+存储计算指标：
+flink run -c whu.edu.moniData.ingest.newIngest.TrafficMetricsCalculationAndStorageJob /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar
+java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.newIngest.TrafficMetricsCalculationAndStorageJob
+
+
+上下行
+nohup java -cp /home/ljj/ingest/totalTraffic/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWNLaneRedis 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/updown/kafka/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/updown/kafka/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWNToKafka 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/updown/kafka/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.CunUPDOWNToKafkaDirectional 11 13 > /dev/null 2>&1 &
+
+
+存储车辆特征：
+flink run -c whu.edu.moniData.ingest.CarFeatureStorageJob /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.DealWithJiZhanYuan /home/ljj/dealwithjizhan/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+java -cp /home/ljj/udp/flinkTest-1.0-SNAPSHOT.jar  whu.edu.moniData.UDPRece.UdpReceiverWithParser
+
+辅助查询存储表————
+表名：    traffic_stats
+列族：    stats
+数据来源： ergedPathData.sceneTest.1-11
+存了什么： 存储每小时的上下行流量
+用处：    用于支持五点接口中的查询今日和昨日的每小时上下行流量
+env:     Hourly Traffic Analysis
+flink run -c whu.edu.moniData.ingest.FlinkHourlyTrafficAnalysis /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+
+后期辅助存储索引表————
+表名：    FifteenMinuteTrafficFlow
+列族：    cf
+数据来源： ergedPathData.sceneTest.1-11
+存了什么： 上下行客货车数量、上下行平均速度
+nohup java -cp /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.FifteenMinuteTrafficFromTotalStatistics > /dev/null 2>&1 &
+
+前端：
+nohup java -jar /home/ljj/30query/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369  --kafka.brokers=100.65.38.40:9092  --kafka.topics=fiberData1,fiberData2,fiberData3,fiberData4,fiberData5,fiberData6,fiberData7,fiberData8,fiberData9,fiberData10,fiberData11
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369  --kafka.brokers=10.48.53.82:9092  --kafka.topics=fiberData1,fiberData2,fiberData3,fiberData4,fiberData5,fiberData6,fiberData7,fiberData8,fiberData9,fiberData10,fiberData11
+
+
+
+
+.140
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWNLaneRedis 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 11 13 > /dev/null 2>&1 &
+
+
+
+10.
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369 --server.broker=10.48.53.82:9092   --kafka.brokers=10.48.53.82:9092  --kafka.topics=fiberData1,fiberData2,fiberData3,fiberData4,fiberData5,fiberData6,fiberData7,fiberData8,fiberData9,fiberData10,fiberData11
+nohup java -cp /home/ljj/fifteenAndNum/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.CombinedTrafficProcessingJob &
+
+ramp_hour_traffic
+ramp_day_traffic
+ramp_month_traffic
+FifteenMinuteTrafficFlow
+AnaHourlyTrafficFlow
+AnaDailyTrafficFlow
+AnaMonthlyTrafficFlow
+
+
 启动hadoop：
 hdfs namenode -format
 # 启动 HDFS
@@ -76,7 +158,7 @@ $KAFKA_HOME/bin/kafka-server-start.sh -daemon $KAFKA_HOME/config/server.properti
 $KAFKA_HOME/bin/kafka-server-stop.sh -daemon $KAFKA_HOME/config/server.properties
 
 
-启动flink（独立模式）：
+启动flink（独立模式） ：
 $FLINK_HOME/bin/start-cluster.sh
 $FLINK_HOME/bin/stop-cluster.sh
 
@@ -111,4 +193,11 @@ setenforce 0
 rm -rf /root/.ssh
 再重新生成ras，再copy
 
-
+flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJob /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.CarTrajStorageJob /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.CarTrajAnalysisJobZa /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.CarTrajStorageJobZa /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
+nohup java -cp /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.FifteenMinuteTrafficFromTotalStatistics > /dev/null 2>&1 &
+flink run -c whu.edu.moniData.ingest.FlinkHourlyTrafficAnalysis /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+flink run -c whu.edu.moniData.ingest.CarFeatureStorageJob /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar

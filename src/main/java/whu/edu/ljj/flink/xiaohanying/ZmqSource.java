@@ -87,7 +87,7 @@ public class ZmqSource implements SourceFunction<JSONObject> {
         String carNumber = new String(data, offset + 8, 16, StandardCharsets.UTF_8).trim();
         byte type = data[offset + 24];
         int[] scope = {byteArrayToIntLittleEndian(data, offset + 25), byteArrayToIntLittleEndian(data, offset + 29)};
-        float speed = Float.intBitsToFloat(byteArrayToIntLittleEndian(data, offset + 33));
+        double speed = Float.intBitsToFloat(byteArrayToIntLittleEndian(data, offset + 33));
         byte wayno = data[offset + 37];
         int tpointno = byteArrayToIntLittleEndian(data, offset + 38);
         byte booleanValue = data[offset + 42];

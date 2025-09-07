@@ -24,7 +24,6 @@ public class UDPReceiverWithParser {
     private static final int BUFFER_SIZE = 4096;
 
     // Kafka配置
-    private static final String KAFKA_BROKERS1 = "100.65.38.40:9092";
     private static final String KAFKA_BROKERS2 = "10.48.53.82:9092";
     private static final String OUTPUT_TOPIC = "smartBS_xg";
 
@@ -33,17 +32,17 @@ public class UDPReceiverWithParser {
 
     public static void main(String[] args) {
         // 创建第一个Kafka生产者配置
-        Properties props1 = createProducerConfig(KAFKA_BROKERS1);
+//        Properties props1 = createProducerConfig(KAFKA_BROKERS1);
         // 创建第二个Kafka生产者配置
         Properties props2 = createProducerConfig(KAFKA_BROKERS2);
 
         try (
-                KafkaProducer<String, String> producer1 = new KafkaProducer<>(props1);
+//                KafkaProducer<String, String> producer1 = new KafkaProducer<>(props1);
                 KafkaProducer<String, String> producer2 = new KafkaProducer<>(props2);
                 DatagramSocket socket = new DatagramSocket(PORT)
         ) {
-            System.out.println("UDP Receiver started on port " + PORT);
-            System.out.println("Kafka Producers initialized. Brokers: " + KAFKA_BROKERS1 + " and " + KAFKA_BROKERS2);
+//            System.out.println("UDP Receiver started on port " + PORT);
+//            System.out.println("Kafka Producers initialized. Brokers: " + KAFKA_BROKERS1 + " and " + KAFKA_BROKERS2);
             byte[] buffer = new byte[BUFFER_SIZE];
 
             while (true) {
@@ -51,30 +50,30 @@ public class UDPReceiverWithParser {
                 socket.receive(packet);
 
                 byte[] data = Arrays.copyOfRange(packet.getData(), 0, packet.getLength());
-                System.out.println("Received " + data.length + " bytes from " +
-                        packet.getAddress().getHostAddress() + ":" + packet.getPort());
+//                System.out.println("Received " + data.length + " bytes from " +
+//                        packet.getAddress().getHostAddress() + ":" + packet.getPort());
 
                 try {
                     E1Frame frame = parse(data);
                     UDPData udpData = convertToUDPData(frame);
                     if (udpData != null) {
                         String jsonData = gson.toJson(udpData);
-                        System.out.println("Parsed JSON: " + jsonData);
+//                        System.out.println("Parsed JSON: " + jsonData);
 
                         // 发送到第一个Kafka集群
-                        sendToKafka(producer1, jsonData, "Cluster1");
+//                        sendToKafka(producer1, jsonData, "Cluster1");
                         // 发送到第二个Kafka集群
                         sendToKafka(producer2, jsonData, "Cluster2");
                     }
                 } catch (Exception e) {
-                    System.err.println("Error processing packet: " + e.getMessage());
+//                    System.err.println("Error processing packet: " + e.getMessage());
                     e.printStackTrace();
                 }
             }
         } catch (SocketException e) {
-            System.err.println("Socket error: " + e.getMessage());
+//            System.err.println("Socket error: " + e.getMessage());
         } catch (IOException e) {
-            System.err.println("I/O error: " + e.getMessage());
+//            System.err.println("I/O error: " + e.getMessage());
         }
     }
 
@@ -94,7 +93,7 @@ public class UDPReceiverWithParser {
         ProducerRecord<String, String> record = new ProducerRecord<>(OUTPUT_TOPIC, data);
         producer.send(record, (metadata, exception) -> {
             if (exception != null) {
-                System.err.println("Kafka send failed (" + clusterName + "): " + exception.getMessage());
+//                System.err.println("Kafka send failed (" + clusterName + "): " + exception.getMessage());
             } else {
 //                System.out.printf("Sent to %s Kafka -> Topic: %s, Partition: %d, Offset: %d%n",
 //                        clusterName, metadata.topic(), metadata.partition(), metadata.offset());
@@ -117,7 +116,7 @@ public class UDPReceiverWithParser {
 
         // 检查子命令号，如果为2则跳过消息内容解析
         if (frame.subCommand == 5) {
-            System.out.println(5);
+//            System.out.println(5);
             // 直接跳过整个消息内容部分
             buffer.position(buffer.position() + frame.messageLength);
 
@@ -285,7 +284,7 @@ public class UDPReceiverWithParser {
 
             // 运动信息（假设原始数据单位是0.01，转换为标准单位）
             p.speed = Float.parseFloat(df1.format( fused.speed));        // 转换为m/s
-            p.heading =  Float.parseFloat(df1.format(fused.heading * 0.01f));     // 转换为度
+            p.heading =  Float.parseFloat(df1.format(fused.heading ));     // 转换为度
 
             // 尺寸信息
             p.length = Float.parseFloat(df1.format( fused.length));       // 转换为米
@@ -355,7 +354,7 @@ public class UDPReceiverWithParser {
         double longitude;
         double latitude;
         float altitude;
-        float speed;
+        double speed;
         float heading;
         float length;
         float width;

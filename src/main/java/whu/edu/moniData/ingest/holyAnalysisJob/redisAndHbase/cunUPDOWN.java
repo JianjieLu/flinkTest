@@ -1,28 +1,20 @@
-package whu.edu.moniData;
+package whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase;
 
 import com.alibaba.fastjson2.JSONArray;
 import javafx.util.Pair;
-import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.java.tuple.Tuple5;
-import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
-import whu.edu.ljj.flink.utils.myTools;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 
-import lombok.*;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
-import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.common.state.*;
-import org.apache.flink.api.common.time.Time;
-import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.common.typeinfo.Types;
-import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -31,18 +23,13 @@ import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.apache.flink.util.Collector;
 import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
-import static whu.edu.ljj.flink.xiaohanying.Utils.*;
-import static whu.edu.moniData.Utils.totalOps.putLine;
 
 public class cunUPDOWN {
 
@@ -63,7 +50,7 @@ public class cunUPDOWN {
     private static final ConcurrentHashMap<String, Object> tableCreationLocks = new ConcurrentHashMap<>();
     private static final ReentrantLock tableLock = new ReentrantLock();
 
-    // 判断公交类型的方法
+    // 判断公交类型的方法R
     private static boolean isBus(int vt) {
         return vt == 1 || vt == 3 || vt == 7 || vt == 15;
     }

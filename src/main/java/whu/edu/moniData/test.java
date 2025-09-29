@@ -7,10 +7,7 @@ import java.time.format.DateTimeFormatter;
 public class test {
 
     public static void main(String[] args) {
-        long st =1754818185150L / 1000 * 1000;
-        long tt =1754818185150L / 1000 * 1000+1000;
-        System.out.println("饱和度："+Math.round(mainSau(2200 * 8 * (tt - st) / 3600000.0,497) * 100.0) / 100.0);
-
+        System.out.println((1757419620000L- 120000) / 10000 * 10000);
     }
     public static double mainSau(double capacity,double n){
         if (capacity < 1) capacity = 1;

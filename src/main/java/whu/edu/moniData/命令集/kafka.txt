@@ -10,6 +10,7 @@ kafka-configs.sh --bootstrap-server 100.65.38.139:9092,100.65.38.140:9092,100.65
 
 查看所有topic：
 kafka-topics.sh --zookeeper 100.65.38.139:9092 --list
+kafka-topics.sh --zookeeper 100.65.38.139:9092 --list
 
 
 清理kafka：

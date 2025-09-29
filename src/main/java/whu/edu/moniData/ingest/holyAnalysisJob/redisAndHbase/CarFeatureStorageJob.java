@@ -1,4 +1,4 @@
-package whu.edu.moniData.ingest;
+package whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase;
 
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.FlatMapFunction;

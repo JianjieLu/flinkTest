@@ -22,7 +22,7 @@ public class MultiTopicConsumerCopyForTotal {
 //        props.put("bootstrap.servers", "100.65.38.139:9092");
 //        props.put("bootstrap.servers", "192.168.0.7:9092");
 
-        props.put("group.id", "my-consuming-group");
+        props.put("group.id", "my-consuming-group1");
         props.put("key.deserializer", StringDeserializer.class.getName());
         props.put("value.deserializer", StringDeserializer.class.getName());
         props.put("auto.offset.reset", "latest");
@@ -39,6 +39,10 @@ public class MultiTopicConsumerCopyForTotal {
 //            consumer.subscribe(Arrays.asList("five.min.trajectories"));
 //            consumer.subscribe(Arrays.asList("UDPDecoder"));
             consumer.subscribe(Arrays.asList("MergedPathData"));
+//            consumer.subscribe(Arrays.asList("speeding_events"));
+//            consumer.subscribe(Arrays.asList("low_speed_events"));
+            consumer.subscribe(Arrays.asList("jtkj.jga.path"));
+
 //            consumer.subscribe(Arrays.asList("fiberData1","fiberData2","fiberData3","fiberData4","fiberData5","fiberData6","fiberData7","fiberData8","fiberData9","fiberData10","fiberData11"));
 //            consumer.subscribe(Arrays.asList("fiberData1"));
 //            consumer.subscribe(Arrays.asList());
@@ -53,6 +57,11 @@ public class MultiTopicConsumerCopyForTotal {
 //            consumer.subscribe(Arrays.asList("MergedPathData.sceneTest.2"));
 //            consumer.subscribe(Collections.singletonList("completed.pathdata"));
             // 4. 持续轮询消息
+
+
+
+
+
             while (true) {
                 ConsumerRecords<String, String> records =
                         consumer.poll(Duration.ofMillis(100));
@@ -60,7 +69,7 @@ public class MultiTopicConsumerCopyForTotal {
                 for (ConsumerRecord<String, String> record : records) {
                     JSONObject jsonObj = new JSONObject(record.value());
 //                    int deid = jsonObj.getJSONArray("trajectory").length();
-
+//                    String timestampStr = jsonObj.getString("timeStamp");
 //                    if(deid==3){
                         // 输出消息信息
 //                    if(deid<10)

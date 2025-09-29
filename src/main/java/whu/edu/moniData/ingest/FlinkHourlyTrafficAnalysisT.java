@@ -5,7 +5,7 @@ import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
-import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.api.java.tuple.Tuple6;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -32,11 +32,26 @@ import com.alibaba.fastjson2.JSONArray;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import whu.edu.ljj.flink.xiaohanying.Utils;
-public class FlinkHourlyTrafficAnalysis {
+
+public class FlinkHourlyTrafficAnalysisT {
     private static final ConcurrentHashMap<String, Object> tableCreationLocks = new ConcurrentHashMap<>();
     private static final ReentrantLock tableLock = new ReentrantLock();
-    private static final String tableName1 = "traffic_stats";
-    private static final String columnFamily1 = "stats";
+    private static final String tableName = "traffic_stats_by_stake";
+    private static final String columnFamily = "stats";
+
+
+
+    // 判断客车类型的方法
+    private static boolean isBus(int vt) {
+        return vt == 1 || vt == 3 || vt == 7 || vt == 15;
+    }
+
+    // 判断货车类型的方法
+    private static boolean isTruck(int vt) {
+        return vt == 2 || vt == 10 || vt == 8 || vt == 11 || vt == 170 || vt == 171 || vt == 172 ||
+                vt == 173 || vt == 174 || vt == 175 || vt == 176 || vt == 177;
+    }
+
     public static void main(String[] args) throws Exception {
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -98,33 +113,43 @@ public class FlinkHourlyTrafficAnalysis {
                                         Utils.convertToTimestampMillis(event.getTimeStamp()))
                 );
 
-        // 每小时交通量统计
-        DataStream<Tuple3<String, Integer, Integer>> hourlyTrafficStream = pathPointStream
-                .flatMap(new FlatMapFunction<PathPoint, Tuple3<String, Long, Integer>>() {
+        // 每小时交通量统计，按桩号和类型区分
+        DataStream<Tuple6<String, String, Integer, Integer, Integer, Integer>> hourlyTrafficStream = pathPointStream
+                .flatMap(new FlatMapFunction<PathPoint, Tuple6<String, String, Integer, Long, Integer, Integer>>() {
                     @Override
-                    public void flatMap(PathPoint point, Collector<Tuple3<String, Long, Integer>> out) {
+                    public void flatMap(PathPoint point, Collector<Tuple6<String, String, Integer, Long, Integer, Integer>> out) {
                         if (point.getDirection() == 1 || point.getDirection() == 2) {
                             long eventTime = Utils.convertToTimestampMillis(point.getTimeStamp());
                             String hourKey = new SimpleDateFormat("yyyyMMddHH").format(eventTime);
-                            out.collect(Tuple3.of(hourKey, point.getId(), point.getDirection()));
+
+                            // 计算桩号 (mileage除以1000取整)
+                            int stake = (int) (point.getMileage() / 1000);
+                            String stakeKey = "K" + stake;
+
+                            // 判断车辆类型
+                            int vehicleType = point.getVehicleType();
+                            int isBus = isBus(vehicleType) ? 1 : 0;
+                            int isTruck = isTruck(vehicleType) ? 1 : 0;
+
+                            out.collect(Tuple6.of(hourKey, stakeKey, point.getDirection(), point.getId(), isBus, isTruck));
                         }
                     }
                 })
-                .keyBy(t -> t.f0)  // 按小时分组
+                .keyBy(t -> t.f0 + "_" + t.f1 + "_" + t.f2)  // 按小时+桩号+方向分组
                 .window(TumblingEventTimeWindows.of(Time.hours(1))) // 1小时滚动窗口
                 .aggregate(new TrafficAggregator());
 
         // 写入HBase
         hourlyTrafficStream.addSink(new HBaseTrafficSink());
 
-        env.execute("Hourly Traffic Analysis");
+        env.execute("Hourly Traffic Analysis By Stake");
     }
 
     // 交通量聚合函数
     private static class TrafficAggregator implements AggregateFunction<
-            Tuple3<String, Long, Integer>,
+            Tuple6<String, String, Integer, Long, Integer, Integer>,
             TrafficAccumulator,
-            Tuple3<String, Integer, Integer>> {
+            Tuple6<String, String, Integer, Integer, Integer, Integer>> {
 
         @Override
         public TrafficAccumulator createAccumulator() {
@@ -132,17 +157,20 @@ public class FlinkHourlyTrafficAnalysis {
         }
 
         @Override
-        public TrafficAccumulator add(Tuple3<String, Long, Integer> value, TrafficAccumulator acc) {
+        public TrafficAccumulator add(Tuple6<String, String, Integer, Long, Integer, Integer> value, TrafficAccumulator acc) {
             if (acc.hourKey == null) {
                 acc.hourKey = value.f0;
+                acc.stakeKey = value.f1;
+                acc.direction = value.f2;
             }
-            acc.addVehicle(value.f1, value.f2);
+            acc.addVehicle(value.f3, value.f4, value.f5);
             return acc;
         }
 
         @Override
-        public Tuple3<String, Integer, Integer> getResult(TrafficAccumulator acc) {
-            return Tuple3.of(acc.hourKey, acc.upCount.get(), acc.downCount.get());
+        public Tuple6<String, String, Integer, Integer, Integer, Integer> getResult(TrafficAccumulator acc) {
+            return Tuple6.of(acc.hourKey, acc.stakeKey, acc.direction,
+                    acc.busCount.get(), acc.truckCount.get(), acc.otherCount.get());
         }
 
         @Override
@@ -155,20 +183,22 @@ public class FlinkHourlyTrafficAnalysis {
     // 交通量累加器
     private static class TrafficAccumulator {
         public String hourKey;
+        public String stakeKey;
+        public int direction;
         public final Set<Long> vehicleIds = new HashSet<>();
-        public final AtomicInteger upCount = new AtomicInteger(0);
-        public final AtomicInteger downCount = new AtomicInteger(0);
+        public final AtomicInteger busCount = new AtomicInteger(0);
+        public final AtomicInteger truckCount = new AtomicInteger(0);
+        public final AtomicInteger otherCount = new AtomicInteger(0);
 
-        public void addVehicle(long vehicleId, int direction) {
+        public void addVehicle(long vehicleId, int isBus, int isTruck) {
             if (!vehicleIds.contains(vehicleId)) {
                 vehicleIds.add(vehicleId);
-                if (direction == 1) {
-                    upCount.incrementAndGet();
-                    System.out.println(upCount);
-                }
-                else if (direction == 2) {
-                    downCount.incrementAndGet();
-                    System.out.println(downCount);
+                if (isBus == 1) {
+                    busCount.incrementAndGet();
+                } else if (isTruck == 1) {
+                    truckCount.incrementAndGet();
+                } else {
+                    otherCount.incrementAndGet();
                 }
             }
         }
@@ -177,18 +207,18 @@ public class FlinkHourlyTrafficAnalysis {
             for (Long id : other.vehicleIds) {
                 if (!vehicleIds.contains(id)) {
                     vehicleIds.add(id);
-                    if (other.upCount.get() > 0) upCount.incrementAndGet();
-                    if (other.downCount.get() > 0) downCount.incrementAndGet();
+                    busCount.addAndGet(other.busCount.get());
+                    truckCount.addAndGet(other.truckCount.get());
+                    otherCount.addAndGet(other.otherCount.get());
                 }
             }
         }
     }
 
     // HBase Sink
-    private static class HBaseTrafficSink extends RichSinkFunction<Tuple3<String, Integer, Integer>> {
+    private static class HBaseTrafficSink extends RichSinkFunction<Tuple6<String, String, Integer, Integer, Integer, Integer>> {
         private Connection connection;
         private Table table;
-
 
         @Override
         public void open(org.apache.flink.configuration.Configuration parameters) throws Exception {
@@ -197,25 +227,27 @@ public class FlinkHourlyTrafficAnalysis {
             conf.set("hbase.zookeeper.property.clientPort", "2181");
             connection = ConnectionFactory.createConnection(conf);
 
-
-            createTableIfNotExists(tableName1,columnFamily1,connection);
-            table = connection.getTable(TableName.valueOf(tableName1));
+            createTableIfNotExists(tableName, columnFamily, connection);
+            table = connection.getTable(TableName.valueOf(tableName));
         }
 
         @Override
-        public void invoke(Tuple3<String, Integer, Integer> value, Context context) throws Exception {
-            String rowKey = value.f0; // yyyyMMddHH格式
-            int upCount = value.f1;
-            int downCount = value.f2;
+        public void invoke(Tuple6<String, String, Integer, Integer, Integer, Integer> value, Context context) throws Exception {
+            String rowKey = value.f0 + "_" + value.f1 + "_" + value.f2; // 小时_桩号_方向
+            int busCount = value.f3;
+            int truckCount = value.f4;
+            int otherCount = value.f5;
 
             Put put = new Put(Bytes.toBytes(rowKey));
-            put.addColumn(Bytes.toBytes(columnFamily1), Bytes.toBytes("upcount"), Bytes.toBytes(String.valueOf(upCount)));
-            put.addColumn(Bytes.toBytes(columnFamily1), Bytes.toBytes("downcount"), Bytes.toBytes(String.valueOf(downCount)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("bus_count"), Bytes.toBytes(String.valueOf(busCount)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("truck_count"), Bytes.toBytes(String.valueOf(truckCount)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("other_count"), Bytes.toBytes(String.valueOf(otherCount)));
 
             table.put(put);
             System.out.println("Inserted traffic data: " + rowKey +
-                    " - Up: " + upCount +
-                    ", Down: " + downCount);
+                    " - Bus: " + busCount +
+                    ", Truck: " + truckCount +
+                    ", Other: " + otherCount);
         }
 
         @Override
@@ -224,21 +256,22 @@ public class FlinkHourlyTrafficAnalysis {
             if (connection != null) connection.close();
         }
     }
-    private static void createTableIfNotExists(String tableName1, String columnFamily1, Connection connection) {
+
+    private static void createTableIfNotExists(String tableName, String columnFamily, Connection connection) {
         tableLock.lock();
         try (Admin admin = connection.getAdmin()) {
-            TableName hbaseTableName = TableName.valueOf(tableName1);
+            TableName hbaseTableName = TableName.valueOf(tableName);
 
-            Object lock = tableCreationLocks.computeIfAbsent(tableName1, k -> new Object());
+            Object lock = tableCreationLocks.computeIfAbsent(tableName, k -> new Object());
 
             synchronized (lock) {
                 admin.listTables();
                 if (!admin.tableExists(hbaseTableName)) {
                     HTableDescriptor tableDescriptor = new HTableDescriptor(hbaseTableName);
-                    tableDescriptor.addFamily(new HColumnDescriptor(columnFamily1));
+                    tableDescriptor.addFamily(new HColumnDescriptor(columnFamily));
                     try {
                         admin.createTable(tableDescriptor);
-                        System.out.println("Table created: " + tableName1);
+                        System.out.println("Table created: " + tableName);
                     } catch (TableExistsException e) {
                         // 处理表已存在但未检测到的情况
                     }

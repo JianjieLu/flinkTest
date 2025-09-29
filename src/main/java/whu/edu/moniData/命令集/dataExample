@@ -152,7 +152,6 @@ Topic: e1_data_XG01
 {"id":532846,"carType":1,"carColor":1,"lane":17,"station":10,"lon":114.040361,"lat":30.9190532,"speed":49.0,"angle":89.9,"picLicense":"鄂AKQ331","firstReceiveTime":"2025-08-17 13:37:46.931","enGap":0,"licenseColor":1,"speedAvg":0.0,"passTime":24,"stakeNum":"K123+549","disBefore":-1,"inOrOut":1}],
 "globalTime":"2025-08-17 13:38:11:809"}
 
-
 Topic: MergedPathData
 数据: {"timeStamp":"2025-08-21 19:29:58:668","pathNum":1,"pathList":[
 {"timeStamp":"2025-08-21 19:29:58:668","id":545335,"plateNo":"默A00000","plateColor":0,"speed":45.0,"longitude":114.0443114,"latitude":30.9207133,"carAngle":183.9,"laneNo":26,"stakeId":"K1122+200-CK0+199","mileage":199,"originalType":1,"weight":0.0}]

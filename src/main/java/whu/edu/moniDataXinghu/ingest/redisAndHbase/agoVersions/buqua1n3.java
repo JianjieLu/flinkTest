@@ -1,4 +1,4 @@
-package whu.edu.moniData.ingest.holyAnalysisJob;
+package whu.edu.moniDataXinghu.ingest.redisAndHbase.agoVersions;
 
 import com.alibaba.fastjson2.JSON;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -121,7 +121,7 @@ public class buqua1n3 {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(8);
 
-        String brokers = "10.48.53.82:9092";
+        String brokers = "192.168.0.5:9092";
         List<String> topics = Arrays.asList(
                 "fiberData1", "fiberData2", "fiberData3", "fiberData4", "fiberData5",
                 "fiberData6", "fiberData7", "fiberData8", "fiberData9", "fiberData10", "fiberData11"

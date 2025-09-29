@@ -1,6 +1,5 @@
-package whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase;
+package whu.edu.moniDataXinghu.ingest.redisAndHbase;
 
-import com.alibaba.fastjson2.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,9 @@ import lombok.Setter;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
-import org.apache.flink.api.java.tuple.*;
+import org.apache.flink.api.java.tuple.Tuple4;
+import org.apache.flink.api.java.tuple.Tuple5;
+import org.apache.flink.api.java.tuple.Tuple6;
 import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;
 import org.apache.flink.connector.kafka.sink.KafkaSink;
 import org.apache.flink.connector.kafka.source.KafkaSource;
@@ -54,8 +55,8 @@ public class ASJob {
         env.setParallelism(11);
 
         // ================== Kafka 配置 ==================
-        String primaryBrokers = "10.48.53.82:9092";
-        String secondaryBrokers = "10.48.53.82:9092";
+        String primaryBrokers = "192.168.0.5:9092";
+        String secondaryBrokers = "192.168.0.5:9092";
         String groupId = "combined-group";
 
         // ================== 主数据源 (fiberData1-11) ==================
@@ -307,16 +308,14 @@ public class ASJob {
         }
     }
 
-    // ================== 辅助数据处理逻辑 (MergedPathData) - 修改版本 ==================
+    // ================== 辅助数据处理逻辑 (MergedPathData) ==================
     private static class SecondaryTrajectoryProcessor implements FlatMapFunction<String, String> {
         private static final long SESSION_TIMEOUT_MS = 10000;
         private static final long SAMPLING_INTERVAL_MS = 1000;
 
         // 独立状态存储
         private final Map<String, List<Tuple5<Double, Double, Integer, Integer, Double>>> map = new ConcurrentHashMap<>();
-        private final Map<String, String> mapTimeSeg = new ConcurrentHashMap<>(); // 存储格式: timestamp-plateNo-id
-        private final Map<String, String> mapPlateNo = new ConcurrentHashMap<>(); // 单独存储车牌号，便于更新
-        private final Map<String, Long> mapFirstSeenTime = new ConcurrentHashMap<>(); // 存储首次出现时间
+        private final Map<String, String> mapTimeSeg = new ConcurrentHashMap<>();
         private final Map<String, Integer> mapType = new ConcurrentHashMap<>();
         private final Map<String, Long> lastSeenTime = new ConcurrentHashMap<>();
         private final Map<String, Long> lastSampleTime = new ConcurrentHashMap<>();
@@ -352,11 +351,9 @@ public class ASJob {
 
                     if (timeObs - lastSample >= SAMPLING_INTERVAL_MS) {
                         if (!map.containsKey(id)) {
-                            // 第一次看到该车辆
                             initializeNewVehicle(id, plateNo, tdataObject, timeObs);
                         } else {
-                            // 更新现有车辆信息
-                            updateVehicleInfo(id, plateNo, tdataObject, timeObs);
+                            updateVehicleTrajectory(id, tdataObject);
                         }
                         lastSampleTime.put(id, timeObs);
                     }
@@ -394,13 +391,7 @@ public class ASJob {
         }
 
         private void initializeNewVehicle(String id, String plateNo, JSONObject tdata, long timestamp) {
-            // 存储首次出现时间
-            mapFirstSeenTime.put(id, timestamp);
-            // 存储车牌号（可能为空）
-            mapPlateNo.put(id, plateNo);
-            // 生成初始timeSeg
-            updateTimeSeg(id);
-
+            mapTimeSeg.put(id, timestamp + "-" + plateNo + "-" + id);
             mapType.put(id, tdata.optInt("originalType", -1));
 
             List<Tuple5<Double, Double, Integer, Integer, Double>> list = new ArrayList<>();
@@ -414,36 +405,15 @@ public class ASJob {
             map.put(id, list);
         }
 
-        private void updateVehicleInfo(String id, String plateNo, JSONObject tdata, long timestamp) {
-            // 更新轨迹点
+        private void updateVehicleTrajectory(String id, JSONObject tdata) {
             List<Tuple5<Double, Double, Integer, Integer, Double>> list = map.get(id);
             list.add(new Tuple5<>(
-                    tdata.optDouble("longitude", 0.0),
-                    tdata.optDouble("latitude", 0.0),
-                    tdata.optInt("laneNo", 0),
+                            tdata.optDouble("longitude", 0.0),
+                            tdata.optDouble("latitude", 0.0),
+                            tdata.optInt("laneNo", 0),
                     getDirectionSafely(tdata),
                     tdata.optDouble("speed", 0.0)
             ));
-
-            // 如果之前没有车牌，现在有车牌了，或者车牌发生了变化，则更新车牌信息
-            String currentPlateNo = mapPlateNo.get(id);
-            if ((currentPlateNo.isEmpty() && !plateNo.isEmpty()) ||
-                    (!plateNo.isEmpty() && !plateNo.equals(currentPlateNo))) {
-                System.out.println("更新车辆 " + id + " 的车牌: " + currentPlateNo + " -> " + plateNo);
-                mapPlateNo.put(id, plateNo);
-                updateTimeSeg(id);
-            }
-        }
-
-        private void updateTimeSeg(String id) {
-            // 根据首次出现时间和当前车牌号更新timeSeg
-            Long firstSeenTime = mapFirstSeenTime.get(id);
-            String plateNo = mapPlateNo.get(id);
-            if (firstSeenTime != null) {
-                String newTimeSeg = firstSeenTime + "-" + plateNo + "-" + id;
-                mapTimeSeg.put(id, newTimeSeg);
-                System.out.println("更新车辆 " + id + " 的timeSeg: " + newTimeSeg);
-            }
         }
 
         private void processTimeoutVehicles(long currentTime, Collector<String> out) {
@@ -485,8 +455,6 @@ public class ASJob {
         private void cleanupVehicle(String id) {
             map.remove(id);
             mapTimeSeg.remove(id);
-            mapPlateNo.remove(id);
-            mapFirstSeenTime.remove(id);
             mapType.remove(id);
             lastSeenTime.remove(id);
             lastSampleTime.remove(id);
@@ -584,7 +552,7 @@ public class ASJob {
         }
     }
 
-    // ================== 主数据HBase Sink ==================
+    // ================== 主数据HBase Sink (修改后的存储方式) ==================
     private static class PrimaryHBaseSink extends RichSinkFunction<Tuple6<String, Integer, Long,
             List<TrajectoryPoint>, Integer, String>> {
 
@@ -623,7 +591,7 @@ public class ASJob {
 
                 switchTableIfNeeded(rowKeyTime);
 
-                // 使用Tuple4列表表示轨迹点
+                // 修改点：使用Tuple4列表表示轨迹点
                 List<Tuple4<Double, Double, Integer, Double>> trajectoryList = new ArrayList<>();
                 for (TrajectoryPoint point : value.f3) {
                     trajectoryList.add(new Tuple4<>(
@@ -645,6 +613,7 @@ public class ASJob {
                 currentTable.put(put);
             } catch (Exception e) {
                 System.err.println("主数据HBase写入失败: " + e.getMessage());
+                // 不再重置连接，只记录错误
             } finally {
                 tableLock.unlock();
             }
@@ -711,7 +680,7 @@ public class ASJob {
         }
     }
 
-    // ================== 辅助数据HBase Sink ==================
+    // ================== 辅助数据HBase Sink (修改后的存储方式) ==================
     private static class SecondaryHBaseSink extends RichSinkFunction<Tuple5<String, Integer, Long,
             List<TrajectoryPoint>, Integer>> {
 
@@ -747,7 +716,7 @@ public class ASJob {
                     return;
                 }
 
-                // 使用Tuple4列表表示轨迹点
+                // 修改点：使用Tuple4列表表示轨迹点
                 List<Tuple4<Double, Double, Integer, Double>> trajectoryList = new ArrayList<>();
                 for (TrajectoryPoint point : value.f3) {
                     trajectoryList.add(new Tuple4<>(
@@ -773,6 +742,7 @@ public class ASJob {
                 currentTable.put(put);
             } catch (Exception e) {
                 System.err.println("辅助数据HBase写入失败: " + e.getMessage());
+                // 不再重置连接，只记录错误
             } finally {
                 tableLock.unlock();
             }
@@ -842,11 +812,11 @@ public class ASJob {
     // ================== 公共配置方法 ==================
     private static Configuration createHBaseConfig() {
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,10.48.53.80");
+        conf.set("hbase.zookeeper.quorum", "192.168.0.5,192.168.0.7,192.168.0.8:,192.168.0.9,192.168.0.11,192.168.0.12");
         conf.set("hbase.zookeeper.property.clientPort", "2181");
         conf.set("zookeeper.session.timeout", "120000");
         conf.set("hbase.rpc.timeout", "300000");
-        conf.set("fs.defaultFS", "hdfs://100.65.38.139:9000");
+        conf.set("fs.defaultFS", "hdfs://192.168.0.5:9000");
         conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
         return conf;
     }

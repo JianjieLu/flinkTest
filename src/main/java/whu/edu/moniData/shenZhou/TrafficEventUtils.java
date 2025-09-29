@@ -196,6 +196,10 @@ public class TrafficEventUtils {
         private String currentKey;  // 存储键值
         //        private Map<Integer, Map<Long, VehicleSeg>> vehicleSegMap;
         private Map<Long, VehicleSeg> vehicleSegMap;
+
+
+
+
     }
 
     /**

@@ -4,22 +4,39 @@ java -cp /home/ljj/ingest/zaIngest/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.i
 java -cp /home/ljj/ingest/dailyCount/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.CombinedCarTrajAnalysisJob_Redis
 java -cp /home/ljj/ingest/dailyCount/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.CombinedCarTrajAnalysisJob_RedisAndHBase
 flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajAnalysisJob_NoFeature_WithStatis_Minutes /home/ljj/ingest/zaIngest/flinkTest-1.0-SNAPSHOT.jar
-flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.ASJob /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.ASNJob /home/ljj/segingest/flinkTest-1.0-SNAPSHOT.jar
 nohup java -cp /home/ljj/dailyTotal/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.CombinedTrafficProcessingJob &
 flink run -c whu.edu.moniData.ingest.CombinedTrafficProcessingJob  /home/ljj/dailyTotal/flinkTest-1.0-SNAPSHOT.jar
 flink run -c whu.edu.moniData.ingest.CombinedTrafficProcessingJobByMinute  /home/ljj/dailyTotal/flinkTest-1.0-SNAPSHOT.jar
 java -cp   /home/ljj/dailyTotal/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.CombinedTrafficProcessingJobByMinute
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.buqua1n3 /home/ljj/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.buqua1n3Hbase /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+
+
+java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.HourlyStorageMinuteUpdate
+java -cp /home/ljj/totalInfo/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.numIngest
+java -cp /home/ljj/totalInfo/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.RampTrafficJob
+
+java -cp /home/ljj/totalInfo/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.newIngest.FlinkRampFiveMinAnalysis
+
+
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.numIngest  /home/ljj/segingest/flinkTest-1.0-SNAPSHOT.jar
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.numIngestMinute  /home/ljj/segingest/flinkTest-1.0-SNAPSHOT.jar
+java -cp /home/ljj/segingest/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.numIngestMinute
+
+
 lscan
+
+
+存储轨迹：
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.ASJob /home/ljj/flinkTest-1.0-SNAPSHOT.jar
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.ASJob  &
 
 模拟数据：
 nohup java -cp /home/ljj/ingest/tmp/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllDataNoCrowded 0.5 0.5 300 300 &
 nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.FiberGratingData5AllDataNoCrowded 0.5 0.5 300 300 &
 
-数据分析：
-flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajAnalysisJob_NoFeature /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar
-数据存储：
-flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajStorageJob_NoFeature /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar
-java -cp  /home/ljj/ingest/totalTraffic/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajStorageJob_NoFeature
+数据分析：flink run -c whu.edu.moniData.ingest.holyAnalysisJob.CombinedCarTrajAnalysisJob_NoFeature /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar
 存储计算指标：
 flink run -c whu.edu.moniData.ingest.newIngest.TrafficMetricsCalculationAndStorageJob /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar
 java -cp /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.newIngest.TrafficMetricsCalculationAndStorageJob
@@ -35,7 +52,9 @@ nohup java -cp /home/ljj/updown/kafka/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniDat
 存储车辆特征：
 flink run -c whu.edu.moniData.ingest.CarFeatureStorageJob /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar
 flink run -c whu.edu.moniData.DealWithJiZhanYuan /home/ljj/dealwithjizhan/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
-java -cp /home/ljj/udp/flinkTest-1.0-SNAPSHOT.jar  whu.edu.moniData.UDPRece.UdpReceiverWithParser
+
+存储指标：
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.buqua1n3Hbase /home/ljj/ingest/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
 
 辅助查询存储表————
 表名：    traffic_stats
@@ -45,6 +64,15 @@ java -cp /home/ljj/udp/flinkTest-1.0-SNAPSHOT.jar  whu.edu.moniData.UDPRece.UdpR
 用处：    用于支持五点接口中的查询今日和昨日的每小时上下行流量
 env:     Hourly Traffic Analysis
 flink run -c whu.edu.moniData.ingest.FlinkHourlyTrafficAnalysis /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJob /home/ljj/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily   100.65.38.40:9092 e1_data_XG01 > /dev/null 2>&1 &
+  java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily   100.65.38.40:9092 e1_data_XG01
+flink run -c   whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily  /home/ljj/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092 e1_data_XG01
+flink run -c   whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.MinuteDetailedTrafficProcessor  /home/ljj/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092 e1_data_XG01
+
+
+flink run -c whu.edu.moniData.ingest.newIngest.FlinkRampHourlyAnalysis /home/ljj/flinkTest-1.0-SNAPSHOT.jar
+java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.newIngest.FlinkRampHourlyAnalysis
 
 后期辅助存储索引表————
 表名：    FifteenMinuteTrafficFlow
@@ -54,7 +82,8 @@ flink run -c whu.edu.moniData.ingest.FlinkHourlyTrafficAnalysis /home/ljj/updown
 nohup java -cp /home/ljj/ingest/totalTrafficTraj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.FifteenMinuteTrafficFromTotalStatistics > /dev/null 2>&1 &
 
 前端：
-nohup java -jar /home/ljj/30query/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
+nohup java -jar /home/ljj/30query/ToCarQuery/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
+nohup java -jar /home/ljj/FlinkQuery-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
 java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369  --kafka.brokers=100.65.38.40:9092  --kafka.topics=fiberData1,fiberData2,fiberData3,fiberData4,fiberData5,fiberData6,fiberData7,fiberData8,fiberData9,fiberData10,fiberData11
 java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369  --kafka.brokers=10.48.53.82:9092  --kafka.topics=fiberData1,fiberData2,fiberData3,fiberData4,fiberData5,fiberData6,fiberData7,fiberData8,fiberData9,fiberData10,fiberData11
 
@@ -62,15 +91,20 @@ java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369  --kafka.brok
 
 
 .140
-nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWNLaneRedis 11 13 > /dev/null 2>&1 &
-nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.cunUPDOWN 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.cunUPDOWNLaneRedis 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.cunUPDOWN 11 13 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.FifteenMinuteTrafficFromTotalStatistics > /dev/null 2>&1 &
+nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.ASJob > /dev/null 2>&1 &
 
 
 
 10.
 java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369 --server.broker=10.48.53.82:9092   --kafka.brokers=10.48.53.82:9092  --kafka.topics=fiberData1,fiberData2,fiberData3,fiberData4,fiberData5,fiberData6,fiberData7,fiberData8,fiberData9,fiberData10,fiberData11
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369 --server.broker=10.48.53.82:9092   --kafka.brokers=10.48.53.82:9092  --kafka.topics=fiberData1,fiberData2,fiberData3,fiberData4,fiberData5,fiberData6,fiberData7,fiberData8,fiberData9,fiberData10,fiberData11
 nohup java -cp /home/ljj/fifteenAndNum/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.CombinedTrafficProcessingJob &
+nohup java -cp /home/ljj/fifteenAndNum/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.MoniNoCrowded10 0.5 0.5 1 1 &
 
+java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar  --server.port=33369 --server.broker=10.48.53.82:9092   --kafka.brokers=10.48.53.82:9092  --kafka.topics= jtkj.jga.path
 ramp_hour_traffic
 ramp_day_traffic
 ramp_month_traffic

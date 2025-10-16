@@ -1,0 +1,5 @@
+设置定时任务：
+每天7点运行jar包：
+任意文件夹运行 crontab -e
+写入定时代码：0 7 * * * /bin/bash /home/ljj/startQuery.sh
+写startQuery的重启逻辑

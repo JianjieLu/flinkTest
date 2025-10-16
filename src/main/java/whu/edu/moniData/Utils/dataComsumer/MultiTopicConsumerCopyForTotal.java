@@ -38,10 +38,12 @@ public class MultiTopicConsumerCopyForTotal {
 //            consumer.subscribe(Arrays.asList("vehicle.trajectories"));
 //            consumer.subscribe(Arrays.asList("five.min.trajectories"));
 //            consumer.subscribe(Arrays.asList("UDPDecoder"));
-            consumer.subscribe(Arrays.asList("MergedPathData"));
+            consumer.subscribe(Arrays.asList("MergedRampPathData"));
+//            consumer.subscribe(Arrays.asList("jtkj.jga.path.1"));
+
 //            consumer.subscribe(Arrays.asList("speeding_events"));
 //            consumer.subscribe(Arrays.asList("low_speed_events"));
-            consumer.subscribe(Arrays.asList("jtkj.jga.path"));
+//            consumer.subscribe(Arrays.asList("jtkj.jga.path"));
 
 //            consumer.subscribe(Arrays.asList("fiberData1","fiberData2","fiberData3","fiberData4","fiberData5","fiberData6","fiberData7","fiberData8","fiberData9","fiberData10","fiberData11"));
 //            consumer.subscribe(Arrays.asList("fiberData1"));

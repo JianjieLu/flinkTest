@@ -35,7 +35,7 @@ import com.alibaba.fastjson2.JSONArray;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import whu.edu.ljj.flink.xiaohanying.Utils;
-//flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+//flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
 
 public class hourlyJobWithZaDailyMinute {
     private static final ConcurrentHashMap<String, Object> tableCreationLocks = new ConcurrentHashMap<>();

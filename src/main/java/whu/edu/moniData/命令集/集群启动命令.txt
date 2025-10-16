@@ -65,7 +65,7 @@ flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.buqua1n3Hbase
 env:     Hourly Traffic Analysis
 flink run -c whu.edu.moniData.ingest.FlinkHourlyTrafficAnalysis /home/ljj/updown/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
 flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJob /home/ljj/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
-nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily   100.65.38.40:9092 e1_data_XG01 > /dev/null 2>&1 &
+nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily   100.65.38.40:9092 e1_data_XG01 > /dev/null 2>&1 &
   java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily   100.65.38.40:9092 e1_data_XG01
 flink run -c   whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily  /home/ljj/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092 e1_data_XG01
 flink run -c   whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.MinuteDetailedTrafficProcessor  /home/ljj/flinkTest-1.0-SNAPSHOT.jar 100.65.38.40:9092 e1_data_XG01

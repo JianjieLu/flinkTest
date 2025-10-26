@@ -32,14 +32,14 @@ public class MultiTopicConsumerCopyForTotal {
 //            consumer.subscribe(Arrays.asList("trajectoryoutput"));
 //            consumer.subscribe(Arrays.asList("trajectoryoutput"));
 //            consumer.subscribe(Arrays.asList("specialTrafficInfo"));
-//            consumer.subscribe(Arrays.asList("e1_data_XG01"));
+            consumer.subscribe(Arrays.asList("e1_data_XG01"));
 //            consumer.subscribe(Arrays.asList("smartBS_xg"));
 //            consumer.subscribe(Arrays.asList("wd.platform.en.ex.vehicles"));
 //            consumer.subscribe(Arrays.asList("vehicle.trajectories"));
 //            consumer.subscribe(Arrays.asList("five.min.trajectories"));
 //            consumer.subscribe(Arrays.asList("UDPDecoder"));
-            consumer.subscribe(Arrays.asList("MergedRampPathData"));
-//            consumer.subscribe(Arrays.asList("jtkj.jga.path.1"));
+//            consumer.subscribe(Arrays.asList("MergedPathData"));
+            consumer.subscribe(Arrays.asList("jtkj.jga.path.1"));
 
 //            consumer.subscribe(Arrays.asList("speeding_events"));
 //            consumer.subscribe(Arrays.asList("low_speed_events"));
@@ -88,7 +88,7 @@ public class MultiTopicConsumerCopyForTotal {
                                 record.value()
                         );
 //                    }
-
+                        
 
                 }
             }

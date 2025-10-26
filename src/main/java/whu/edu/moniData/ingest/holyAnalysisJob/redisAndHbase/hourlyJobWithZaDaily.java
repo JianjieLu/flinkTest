@@ -127,9 +127,10 @@ public class hourlyJobWithZaDaily {
         // Kafka配置 - 主路数据
         String brokers = "10.48.53.82:9092";
         String groupId = "hourly-traffic-group";
-        List<String> mainRoadTopics = Arrays.asList(
-                "fiberData1","fiberData2","fiberData3","fiberData4","fiberData5","fiberData6","fiberData7","fiberData8","fiberData9","fiberData10","fiberData11"
-        );
+//        List<String> mainRoadTopics = Arrays.asList(
+//                "jtkj.jga.path"
+//        );
+        List<String> mainRoadTopics  = Arrays.asList("fiberData1","fiberData2","fiberData3","fiberData4","fiberData5","fiberData6","fiberData7","fiberData8","fiberData9","fiberData10","fiberData11");
 
         // 创建Kafka源 - 主路数据
         KafkaSource<String> mainRoadKafkaSource = KafkaSource.<String>builder()
@@ -156,7 +157,6 @@ public class hourlyJobWithZaDaily {
                             JSONObject json = JSON.parseObject(value);
                             String timestamp = json.getString("timeStamp");
                             JSONArray pathList = json.getJSONArray("pathList");
-
                             for (int i = 0; i < pathList.size(); i++) {
                                 PathPoint point = pathList.getObject(i, PathPoint.class);
                                 point.setTimeStamp(timestamp);
@@ -177,7 +177,7 @@ public class hourlyJobWithZaDaily {
         // ==================== 匝道数据处理 ====================
         // Kafka配置 - 匝道数据
         String rampGroupId = "ramp-traffic-group1";
-        List<String> rampTopics = Arrays.asList("MergedRampPathData");
+        List<String> rampTopics = Arrays.asList("MergedPathData");
 
         // 创建Kafka源 - 匝道数据
         KafkaSource<String> rampKafkaSource = KafkaSource.<String>builder()

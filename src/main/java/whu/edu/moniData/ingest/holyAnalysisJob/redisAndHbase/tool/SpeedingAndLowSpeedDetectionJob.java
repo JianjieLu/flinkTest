@@ -655,8 +655,7 @@ public class SpeedingAndLowSpeedDetectionJob {
         String groupId = "speed-detection-group";
 
         List<String> topics = Arrays.asList(
-                "fiberData1", "fiberData2", "fiberData3", "fiberData4", "fiberData5",
-                "fiberData6", "fiberData7", "fiberData8", "fiberData9", "fiberData10", "fiberData11"
+                "jtkj.jga.path"
         );
 
         KafkaSource<String> source = KafkaSource.<String>builder()

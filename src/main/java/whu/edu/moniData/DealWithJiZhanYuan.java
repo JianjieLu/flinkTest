@@ -171,7 +171,7 @@ long st1=System.currentTimeMillis();
                 .setBootstrapServers("10.48.53.82:9092") // 新增集群
                 .setRecordSerializer(
                         KafkaRecordSerializationSchema.builder()
-                                .setTopic("MergedRampPathData")
+                                .setTopic("MergedPathData")
                                 .setValueSerializationSchema(new SimpleStringSchema())
                                 .build()
                 )

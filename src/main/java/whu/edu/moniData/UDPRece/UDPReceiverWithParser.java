@@ -63,6 +63,8 @@ public class UDPReceiverWithParser {
                         // 发送到第一个Kafka集群
 //                        sendToKafka(producer1, jsonData, "Cluster1");
                         // 发送到第二个Kafka集群
+                        System.out.println("jsondata：");
+                        System.out.println(jsonData);
                         sendToKafka(producer2, jsonData, "Cluster2");
                     }
                 } catch (Exception e) {
@@ -104,6 +106,7 @@ public class UDPReceiverWithParser {
 
     public static E1Frame parse(byte[] data) {
         ByteBuffer buffer = ByteBuffer.wrap(data).order(ByteOrder.BIG_ENDIAN);
+        System.out.println(Arrays.toString(data));
         E1Frame frame = new E1Frame();
 //        System.out.println(Arrays.toString(data));
         // 解析帧头

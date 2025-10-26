@@ -1,5 +1,8 @@
 package whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.functions.FlatMapFunction;
@@ -13,20 +16,17 @@ import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsIni
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
-import org.apache.flink.streaming.api.windowing.triggers.Trigger;
-import org.apache.flink.streaming.api.windowing.triggers.TriggerResult;
-import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import whu.edu.ljj.flink.xiaohanying.Utils;
 import whu.edu.ljj.flink.xiaohanying.Utils.PathPoint;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -34,33 +34,33 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
-import com.alibaba.fastjson2.JSONArray;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
-import whu.edu.ljj.flink.xiaohanying.Utils;
+
+import static whu.edu.ljj.flink.utils.myTools.convert;
+import static whu.edu.ljj.flink.xiaohanying.Utils.convertToTimestampMillis;
 //flink run -c whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.hourlyJobWithZaDaily /home/ljj/totalInfo/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
 
-public class hourlyJobWithZaDailyReal {
+public class hourlyJobWithZaDailyjtmnyuan {
     private static final ConcurrentHashMap<String, Object> tableCreationLocks = new ConcurrentHashMap<>();
     private static final ReentrantLock tableLock = new ReentrantLock();
 
     // 表名常量
-    private static final String TABLE_NAME_TOTAL = "real_traffic_stats";
+    private static final String TABLE_NAME_TOTAL = "jtmntraffic_stats";
     // 用途：存储每小时总交通量（按方向）
     // 字段：上行车辆数(upcount)，下行车辆数(downcount)
 
-    private static final String TABLE_NAME_DETAIL = "real_traffic_stats_by_section";
+    private static final String TABLE_NAME_DETAIL = "jtmntraffic_stats_by_section";
     // 用途：存储每小时详细交通量（按路段、方向和车型）
     // 字段：客车数量(bus_count)，货车数量(truck_count)，其他车辆数量(other_count)
 
+    private static final String TABLE_NAME_RAMP = "jtmnramp_traffic_stats";
     // 用途：存储匝道交通量统计
     // 字段：总车辆数(total_count)，客车数量(bus_count)，货车数量(truck_count)，平均车速(avg_speed)，总车次(all_count)
 
-    private static final String TABLE_NAME_DAILY_TOTAL = "real_daily_traffic_stats";
+    private static final String TABLE_NAME_DAILY_TOTAL = "jtmndaily_traffic_stats";
     // 用途：存储每日总交通量（按方向）
     // 字段：上行车辆数(upcount)，下行车辆数(downcount)
 
-    private static final String TABLE_NAME_DAILY_DETAIL = "real_daily_traffic_stats_by_section";
+    private static final String TABLE_NAME_DAILY_DETAIL = "jtmndaily_traffic_stats_by_section";
     // 用途：存储每日详细交通量（按路段、方向和车型）
     // 字段：客车数量(bus_count)，货车数量(truck_count)，其他车辆数量(other_count)
     private static final String COLUMN_FAMILY = "stats";
@@ -128,9 +128,8 @@ public class hourlyJobWithZaDailyReal {
         // ==================== 主路数据处理 ====================
         // Kafka配置 - 主路数据
         String brokers = "10.48.53.82:9092";
-        String groupId = "hourly-traffic-group1";
+        String groupId = "hourly-traffic-group";
         List<String> mainRoadTopics = Arrays.asList(
-//                "fiberData1","fiberData2","fiberData3","fiberData4","fiberData5","fiberData6","fiberData7","fiberData8","fiberData9","fiberData10","fiberData11"
                 "jtkj.jga.path"
         );
 
@@ -163,10 +162,11 @@ public class hourlyJobWithZaDailyReal {
                             for (int i = 0; i < pathList.size(); i++) {
                                 PathPoint point = pathList.getObject(i, PathPoint.class);
                                 point.setTimeStamp(timestamp);
-                                point.setVehicleType(point.getOriginalType());
                                 out.collect(point);
-//                                System.out.println(point);
                             }
+                            ;
+
+                            System.out.println("本机："+(System.currentTimeMillis()-convertToTimestampMillis(timestamp)));
                         } catch (Exception e) {
                             System.err.println("Error parsing JSON: " + e.getMessage());
                         }
@@ -175,18 +175,65 @@ public class hourlyJobWithZaDailyReal {
                 .assignTimestampsAndWatermarks(
                         WatermarkStrategy.<PathPoint>forBoundedOutOfOrderness(Duration.ofSeconds(5))
                                 .withTimestampAssigner((event, recordTimestamp) ->
-                                        Utils.convertToTimestampMillis(event.getTimeStamp()))
+                                        convertToTimestampMillis(event.getTimeStamp()))
                 )
                 .name("MainRoadPathPointStream");
 
+        // ==================== 匝道数据处理 ====================
+        // Kafka配置 - 匝道数据
+        String rampGroupId = "ramp-traffic-group1";
+        List<String> rampTopics = Arrays.asList("MergedPathData");
 
+        // 创建Kafka源 - 匝道数据
+        KafkaSource<String> rampKafkaSource = KafkaSource.<String>builder()
+                .setBootstrapServers(brokers)
+                .setTopics(rampTopics)
+                .setGroupId(rampGroupId)
+                .setStartingOffsets(OffsetsInitializer.latest())
+                .setValueOnlyDeserializer(new SimpleStringSchema())
+                .build();
 
+        // 匝道数据流
+        DataStream<String> rampSourceStream = env.fromSource(
+                rampKafkaSource,
+                WatermarkStrategy.noWatermarks(),
+                "Ramp Kafka Source"
+        );
+
+        // 解析JSON为PathPoint对象 - 匝道数据
+        SingleOutputStreamOperator<PathPoint> rampPathPointStream = rampSourceStream
+                .flatMap(new FlatMapFunction<String, PathPoint>() {
+                    @Override
+                    public void flatMap(String value, Collector<PathPoint> out) {
+                        try {
+                            JSONObject json = JSON.parseObject(value);
+                            String timestamp = json.getString("timeStamp");
+                            JSONArray pathList = json.getJSONArray("pathList");
+
+                            for (int i = 0; i < pathList.size(); i++) {
+                                PathPoint point = pathList.getObject(i, PathPoint.class);
+                                point.setTimeStamp(timestamp);
+                                out.collect(point);
+                            }
+                        } catch (Exception e) {
+                            System.err.println("Error parsing JSON: "+ e.getMessage());
+                        }
+                    }
+                })
+                .assignTimestampsAndWatermarks(
+                        WatermarkStrategy.<PathPoint>forBoundedOutOfOrderness(Duration.ofSeconds(5))
+                                .withTimestampAssigner((event, recordTimestamp) ->
+                                        convertToTimestampMillis(event.getTimeStamp()))
+                )
+                .name("RampPathPointStream");
+
+        // ==================== 主路交通量统计（按小时和方向）====================
         DataStream<Tuple3<String, Integer, Integer>> totalTrafficStream = mainRoadPathPointStream
                 .flatMap(new FlatMapFunction<PathPoint, Tuple3<String, Long, Integer>>() {
                     @Override
                     public void flatMap(PathPoint point, Collector<Tuple3<String, Long, Integer>> out) {
                         if (point.getDirection() == 1 || point.getDirection() == 2) {
-                            long eventTime = Utils.convertToTimestampMillis(point.getTimeStamp());
+                            long eventTime = convertToTimestampMillis(point.getTimeStamp());
                             String hourKey = new SimpleDateFormat("yyyyMMddHH").format(eventTime);
                             out.collect(new Tuple3<>(hourKey, point.getId(), point.getDirection()));
                         }
@@ -194,32 +241,31 @@ public class hourlyJobWithZaDailyReal {
                 })
                 .keyBy(t -> t.f0)  // 按小时分组
                 .window(TumblingEventTimeWindows.of(Time.hours(1))) // 1小时滚动窗口
-
                 .aggregate(new TotalTrafficAggregator())
                 .name("TotalTrafficStream");
+        totalTrafficStream.print("Total Traffic");
 
         // 写入总交通量HBase表
-        totalTrafficStream.addSink(new TotalHBaseTrafficSink())
-                .name("TotalHBaseSink");
+//        totalTrafficStream.addSink(new TotalHBaseTrafficSink())
+//                .name("TotalHBaseSink");
         // ==================== 主路详细交通量统计（按小时、路段、方向和类型）====================
         DataStream<Tuple6<String, String, Integer, Integer, Integer, Integer>> detailedTrafficStream = mainRoadPathPointStream
                 .flatMap(new FlatMapFunction<PathPoint, Tuple6<String, String, Integer, Long, Integer, Integer>>() {
                     @Override
                     public void flatMap(PathPoint point, Collector<Tuple6<String, String, Integer, Long, Integer, Integer>> out) {
                         if (point.getDirection() == 1 || point.getDirection() == 2) {
-                            long eventTime = Utils.convertToTimestampMillis(point.getTimeStamp());
+                            long eventTime = convertToTimestampMillis(point.getTimeStamp());
                             String hourKey = new SimpleDateFormat("yyyyMMddHH").format(eventTime);
 
                             // 根据桩号获取路段起始桩号
                             String stakeMark = getStakeMarkByMileage(point.getMileage());
 
-                            int vehicleType = point.getOriginalType();
-                            int vehicleClass = getVehicleClass(vehicleType);
-                            int isBus = (vehicleClass == 0) ? 1 : 0;      // 客车标记
-                            int isTruck = (vehicleClass == 1) ? 1 : 0;     // 货车标记
+                            // 判断车辆类型
+                            int vehicleType = point.getVehicleType();
+                            int isBus = isBus(vehicleType) ? 1 : 0;
+                            int isTruck = isTruck(vehicleType) ? 1 : 0;
 
                             out.collect(new Tuple6<>(hourKey, stakeMark, point.getDirection(), point.getId(), isBus, isTruck));
-//                            System.out.println(new Tuple6<>(hourKey, stakeMark, point.getDirection(), point.getId(), isBus, isTruck));
                         }
                     }
                 })
@@ -229,11 +275,44 @@ public class hourlyJobWithZaDailyReal {
                 .name("DetailedTrafficStream");
 
         // 写入详细交通量HBase表
-        detailedTrafficStream.addSink(new DetailedHBaseTrafficSink())
-                .name("DetailedHBaseSink");
+//        detailedTrafficStream.addSink(new DetailedHBaseTrafficSink())
+//                .name("DetailedHBaseSink");
 
+//        // ==================== 匝道交通量统计 ====================
+        DataStream<Tuple7<String, String, Integer, Integer, Integer, Double, Integer>> rampTrafficStream = rampPathPointStream
+                .flatMap(new FlatMapFunction<PathPoint, Tuple7<String, String, Long, Integer, Double, Integer, Integer>>() {
+                    @Override
+                    public void flatMap(PathPoint point, Collector<Tuple7<String, String, Long, Integer, Double, Integer, Integer>> out) {
+                        // 检查是否为匝道数据
+                        if (point.getStakeId() != null && point.getStakeId().contains("-")) {
+                            String[] parts = point.getStakeId().split("-");
+                            if (parts.length >= 2) {
+                                // 提取匝道编号 (CK0+199 -> C)
+                                String rampCode = parts[1].substring(0, 1);
+                                if (rampCode.matches("[A-D]")) { // 只处理A,B,C,D四种匝道
+                                    long eventTime = convertToTimestampMillis(point.getTimeStamp());
+                                    String hourKey = new SimpleDateFormat("yyyyMMddHH").format(eventTime);
 
+                                    // 判断车辆类型
+                                    int vehicleClass = getVehicleClass(point.getOriginalType());
+                                    int isBus = (vehicleClass == 0) ? 1 : 0;
+                                    int isTruck = (vehicleClass == 1) ? 1 : 0;
 
+                                    // 修复这里：使用new Tuple7<>()而不是Tuple7.of()
+                                    out.collect(new Tuple7<>(hourKey, rampCode, point.getId(), isBus, point.getSpeed(), isTruck, 1));
+                                }
+                            }
+                        }
+                    }
+                })
+                .keyBy(t -> t.f0 + "_" + t.f1)  // 按小时+匝道编号分组
+                .window(TumblingEventTimeWindows.of(Time.hours(1))) // 1小时滚动窗口
+                .aggregate(new RampTrafficAggregator())
+                .name("RampTrafficStream");
+
+        // 写入匝道交通量HBase表
+//        rampTrafficStream.addSink(new RampHBaseTrafficSink())
+//                .name("RampHBaseSink");
 
         // ==================== 每日去重统计（按两小时去重）====================
         // 每日总交通量统计（按天和方向）
@@ -242,7 +321,7 @@ public class hourlyJobWithZaDailyReal {
                     @Override
                     public void flatMap(PathPoint point, Collector<Tuple4<String, Long, Integer, Long>> out) {
                         if (point.getDirection() == 1 || point.getDirection() == 2) {
-                            long eventTime = Utils.convertToTimestampMillis(point.getTimeStamp());
+                            long eventTime = convertToTimestampMillis(point.getTimeStamp());
                             String dayKey = new SimpleDateFormat("yyyyMMdd").format(eventTime);
 
                             // 修复这里：使用new Tuple4<>()而不是Tuple4.of()
@@ -256,8 +335,8 @@ public class hourlyJobWithZaDailyReal {
                 .name("DailyTotalTrafficStream");
 
         // 写入每日总交通量HBase表
-        dailyTotalTrafficStream.addSink(new DailyTotalHBaseTrafficSink())
-                .name("DailyTotalHBaseSink");
+//        dailyTotalTrafficStream.addSink(new DailyTotalHBaseTrafficSink())
+//                .name("DailyTotalHBaseSink");
 
         // 每日详细交通量统计（按天、路段、方向和类型）
         DataStream<Tuple6<String, String, Integer, Integer, Integer, Integer>> dailyDetailedTrafficStream = mainRoadPathPointStream
@@ -265,16 +344,16 @@ public class hourlyJobWithZaDailyReal {
                     @Override
                     public void flatMap(PathPoint point, Collector<Tuple7<String, String, Integer, Long, Integer, Integer, Long>> out) {
                         if (point.getDirection() == 1 || point.getDirection() == 2) {
-                            long eventTime = Utils.convertToTimestampMillis(point.getTimeStamp());
+                            long eventTime = convertToTimestampMillis(point.getTimeStamp());
                             String dayKey = new SimpleDateFormat("yyyyMMdd").format(eventTime);
 
                             // 根据桩号获取路段起始桩号
                             String stakeMark = getStakeMarkByMileage(point.getMileage());
 
-                            int vehicleType = point.getOriginalType();
-                            int vehicleClass = getVehicleClass(vehicleType);
-                            int isBus = (vehicleClass == 0) ? 1 : 0;      // 客车标记
-                            int isTruck = (vehicleClass == 1) ? 1 : 0;     // 货车标记
+                            // 判断车辆类型
+                            int vehicleType = point.getVehicleType();
+                            int isBus = isBus(vehicleType) ? 1 : 0;
+                            int isTruck = isTruck(vehicleType) ? 1 : 0;
 
                             // 修复这里：使用new Tuple7<>()而不是Tuple7.of()
                             out.collect(new Tuple7<>(dayKey, stakeMark, point.getDirection(), point.getId(), isBus, isTruck, eventTime));
@@ -287,10 +366,10 @@ public class hourlyJobWithZaDailyReal {
                 .name("DailyDetailedTrafficStream");
 
         // 写入每日详细交通量HBase表
-        dailyDetailedTrafficStream.addSink(new DailyDetailedHBaseTrafficSink())
-                .name("DailyDetailedHBaseSink");
+//        dailyDetailedTrafficStream.addSink(new DailyDetailedHBaseTrafficSink())
+//                .name("DailyDetailedHBaseSink");
 
-        env.execute("Combined Hourly and Daily Traffic Analysis1");
+        env.execute("Combined Hourly and Daily Traffic Analysis");
     }
 
     // ==================== 路段定义类 ====================
@@ -432,6 +511,80 @@ public class hourlyJobWithZaDailyReal {
                     otherCount.addAndGet(other.otherCount.get());
                 }
             }
+        }
+    }
+
+    // ==================== 匝道交通量聚合器和累加器 ====================
+    private static class RampTrafficAggregator implements AggregateFunction<
+            Tuple7<String, String, Long, Integer, Double, Integer, Integer>,
+            RampTrafficAccumulator,
+            Tuple7<String, String, Integer, Integer, Integer, Double, Integer>> {
+
+        @Override
+        public RampTrafficAccumulator createAccumulator() {
+            return new RampTrafficAccumulator();
+        }
+
+        @Override
+        public RampTrafficAccumulator add(Tuple7<String, String, Long, Integer, Double, Integer, Integer> value, RampTrafficAccumulator acc) {
+            if (acc.hourKey == null) {
+                acc.hourKey = value.f0;
+                acc.rampCode = value.f1;
+            }
+            acc.addVehicle(value.f2, value.f3, value.f4, value.f5, value.f6);
+            return acc;
+        }
+
+        @Override
+        public Tuple7<String, String, Integer, Integer, Integer, Double, Integer> getResult(RampTrafficAccumulator acc) {
+            double avgSpeed = acc.vehicleCount.get() > 0 ? acc.totalSpeed.get() / acc.vehicleCount.get() : 0.0;
+            return Tuple7.of(acc.hourKey, acc.rampCode, acc.vehicleCount.get(),
+                    acc.busCount.get(), acc.truckCount.get(), avgSpeed, acc.totalCount.get());
+        }
+
+        @Override
+        public RampTrafficAccumulator merge(RampTrafficAccumulator a, RampTrafficAccumulator b) {
+            a.merge(b);
+            return a;
+        }
+    }
+
+    private static class RampTrafficAccumulator {
+        public String hourKey;
+        public String rampCode;
+        public final Set<Long> vehicleIds = new HashSet<>();
+        public final AtomicInteger busCount = new AtomicInteger(0);
+        public final AtomicInteger truckCount = new AtomicInteger(0);
+        public final AtomicInteger vehicleCount = new AtomicInteger(0);
+        public final AtomicInteger totalCount = new AtomicInteger(0);
+        public final AtomicDouble totalSpeed = new AtomicDouble(0.0);
+
+        public void addVehicle(long vehicleId, int isBus, double speed, int isTruck, int count) {
+            totalCount.addAndGet(count);
+            totalSpeed.addAndGet(speed);
+
+            if (!vehicleIds.contains(vehicleId)) {
+                vehicleIds.add(vehicleId);
+                vehicleCount.incrementAndGet();
+                if (isBus == 1) {
+                    busCount.incrementAndGet();
+                } else if (isTruck == 1) {
+                    truckCount.incrementAndGet();
+                }
+            }
+        }
+
+        public void merge(RampTrafficAccumulator other) {
+            for (Long id : other.vehicleIds) {
+                if (!vehicleIds.contains(id)) {
+                    vehicleIds.add(id);
+                    vehicleCount.addAndGet(1);
+                    busCount.addAndGet(other.busCount.get());
+                    truckCount.addAndGet(other.truckCount.get());
+                }
+            }
+            totalCount.addAndGet(other.totalCount.get());
+            totalSpeed.addAndGet(other.totalSpeed.get());
         }
     }
 
@@ -754,6 +907,53 @@ public class hourlyJobWithZaDailyReal {
         }
     }
 
+    // 匝道交通量Sink
+    private static class RampHBaseTrafficSink extends RichSinkFunction<Tuple7<String, String, Integer, Integer, Integer, Double, Integer>> {
+        private Connection connection;
+        private Table table;
+
+        @Override
+        public void open(org.apache.flink.configuration.Configuration parameters) throws Exception {
+            Configuration conf = HBaseConfiguration.create();
+            conf.set("hbase.zookeeper.quorum", "100.65.38.139,100.65.38.140,100.65.38.141,100.65.38.142,10.48.53.80");
+            conf.set("hbase.zookeeper.property.clientPort", "2181");
+            connection = ConnectionFactory.createConnection(conf);
+
+            createTableIfNotExists(TABLE_NAME_RAMP, connection);
+            table = connection.getTable(TableName.valueOf(TABLE_NAME_RAMP));
+        }
+
+        @Override
+        public void invoke(Tuple7<String, String, Integer, Integer, Integer, Double, Integer> value, Context context) throws Exception {
+            String rowKey = value.f0 + "_" + value.f1; // 小时_匝道编号
+            int totalCount = value.f2;
+            int busCount = value.f3;
+            int truckCount = value.f4;
+            double avgSpeed = value.f5;
+            int allCount = value.f6;
+
+            Put put = new Put(Bytes.toBytes(rowKey));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("total_count"), Bytes.toBytes(String.valueOf(totalCount)));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("bus_count"), Bytes.toBytes(String.valueOf(busCount)));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("truck_count"), Bytes.toBytes(String.valueOf(truckCount)));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("avg_speed"), Bytes.toBytes(String.valueOf(avgSpeed)));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("all_count"), Bytes.toBytes(String.valueOf(allCount)));
+
+            table.put(put);
+            System.out.println("Inserted ramp traffic data: " + rowKey +
+                    " - Total: " + totalCount +
+                    ", Bus: " + busCount +
+                    ", Truck: " + truckCount +
+                    ", AvgSpeed: " + avgSpeed +
+                    ", AllCount: " + allCount);
+        }
+
+        @Override
+        public void close() throws Exception {
+            if (table != null) table.close();
+            if (connection != null) connection.close();
+        }
+    }
 
     // 每日总交通量Sink
     private static class DailyTotalHBaseTrafficSink extends RichSinkFunction<Tuple3<String, Integer, Integer>> {

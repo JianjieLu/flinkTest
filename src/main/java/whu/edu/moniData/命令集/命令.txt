@@ -144,6 +144,7 @@ java -jar /home/ljj/toshow-0.0.1-SNAPSHOT.jar 10.48.53.82:9092 fiberData1 fiberD
 
 DealWithJiZhan:
 flink run -c whu.edu.moniData.DealWithJiZhanYuan /home/ljj/jiaotou/flinkTest-1.0-SNAPSHOT.jar  100.65.38.40:9092 e1_data_XG01
+nohup java -cp /home/ljj/monidata/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.DealWithJiZhanYuan   100.65.38.40:9092 e1_data_XG01 > /dev/null 2>&1 &
 flink run -c whu.edu.moniData.DealWithJiZhanYuan /home/ljj/dealwithjizhan/flinkTest-1.0-SNAPSHOT.jar  10.48.53.82:9092 e1_data_XG01
 100.65.38.139，100.65.38.140，100.65.38.141，100.65.38.142，100.65.38.36，100.65.38.37，100.65.38.38
 

@@ -2,6 +2,8 @@
         package whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase;
 
 import com.alibaba.fastjson2.JSON;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
@@ -208,10 +210,12 @@ public class buqua1n3HbaseWithAvgSpeed {
         env.setParallelism(8);
 
         String brokers = "10.48.53.82:9092";
-        List<String> topics = Arrays.asList(
-                "fiberData1", "fiberData2", "fiberData3", "fiberData4", "fiberData5",
-                "fiberData6", "fiberData7", "fiberData8", "fiberData9", "fiberData10", "fiberData11"
-        );
+//        List<String> topics = Arrays.asList(
+//                "fiberData1", "fiberData2", "fiberData3", "fiberData4", "fiberData5",
+//                "fiberData6", "fiberData7", "fiberData8", "fiberData9", "fiberData10", "fiberData11"
+//        );
+        List<String> topics = Arrays.asList("jtkj.jga.path.1");
+
         String groupId = "flink_consumer_group1";
 
         // 创建Kafka源
@@ -281,7 +285,6 @@ public class buqua1n3HbaseWithAvgSpeed {
                             int laneNo = point.getLaneNo();
                             int direction = point.getDirection();
                             int vehicleType = point.getVehicleType(); // 获取车辆类型
-
                             double speed = point.getSpeed(); // 获取速度
 
                             Pair<Boolean, Integer> stakeResult = isNearThousand(point.getMileage());
@@ -779,7 +782,7 @@ public class buqua1n3HbaseWithAvgSpeed {
         Connection connection = ConnectionFactory.createConnection(hbaseConf);
 
         // 确保表存在
-        createTableIfNotExists(connection, "traffic_indicators", "cf");
+//        createTableIfNotExists(connection, "traffic_indicators", "cf");
 
         // 修改 Sink 创建，增强HBase存储
         hourIndicatorStream.addSink(new EnhancedIndicatorHBaseSink("hour"));
@@ -829,22 +832,10 @@ public class buqua1n3HbaseWithAvgSpeed {
             Put put = new Put(Bytes.toBytes(rowKey));
 
             // 添加基础指标数据
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("time_type"), Bytes.toBytes(result.getTimeType()));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("lane_no"), Bytes.toBytes(String.valueOf(result.getLaneNo())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("direction"), Bytes.toBytes(String.valueOf(result.getDirection())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("stake"), Bytes.toBytes(String.valueOf(result.getStake())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("occupancy"), Bytes.toBytes(String.valueOf(result.getOccupancy())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("headway"), Bytes.toBytes(String.valueOf(result.getHeadway())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("delay_index"), Bytes.toBytes(String.valueOf(result.getDelayIndex())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("vehicle_count"), Bytes.toBytes(String.valueOf(result.getVehicleCount())));
 
-            // 添加速度统计数据
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("bus_avg_speed"), Bytes.toBytes(String.valueOf(result.getBusAvgSpeed())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("truck_avg_speed"), Bytes.toBytes(String.valueOf(result.getTruckAvgSpeed())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("bus_count"), Bytes.toBytes(String.valueOf(result.getBusCount())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("truck_count"), Bytes.toBytes(String.valueOf(result.getTruckCount())));
-            put.addColumn(Bytes.toBytes("cf"), Bytes.toBytes("calculation_log"), Bytes.toBytes(result.getCalculationLog()));
-
+            table.put(put);
+            put.addColumn(Bytes.toBytes("cf"),Bytes.toBytes("IndicatorsOfTime") ,Bytes.toBytes(JSON.toJSONString(  new IndicatorsOfTime(result.getTimeType(),result.getOccupancy(),result.getTruckCount(),result.getHeadway(),result.getDelayIndex(),
+                    result.getVehicleCount(),result.getBusAvgSpeed(),result.getTruckAvgSpeed(),result.getBusCount(),result.getTruckCount()))));
             // 写入HBase
             table.put(put);
             System.out.println("存储增强指标数据: " + rowKey + " | 客车速度: " + result.getBusAvgSpeed() + " | 货车速度: " + result.getTruckAvgSpeed());
@@ -892,6 +883,21 @@ public class buqua1n3HbaseWithAvgSpeed {
     // 从天键获取月键
     private static String getMonthFromDay(String dayKey) {
         return dayKey.substring(0, 6); // yyyyMM
+    }
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class IndicatorsOfTime{
+        private String time_type;
+        private Double occupancy;
+        private Integer truckCount;
+        private Double headway;
+        private Double delay_index;
+        private Integer vehicle_count;
+        private Double bus_avg_speed;
+        private Double truck_avg_speed;
+        private Integer bus_count;
+        private Integer truck_count;
+
     }
 
     // 时间转换方法

@@ -42,7 +42,7 @@ public class MultiTopicConsumerTrajectory {
 //            consumer.subscribe(Arrays.asList("e1_data_XG01"));
 //            consumer.subscribe(Arrays.asList("smartBS_xg"));
 //            consumer.subscribe(Arrays.asList("UDPDecoder"));
-//            consumer.subscribe(Arrays.asList("MergedRampPathData"));
+//            consumer.subscribe(Arrays.asList("MergedPathData"));
 //            consumer.subscribe(Arrays.asList("MergedPathData"));
 //            consumer.subscribe(Arrays.asList("fiberData1","fiberData2","fiberData3","fiberData4","fiberData5","fiberData6","fiberData7","fiberData8","fiberData9","fiberData10","fiberData11"));
 //              consumer.subscribe(Arrays.asList("zaOutPut"));

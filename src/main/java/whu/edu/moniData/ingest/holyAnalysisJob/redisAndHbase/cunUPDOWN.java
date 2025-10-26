@@ -262,12 +262,9 @@ public class cunUPDOWN {
                                 .toEpochMilli();
                     }
                 });
-
         statsStream.addSink(new HBaseStatsSink());
-
         env.execute("Flink Traffic Statistics");
     }
-
     private static class HBaseStatsSink extends RichSinkFunction<Tuple5<String, Integer, Integer, Integer, Integer>> {
         private Connection connection;
         private Table table;

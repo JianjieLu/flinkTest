@@ -74,9 +74,9 @@ public class TrafficEventUtils {
         private Double averageSpeed; // 平均车速 (km/h)
         private Double congestionMileage; // 拥堵总里程，精确到小数点后一位
         private Integer busCount; // 客车数量
-        private Integer truckCount; // 货车数量
+        private Integer trackCount; // 货车数量
         private Integer chemicalCount; // 危化车数量
-        private Integer heavyTruckCount; // 重型货车数量
+        private Integer heavyTrackCount; // 重型货车数量
 
         // toString方法
         @Override
@@ -156,7 +156,7 @@ public class TrafficEventUtils {
 
         // 客货车数量
         private int busCount;
-        private int truckCount;
+        private int trackCount;
 
         // 客货车平均速度
         private double busAverageSpeed;

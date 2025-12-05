@@ -68,7 +68,7 @@ public class SectionDetailedTrafficJobMinute {
     }
 
     // 判断货车类型的方法
-    private static boolean isTruck(int vt) {
+    private static boolean isTrack(int vt) {
         return vt == 2 || vt == 10 || vt == 8 || vt == 11 || vt == 170 || vt == 171 || vt == 172 ||
                 vt == 173 || vt == 174 || vt == 175 || vt == 176 || vt == 177;
     }
@@ -154,9 +154,9 @@ public class SectionDetailedTrafficJobMinute {
                             // 判断车辆类型
                             int vehicleType = point.getVehicleType();
                             int isBus = isBus(vehicleType) ? 1 : 0;
-                            int isTruck = isTruck(vehicleType) ? 1 : 0;
+                            int isTrack = isTrack(vehicleType) ? 1 : 0;
 
-                            out.collect(new Tuple6<>(minuteKey, stakeMark, point.getDirection(), point.getId(), isBus, isTruck));
+                            out.collect(new Tuple6<>(minuteKey, stakeMark, point.getDirection(), point.getId(), isBus, isTrack));
                         }
                     }
                 })
@@ -210,7 +210,7 @@ public class SectionDetailedTrafficJobMinute {
         @Override
         public Tuple6<String, String, Integer, Integer, Integer, Integer> getResult(DetailedTrafficAccumulator acc) {
             return Tuple6.of(acc.minuteKey, acc.stakeMark, acc.direction,
-                    acc.busCount.get(), acc.truckCount.get(), acc.otherCount.get());
+                    acc.busCount.get(), acc.trackCount.get(), acc.otherCount.get());
         }
 
         @Override
@@ -226,16 +226,16 @@ public class SectionDetailedTrafficJobMinute {
         public int direction;
         public final Set<Long> vehicleIds = new HashSet<>();
         public final AtomicInteger busCount = new AtomicInteger(0);
-        public final AtomicInteger truckCount = new AtomicInteger(0);
+        public final AtomicInteger trackCount = new AtomicInteger(0);
         public final AtomicInteger otherCount = new AtomicInteger(0);
 
-        public void addVehicle(long vehicleId, int isBus, int isTruck) {
+        public void addVehicle(long vehicleId, int isBus, int isTrack) {
             if (!vehicleIds.contains(vehicleId)) {
                 vehicleIds.add(vehicleId);
                 if (isBus == 1) {
                     busCount.incrementAndGet();
-                } else if (isTruck == 1) {
-                    truckCount.incrementAndGet();
+                } else if (isTrack == 1) {
+                    trackCount.incrementAndGet();
                 } else {
                     otherCount.incrementAndGet();
                 }
@@ -247,7 +247,7 @@ public class SectionDetailedTrafficJobMinute {
                 if (!vehicleIds.contains(id)) {
                     vehicleIds.add(id);
                     busCount.addAndGet(other.busCount.get());
-                    truckCount.addAndGet(other.truckCount.get());
+                    trackCount.addAndGet(other.trackCount.get());
                     otherCount.addAndGet(other.otherCount.get());
                 }
             }
@@ -276,12 +276,12 @@ public class SectionDetailedTrafficJobMinute {
             // rowKey格式改为：桩号_分钟_方向
             String rowKey = value.f1 + "_" + value.f0 + "_" + value.f2;
             int busCount = value.f3;
-            int truckCount = value.f4;
+            int trackCount = value.f4;
             int otherCount = value.f5;
 
             Put put = new Put(Bytes.toBytes(rowKey));
             put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("bus_count"), Bytes.toBytes(String.valueOf(busCount)));
-            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("truck_count"), Bytes.toBytes(String.valueOf(truckCount)));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("track_count"), Bytes.toBytes(String.valueOf(trackCount)));
             put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("other_count"), Bytes.toBytes(String.valueOf(otherCount)));
 
             // 添加时间戳列，便于查询
@@ -290,7 +290,7 @@ public class SectionDetailedTrafficJobMinute {
             table.put(put);
             System.out.println("Inserted minute-level detailed traffic data: " + rowKey +
                     " - Bus: " + busCount +
-                    ", Truck: " + truckCount +
+                    ", Track: " + trackCount +
                     ", Other: " + otherCount);
         }
 

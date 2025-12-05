@@ -314,7 +314,7 @@ public class upDownToKafka {
                 direction1.put("direction", 1);
                 direction1.put("total", 0);
                 direction1.put("minibus", 0);
-                direction1.put("truck", 0);
+                direction1.put("track", 0);
                 JSONArray laneList1 = new JSONArray();
                 direction1.put("laneList", laneList1);
 
@@ -322,7 +322,7 @@ public class upDownToKafka {
                 direction2.put("direction", 2);
                 direction2.put("total", 0);
                 direction2.put("minibus", 0);
-                direction2.put("truck", 0);
+                direction2.put("track", 0);
                 JSONArray laneList2 = new JSONArray();
                 direction2.put("laneList", laneList2);
 
@@ -338,20 +338,20 @@ public class upDownToKafka {
                     laneData.put("lane", lane);
                     laneData.put("total", totalCount);
                     laneData.put("minibus", busCount);
-                    laneData.put("truck", trackCount);
+                    laneData.put("track", trackCount);
 
                     // 根据车道号判断方向（奇数车道为上行，偶数车道为下行）
                     if (lane % 2 == 1) {
                         // 累加方向统计数据
                         direction1.put("total", direction1.getIntValue("total") + totalCount);
                         direction1.put("minibus", direction1.getIntValue("minibus") + busCount);
-                        direction1.put("truck", direction1.getIntValue("truck") + trackCount);
+                        direction1.put("track", direction1.getIntValue("track") + trackCount);
                         laneList1.add(laneData);
                     } else {
                         // 累加方向统计数据
                         direction2.put("total", direction2.getIntValue("total") + totalCount);
                         direction2.put("minibus", direction2.getIntValue("minibus") + busCount);
-                        direction2.put("truck", direction2.getIntValue("truck") + trackCount);
+                        direction2.put("track", direction2.getIntValue("track") + trackCount);
                         laneList2.add(laneData);
                     }
                 }

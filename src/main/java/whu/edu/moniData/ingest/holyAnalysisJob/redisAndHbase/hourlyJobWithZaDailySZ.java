@@ -46,11 +46,11 @@ public class hourlyJobWithZaDailySZ {
 
     private static final String TABLE_NAME_DETAIL = "traffic_stats_by_section";
     // 用途：存储每小时详细交通量（按路段、方向和车型）
-    // 字段：客车数量(bus_count)，货车数量(truck_count)，其他车辆数量(other_count)，平均速度(avg_speed)
+    // 字段：客车数量(bus_count)，货车数量(track_count)，其他车辆数量(other_count)，平均速度(avg_speed)
 
     private static final String TABLE_NAME_RAMP = "ramp_traffic_stats";
     // 用途：存储匝道交通量统计
-    // 字段：总车辆数(total_count)，客车数量(bus_count)，货车数量(truck_count)，平均车速(avg_speed)，总车次(all_count)
+    // 字段：总车辆数(total_count)，客车数量(bus_count)，货车数量(track_count)，平均车速(avg_speed)，总车次(all_count)
 
     private static final String TABLE_NAME_DAILY_TOTAL = "daily_traffic_stats";
     // 用途：存储每日总交通量（按方向）
@@ -58,25 +58,25 @@ public class hourlyJobWithZaDailySZ {
 
     private static final String TABLE_NAME_DAILY_DETAIL = "daily_traffic_stats_by_section";
     // 用途：存储每日详细交通量（按路段、方向和车型）
-    // 字段：客车数量(bus_count)，货车数量(truck_count)，其他车辆数量(other_count)，平均速度(avg_speed)
+    // 字段：客车数量(bus_count)，货车数量(track_count)，其他车辆数量(other_count)，平均速度(avg_speed)
     private static final String COLUMN_FAMILY = "stats";
 
     @AllArgsConstructor
     @NoArgsConstructor
     public static class IndicatorOfRoadSeg{
         private Integer busCount;
-        private Integer truckCount;
+        private Integer trackCount;
         private Integer otherCount;
         private Double avgSpeed;
         private Double minibusSpeed;
-        private Double truckSpeed;
+        private Double trackSpeed;
     }
 
     @AllArgsConstructor
     @NoArgsConstructor
     public static class IndicatorOfRamp{
         private Integer busCount;
-        private Integer truckCount;
+        private Integer trackCount;
         private Integer totalCount;
         private Integer allCount;
         private Double avgSpeed;
@@ -108,7 +108,7 @@ public class hourlyJobWithZaDailySZ {
     }
 
     // 判断货车类型的方法
-    private static boolean isTruck(int vt) {
+    private static boolean isTrack(int vt) {
         return vt == 2 || vt == 10 || vt == 8 || vt == 11 || vt == 170 || vt == 171 || vt == 172 ||
                 vt == 173 || vt == 174 || vt == 175 || vt == 176 || vt == 177;
     }
@@ -204,7 +204,7 @@ public class hourlyJobWithZaDailySZ {
         // ==================== 匝道数据处理 ====================
         // Kafka配置 - 匝道数据
         String rampGroupId = "ramp-traffic-group";
-        List<String> rampTopics = Arrays.asList("MergedPathData");
+        List<String> rampTopics = Arrays.asList("MergedRampPathData");
 
         // 创建Kafka源 - 匝道数据
         KafkaSource<String> rampKafkaSource = KafkaSource.<String>builder()
@@ -285,9 +285,9 @@ public class hourlyJobWithZaDailySZ {
                             // 判断车辆类型
                             int vehicleType = point.getVehicleType();
                             int isBus = isBus(vehicleType) ? 1 : 0;
-                            int isTruck = isTruck(vehicleType) ? 1 : 0;
+                            int isTrack = isTrack(vehicleType) ? 1 : 0;
 
-                            out.collect(new Tuple8<>(hourKey, stakeMark, point.getDirection(), point.getId(), isBus, isTruck, point.getSpeed(), eventTime));
+                            out.collect(new Tuple8<>(hourKey, stakeMark, point.getDirection(), point.getId(), isBus, isTrack, point.getSpeed(), eventTime));
                         }
                     }
                 })
@@ -318,10 +318,10 @@ public class hourlyJobWithZaDailySZ {
                                     // 判断车辆类型
                                     int vehicleClass = getVehicleClass(point.getOriginalType());
                                     int isBus = (vehicleClass == 0) ? 1 : 0;
-                                    int isTruck = (vehicleClass == 1) ? 1 : 0;
+                                    int isTrack = (vehicleClass == 1) ? 1 : 0;
 
                                     // 修复这里：使用new Tuple7<>()而不是Tuple7.of()
-                                    out.collect(new Tuple7<>(hourKey, rampCode, point.getId(), isBus, point.getSpeed(), isTruck, 1));
+                                    out.collect(new Tuple7<>(hourKey, rampCode, point.getId(), isBus, point.getSpeed(), isTrack, 1));
                                 }
                             }
                         }
@@ -375,10 +375,10 @@ public class hourlyJobWithZaDailySZ {
                             // 判断车辆类型
                             int vehicleType = point.getVehicleType();
                             int isBus = isBus(vehicleType) ? 1 : 0;
-                            int isTruck = isTruck(vehicleType) ? 1 : 0;
+                            int isTrack = isTrack(vehicleType) ? 1 : 0;
 
                             // 修复这里：使用new Tuple8<>()而不是Tuple8.of()
-                            out.collect(new Tuple8<>(dayKey, stakeMark, point.getDirection(), point.getId(), isBus, isTruck, point.getSpeed(), eventTime));
+                            out.collect(new Tuple8<>(dayKey, stakeMark, point.getDirection(), point.getId(), isBus, isTrack, point.getSpeed(), eventTime));
                         }
                     }
                 })
@@ -493,10 +493,10 @@ public class hourlyJobWithZaDailySZ {
         public Tuple9<String, String, Integer, Integer, Integer, Integer, Double, Double, Double> getResult(DetailedTrafficAccumulator acc) {
             double avgSpeed = acc.totalSpeed.get() > 0 ? acc.totalSpeed.get() / acc.speedCount.get() : 0.0;
             double minibusSpeed = acc.busSpeedCount.get() > 0 ? acc.busTotalSpeed.get() / acc.busSpeedCount.get() : 0.0;
-            double truckSpeed = acc.truckSpeedCount.get() > 0 ? acc.truckTotalSpeed.get() / acc.truckSpeedCount.get() : 0.0;
+            double trackSpeed = acc.trackSpeedCount.get() > 0 ? acc.trackTotalSpeed.get() / acc.trackSpeedCount.get() : 0.0;
             return Tuple9.of(acc.hourKey, acc.stakeMark, acc.direction,
-                    acc.busCount.get(), acc.truckCount.get(), acc.otherCount.get(), 
-                    avgSpeed, minibusSpeed, truckSpeed);
+                    acc.busCount.get(), acc.trackCount.get(), acc.otherCount.get(), 
+                    avgSpeed, minibusSpeed, trackSpeed);
         }
 
         @Override
@@ -512,23 +512,23 @@ public class hourlyJobWithZaDailySZ {
         public int direction;
         public final Set<Long> vehicleIds = new HashSet<>();
         public final AtomicInteger busCount = new AtomicInteger(0);
-        public final AtomicInteger truckCount = new AtomicInteger(0);
+        public final AtomicInteger trackCount = new AtomicInteger(0);
         public final AtomicInteger otherCount = new AtomicInteger(0);
         public final AtomicDouble totalSpeed = new AtomicDouble(0.0);
         public final AtomicInteger speedCount = new AtomicInteger(0);
         // 新增：分别跟踪客车和货车的速度统计
         public final AtomicDouble busTotalSpeed = new AtomicDouble(0.0);
         public final AtomicInteger busSpeedCount = new AtomicInteger(0);
-        public final AtomicDouble truckTotalSpeed = new AtomicDouble(0.0);
-        public final AtomicInteger truckSpeedCount = new AtomicInteger(0);
+        public final AtomicDouble trackTotalSpeed = new AtomicDouble(0.0);
+        public final AtomicInteger trackSpeedCount = new AtomicInteger(0);
 
-        public void addVehicle(long vehicleId, int isBus, int isTruck, double speed) {
+        public void addVehicle(long vehicleId, int isBus, int isTrack, double speed) {
             if (!vehicleIds.contains(vehicleId)) {
                 vehicleIds.add(vehicleId);
                 if (isBus == 1) {
                     busCount.incrementAndGet();
-                } else if (isTruck == 1) {
-                    truckCount.incrementAndGet();
+                } else if (isTrack == 1) {
+                    trackCount.incrementAndGet();
                 } else {
                     otherCount.incrementAndGet();
                 }
@@ -542,9 +542,9 @@ public class hourlyJobWithZaDailySZ {
             if (isBus == 1) {
                 busTotalSpeed.addAndGet(speed);
                 busSpeedCount.incrementAndGet();
-            } else if (isTruck == 1) {
-                truckTotalSpeed.addAndGet(speed);
-                truckSpeedCount.incrementAndGet();
+            } else if (isTrack == 1) {
+                trackTotalSpeed.addAndGet(speed);
+                trackSpeedCount.incrementAndGet();
             }
         }
 
@@ -553,7 +553,7 @@ public class hourlyJobWithZaDailySZ {
                 if (!vehicleIds.contains(id)) {
                     vehicleIds.add(id);
                     busCount.addAndGet(other.busCount.get());
-                    truckCount.addAndGet(other.truckCount.get());
+                    trackCount.addAndGet(other.trackCount.get());
                     otherCount.addAndGet(other.otherCount.get());
                 }
             }
@@ -562,8 +562,8 @@ public class hourlyJobWithZaDailySZ {
             // 合并客车和货车的速度统计
             busTotalSpeed.addAndGet(other.busTotalSpeed.get());
             busSpeedCount.addAndGet(other.busSpeedCount.get());
-            truckTotalSpeed.addAndGet(other.truckTotalSpeed.get());
-            truckSpeedCount.addAndGet(other.truckSpeedCount.get());
+            trackTotalSpeed.addAndGet(other.trackTotalSpeed.get());
+            trackSpeedCount.addAndGet(other.trackSpeedCount.get());
         }
     }
 
@@ -592,7 +592,7 @@ public class hourlyJobWithZaDailySZ {
         public Tuple7<String, String, Integer, Integer, Integer, Double, Integer> getResult(RampTrafficAccumulator acc) {
             double avgSpeed = acc.vehicleCount.get() > 0 ? acc.totalSpeed.get() / acc.vehicleCount.get() : 0.0;
             return Tuple7.of(acc.hourKey, acc.rampCode, acc.vehicleCount.get(),
-                    acc.busCount.get(), acc.truckCount.get(), avgSpeed, acc.totalCount.get());
+                    acc.busCount.get(), acc.trackCount.get(), avgSpeed, acc.totalCount.get());
         }
 
         @Override
@@ -607,12 +607,12 @@ public class hourlyJobWithZaDailySZ {
         public String rampCode;
         public final Set<Long> vehicleIds = new HashSet<>();
         public final AtomicInteger busCount = new AtomicInteger(0);
-        public final AtomicInteger truckCount = new AtomicInteger(0);
+        public final AtomicInteger trackCount = new AtomicInteger(0);
         public final AtomicInteger vehicleCount = new AtomicInteger(0);
         public final AtomicInteger totalCount = new AtomicInteger(0);
         public final AtomicDouble totalSpeed = new AtomicDouble(0.0);
 
-        public void addVehicle(long vehicleId, int isBus, double speed, int isTruck, int count) {
+        public void addVehicle(long vehicleId, int isBus, double speed, int isTrack, int count) {
             totalCount.addAndGet(count);
             totalSpeed.addAndGet(speed);
 
@@ -621,8 +621,8 @@ public class hourlyJobWithZaDailySZ {
                 vehicleCount.incrementAndGet();
                 if (isBus == 1) {
                     busCount.incrementAndGet();
-                } else if (isTruck == 1) {
-                    truckCount.incrementAndGet();
+                } else if (isTrack == 1) {
+                    trackCount.incrementAndGet();
                 }
             }
         }
@@ -633,7 +633,7 @@ public class hourlyJobWithZaDailySZ {
                     vehicleIds.add(id);
                     vehicleCount.addAndGet(1);
                     busCount.addAndGet(other.busCount.get());
-                    truckCount.addAndGet(other.truckCount.get());
+                    trackCount.addAndGet(other.trackCount.get());
                 }
             }
             totalCount.addAndGet(other.totalCount.get());
@@ -771,10 +771,10 @@ public class hourlyJobWithZaDailySZ {
         public Tuple9<String, String, Integer, Integer, Integer, Integer, Double, Double, Double> getResult(DailyDetailedTrafficAccumulator acc) {
             double avgSpeed = acc.totalSpeed > 0 ? acc.totalSpeed / acc.speedCount : 0.0;
             double minibusSpeed = acc.busSpeedCount > 0 ? acc.busTotalSpeed / acc.busSpeedCount : 0.0;
-            double truckSpeed = acc.truckSpeedCount > 0 ? acc.truckTotalSpeed / acc.truckSpeedCount : 0.0;
+            double trackSpeed = acc.trackSpeedCount > 0 ? acc.trackTotalSpeed / acc.trackSpeedCount : 0.0;
             return Tuple9.of(acc.dayKey, acc.stakeMark, acc.direction,
-                    acc.busCount, acc.truckCount, acc.otherCount, 
-                    avgSpeed, minibusSpeed, truckSpeed);
+                    acc.busCount, acc.trackCount, acc.otherCount, 
+                    avgSpeed, minibusSpeed, trackSpeed);
         }
 
         @Override
@@ -791,8 +791,8 @@ public class hourlyJobWithZaDailySZ {
             // 合并客车和货车的速度统计
             a.busTotalSpeed += b.busTotalSpeed;
             a.busSpeedCount += b.busSpeedCount;
-            a.truckTotalSpeed += b.truckTotalSpeed;
-            a.truckSpeedCount += b.truckSpeedCount;
+            a.trackTotalSpeed += b.trackTotalSpeed;
+            a.trackSpeedCount += b.trackSpeedCount;
             // 重新计算计数
             a.recalculateCounts();
             return a;
@@ -806,25 +806,25 @@ public class hourlyJobWithZaDailySZ {
         // 两小时窗口 -> 车辆ID集合
         public Map<String, Set<Long>> twoHourWindows = new HashMap<>();
         public int busCount = 0;
-        public int truckCount = 0;
+        public int trackCount = 0;
         public int otherCount = 0;
         public double totalSpeed = 0.0;
         public int speedCount = 0;
         // 新增：分别跟踪客车和货车的速度统计
         public double busTotalSpeed = 0.0;
         public int busSpeedCount = 0;
-        public double truckTotalSpeed = 0.0;
-        public int truckSpeedCount = 0;
+        public double trackTotalSpeed = 0.0;
+        public int trackSpeedCount = 0;
         // 临时存储车辆类型信息
         private Map<Long, Integer> vehicleBusMap = new HashMap<>();
-        private Map<Long, Integer> vehicleTruckMap = new HashMap<>();
+        private Map<Long, Integer> vehicleTrackMap = new HashMap<>();
         // 临时存储速度信息
         private Map<Long, List<Double>> vehicleSpeeds = new HashMap<>();
 
-        public void addVehicle(long vehicleId, int isBus, int isTruck, double speed, long timestamp) {
+        public void addVehicle(long vehicleId, int isBus, int isTrack, double speed, long timestamp) {
             // 存储车辆类型信息
             vehicleBusMap.put(vehicleId, isBus);
-            vehicleTruckMap.put(vehicleId, isTruck);
+            vehicleTrackMap.put(vehicleId, isTrack);
 
             // 存储速度信息
             vehicleSpeeds.computeIfAbsent(vehicleId, k -> new ArrayList<>()).add(speed);
@@ -837,8 +837,8 @@ public class hourlyJobWithZaDailySZ {
                 vehicleSet.add(vehicleId);
                 if (isBus == 1) {
                     busCount++;
-                } else if (isTruck == 1) {
-                    truckCount++;
+                } else if (isTrack == 1) {
+                    trackCount++;
                 } else {
                     otherCount++;
                 }
@@ -852,9 +852,9 @@ public class hourlyJobWithZaDailySZ {
             if (isBus == 1) {
                 busTotalSpeed += speed;
                 busSpeedCount++;
-            } else if (isTruck == 1) {
-                truckTotalSpeed += speed;
-                truckSpeedCount++;
+            } else if (isTrack == 1) {
+                trackTotalSpeed += speed;
+                trackSpeedCount++;
             }
         }
 
@@ -874,24 +874,24 @@ public class hourlyJobWithZaDailySZ {
 
         public void recalculateCounts() {
             busCount = 0;
-            truckCount = 0;
+            trackCount = 0;
             otherCount = 0;
             totalSpeed = 0.0;
             speedCount = 0;
             busTotalSpeed = 0.0;
             busSpeedCount = 0;
-            truckTotalSpeed = 0.0;
-            truckSpeedCount = 0;
+            trackTotalSpeed = 0.0;
+            trackSpeedCount = 0;
 
             for (Set<Long> vehicleSet : twoHourWindows.values()) {
                 for (Long vehicleId : vehicleSet) {
                     Integer isBus = vehicleBusMap.get(vehicleId);
-                    Integer isTruck = vehicleTruckMap.get(vehicleId);
+                    Integer isTrack = vehicleTrackMap.get(vehicleId);
 
                     if (isBus != null && isBus == 1) {
                         busCount++;
-                    } else if (isTruck != null && isTruck == 1) {
-                        truckCount++;
+                    } else if (isTrack != null && isTrack == 1) {
+                        trackCount++;
                     } else {
                         otherCount++;
                     }
@@ -907,9 +907,9 @@ public class hourlyJobWithZaDailySZ {
                             if (isBus != null && isBus == 1) {
                                 busTotalSpeed += speed;
                                 busSpeedCount++;
-                            } else if (isTruck != null && isTruck == 1) {
-                                truckTotalSpeed += speed;
-                                truckSpeedCount++;
+                            } else if (isTrack != null && isTrack == 1) {
+                                trackTotalSpeed += speed;
+                                trackSpeedCount++;
                             }
                         }
                     }
@@ -999,23 +999,23 @@ public class hourlyJobWithZaDailySZ {
         public void invoke(Tuple9<String, String, Integer, Integer, Integer, Integer, Double, Double, Double> value, Context context) throws Exception {
             String rowKey = value.f0 + "_" + value.f1 + "_" + value.f2; // 小时_桩号_方向
             int busCount = value.f3;
-            int truckCount = value.f4;
+            int trackCount = value.f4;
             int otherCount = value.f5;
             double avgSpeed = value.f6;
             double minibusSpeed = value.f7;
-            double truckSpeed = value.f8;
+            double trackSpeed = value.f8;
 
             Put put = new Put(Bytes.toBytes(rowKey));
-            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("IndicatorOfRamp"),Bytes.toBytes(JSON.toJSONString(new IndicatorOfRoadSeg(busCount, truckCount, otherCount, avgSpeed, minibusSpeed, truckSpeed))));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("IndicatorOfRamp"),Bytes.toBytes(JSON.toJSONString(new IndicatorOfRoadSeg(busCount, trackCount, otherCount, avgSpeed, minibusSpeed, trackSpeed))));
 
             table.put(put);
             System.out.println("Inserted detailed traffic data by stake: " + rowKey +
                     " - Bus: " + busCount +
-                    ", Truck: " + truckCount +
+                    ", Track: " + trackCount +
                     ", Other: " + otherCount +
                     ", AvgSpeed: " + avgSpeed +
                     ", MinibusSpeed: " + minibusSpeed +
-                    ", TruckSpeed: " + truckSpeed);
+                    ", TrackSpeed: " + trackSpeed);
         }
 
         @Override
@@ -1046,19 +1046,19 @@ public class hourlyJobWithZaDailySZ {
             String rowKey = value.f0 + "_" + value.f1; // 小时_匝道编号
             int totalCount = value.f2;
             int busCount = value.f3;
-            int truckCount = value.f4;
+            int trackCount = value.f4;
             double avgSpeed = value.f5;
             int allCount = value.f6;
 
             Put put = new Put(Bytes.toBytes(rowKey));
 
-            put.addColumn(Bytes.toBytes(COLUMN_FAMILY),Bytes.toBytes("IndicatorOfRamp") ,Bytes.toBytes(JSON.toJSONString(new IndicatorOfRamp(totalCount, busCount, truckCount,allCount , avgSpeed))));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY),Bytes.toBytes("IndicatorOfRamp") ,Bytes.toBytes(JSON.toJSONString(new IndicatorOfRamp(totalCount, busCount, trackCount,allCount , avgSpeed))));
 
             table.put(put);
             System.out.println("Inserted ramp traffic data: " + rowKey +
                     " - Total: " + totalCount +
                     ", Bus: " + busCount +
-                    ", Truck: " + truckCount +
+                    ", Track: " + trackCount +
                     ", AvgSpeed: " + avgSpeed +
                     ", AllCount: " + allCount);
         }
@@ -1129,23 +1129,23 @@ public class hourlyJobWithZaDailySZ {
         public void invoke(Tuple9<String, String, Integer, Integer, Integer, Integer, Double, Double, Double> value, Context context) throws Exception {
             String rowKey = value.f0 + "_" + value.f1 + "_" + value.f2; // 日期_桩号_方向
             int busCount = value.f3;
-            int truckCount = value.f4;
+            int trackCount = value.f4;
             int otherCount = value.f5;
             double avgSpeed = value.f6;
             double minibusSpeed = value.f7;
-            double truckSpeed = value.f8;
+            double trackSpeed = value.f8;
 
             Put put = new Put(Bytes.toBytes(rowKey));
-            put.addColumn(Bytes.toBytes(COLUMN_FAMILY),Bytes.toBytes("IndicatorOfRamp"), Bytes.toBytes(JSON.toJSONString(new IndicatorOfRoadSeg(busCount, truckCount, otherCount, avgSpeed, minibusSpeed, truckSpeed))));
+            put.addColumn(Bytes.toBytes(COLUMN_FAMILY),Bytes.toBytes("IndicatorOfRamp"), Bytes.toBytes(JSON.toJSONString(new IndicatorOfRoadSeg(busCount, trackCount, otherCount, avgSpeed, minibusSpeed, trackSpeed))));
 
             table.put(put);
             System.out.println("Inserted daily detailed traffic data: " + rowKey +
                     " - Bus: " + busCount +
-                    ", Truck: " + truckCount +
+                    ", Track: " + trackCount +
                     ", Other: " + otherCount +
                     ", AvgSpeed: " + avgSpeed +
                     ", MinibusSpeed: " + minibusSpeed +
-                    ", TruckSpeed: " + truckSpeed);
+                    ", TrackSpeed: " + trackSpeed);
         }
 
         @Override

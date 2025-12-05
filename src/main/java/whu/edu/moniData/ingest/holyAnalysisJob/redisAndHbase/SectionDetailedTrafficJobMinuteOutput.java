@@ -51,7 +51,7 @@ public class SectionDetailedTrafficJobMinuteOutput {
     }
 
     // 判断货车类型的方法
-    private static boolean isTruck(int vt) {
+    private static boolean isTrack(int vt) {
         return vt == 2 || vt == 10 || vt == 8 || vt == 11 || vt == 170 || vt == 171 || vt == 172 ||
                 vt == 173 || vt == 174 || vt == 175 || vt == 176 || vt == 177;
     }
@@ -137,9 +137,9 @@ public class SectionDetailedTrafficJobMinuteOutput {
                             // 判断车辆类型
                             int vehicleType = point.getVehicleType();
                             int isBus = isBus(vehicleType) ? 1 : 0;
-                            int isTruck = isTruck(vehicleType) ? 1 : 0;
+                            int isTrack = isTrack(vehicleType) ? 1 : 0;
 
-                            out.collect(new Tuple6<>(minuteKey, stakeMark, point.getDirection(), point.getId(), isBus, isTruck));
+                            out.collect(new Tuple6<>(minuteKey, stakeMark, point.getDirection(), point.getId(), isBus, isTrack));
                         }
                     }
                 })
@@ -193,7 +193,7 @@ public class SectionDetailedTrafficJobMinuteOutput {
         @Override
         public Tuple6<String, String, Integer, Integer, Integer, Integer> getResult(DetailedTrafficAccumulator acc) {
             return Tuple6.of(acc.minuteKey, acc.stakeMark, acc.direction,
-                    acc.busCount.get(), acc.truckCount.get(), acc.otherCount.get());
+                    acc.busCount.get(), acc.trackCount.get(), acc.otherCount.get());
         }
 
         @Override
@@ -209,16 +209,16 @@ public class SectionDetailedTrafficJobMinuteOutput {
         public int direction;
         public final Set<Long> vehicleIds = new HashSet<>();
         public final AtomicInteger busCount = new AtomicInteger(0);
-        public final AtomicInteger truckCount = new AtomicInteger(0);
+        public final AtomicInteger trackCount = new AtomicInteger(0);
         public final AtomicInteger otherCount = new AtomicInteger(0);
 
-        public void addVehicle(long vehicleId, int isBus, int isTruck) {
+        public void addVehicle(long vehicleId, int isBus, int isTrack) {
             if (!vehicleIds.contains(vehicleId)) {
                 vehicleIds.add(vehicleId);
                 if (isBus == 1) {
                     busCount.incrementAndGet();
-                } else if (isTruck == 1) {
-                    truckCount.incrementAndGet();
+                } else if (isTrack == 1) {
+                    trackCount.incrementAndGet();
                 } else {
                     otherCount.incrementAndGet();
                 }
@@ -230,7 +230,7 @@ public class SectionDetailedTrafficJobMinuteOutput {
                 if (!vehicleIds.contains(id)) {
                     vehicleIds.add(id);
                     busCount.addAndGet(other.busCount.get());
-                    truckCount.addAndGet(other.truckCount.get());
+                    trackCount.addAndGet(other.trackCount.get());
                     otherCount.addAndGet(other.otherCount.get());
                 }
             }

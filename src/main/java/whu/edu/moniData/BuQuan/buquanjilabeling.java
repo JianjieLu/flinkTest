@@ -68,7 +68,7 @@
 //        try (StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()) {
 //            env.setParallelism(3);
 //            String brokers = args[0];
-//            List<String> topics  = Arrays.asList("MergedPathData");
+//            List<String> topics  = Arrays.asList("MergedRampPathData");
 //            String groupId = "flink_consumer_group6";
 //            // 从Kafka读取数据
 //            KafkaSource<String> source = KafkaSource.<String>builder()

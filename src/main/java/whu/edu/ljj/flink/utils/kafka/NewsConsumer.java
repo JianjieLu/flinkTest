@@ -23,7 +23,7 @@ public class NewsConsumer {
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props)) {
             // 订阅主题MergedPathData
 //            consumer.subscribe(java.util.Collections.singletonList("MergedPathData.sceneTest.1"));
-            consumer.subscribe(java.util.Collections.singletonList("MergedPathData"));
+            consumer.subscribe(java.util.Collections.singletonList("MergedRampPathData"));
 //            consumer.subscribe(java.util.Collections.singletonList("fiberDataTest1"));
 
             // 循环拉取消息

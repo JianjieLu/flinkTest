@@ -24,6 +24,7 @@ public class UDPReceiverWithParser {
     private static final int BUFFER_SIZE = 4096;
 
     // Kafka配置
+//    private static final String KAFKA_BROKERS2 = "100.65.155.40:9092";
     private static final String KAFKA_BROKERS2 = "10.48.53.82:9092";
     private static final String OUTPUT_TOPIC = "smartBS_xg";
 
@@ -50,6 +51,7 @@ public class UDPReceiverWithParser {
                 socket.receive(packet);
 
                 byte[] data = Arrays.copyOfRange(packet.getData(), 0, packet.getLength());
+                System.out.println(Arrays.toString(data));
 //                System.out.println("Received " + data.length + " bytes from " +
 //                        packet.getAddress().getHostAddress() + ":" + packet.getPort());
 
@@ -106,7 +108,7 @@ public class UDPReceiverWithParser {
 
     public static E1Frame parse(byte[] data) {
         ByteBuffer buffer = ByteBuffer.wrap(data).order(ByteOrder.BIG_ENDIAN);
-        System.out.println(Arrays.toString(data));
+//        System.out.println(Arrays.toString(data));
         E1Frame frame = new E1Frame();
 //        System.out.println(Arrays.toString(data));
         // 解析帧头

@@ -58,7 +58,7 @@ public class numIngestMinute {
 
         String brokers = "10.48.53.82:9092";
         String groupId = "ramp-traffic-group";
-        String topic = "MergedPathData";
+        String topic = "MergedRampPathData";
 
         // 使用SimpleStringSchema作为反序列化器
         KafkaSource<String> source = KafkaSource.<String>builder()
@@ -554,7 +554,7 @@ public class numIngestMinute {
                 Put put = new Put(Bytes.toBytes(rowKey));
                 put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("total_vehicles"), Bytes.toBytes(String.valueOf(value.f2)));
                 put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("bus_count"), Bytes.toBytes(String.valueOf(value.f3)));
-                put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("truck_count"), Bytes.toBytes(String.valueOf(value.f4)));
+                put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("track_count"), Bytes.toBytes(String.valueOf(value.f4)));
 
                 String avgSpeed = String.format("%.1f", value.f5);
                 put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("avg_speed"), Bytes.toBytes(avgSpeed));

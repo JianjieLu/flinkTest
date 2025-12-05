@@ -50,7 +50,7 @@ public class CarTrajAnalysisJobZa {
         String brokers = "100.65.38.40:9092";
         String groupId = "flink-group";
 
-        List<String> topics = Arrays.asList("MergedPathData");
+        List<String> topics = Arrays.asList("MergedRampPathData");
 
         KafkaSource<String> kafkaSource = KafkaSource.<String>builder()
                 .setBootstrapServers(brokers)

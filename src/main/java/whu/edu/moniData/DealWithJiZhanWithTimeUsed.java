@@ -181,7 +181,7 @@ public class DealWithJiZhanWithTimeUsed {
                 .setBootstrapServers("10.48.53.82:9092")
                 .setRecordSerializer(
                         KafkaRecordSerializationSchema.builder()
-                                .setTopic("MergedPathData")
+                                .setTopic("MergedRampPathData")
                                 .setValueSerializationSchema(new SimpleStringSchema())
                                 .build()
                 )

@@ -91,7 +91,7 @@ public class ASNJob {
         // Kafka配置
         String brokers = "10.48.53.82:9092";
         String groupId = "ramp-traffic-group";
-        String topic = "MergedPathData";
+        String topic = "MergedRampPathData";
 
         // 创建Kafka源
         KafkaSource<String> source = KafkaSource.<String>builder()
@@ -455,7 +455,7 @@ public class ASNJob {
 
                 put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("total_vehicles"), Bytes.toBytes(String.valueOf(value.f2)));
                 put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("bus_count"), Bytes.toBytes(String.valueOf(value.f3)));
-                put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("truck_count"), Bytes.toBytes(String.valueOf(value.f4)));
+                put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("track_count"), Bytes.toBytes(String.valueOf(value.f4)));
 
                 String avgSpeed = String.format("%.1f", value.f5);
                 put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("avg_speed"), Bytes.toBytes(avgSpeed));

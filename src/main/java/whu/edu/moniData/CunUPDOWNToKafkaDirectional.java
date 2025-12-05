@@ -270,7 +270,7 @@ public class CunUPDOWNToKafkaDirectional {
                                             dirObj.put("direction", direction);
                                             dirObj.put("total", 0);
                                             dirObj.put("minibus", 0);
-                                            dirObj.put("truck", 0);
+                                            dirObj.put("track", 0);
                                             dirObj.put("totalSpeed", 0.0);
                                             dirObj.put("vehicleCount", 0);
                                             directionStats.put(direction, dirObj);
@@ -296,7 +296,7 @@ public class CunUPDOWNToKafkaDirectional {
                                         laneObj.put("lane", lane);
                                         laneObj.put("total", totalCount);
                                         laneObj.put("minibus", busCount);
-                                        laneObj.put("truck", trackCount);
+                                        laneObj.put("track", trackCount);
                                         laneObj.put("aveSpeed", avgSpeed);
 
                                         // 获取车道方向
@@ -309,7 +309,7 @@ public class CunUPDOWNToKafkaDirectional {
                                             JSONObject dirObj = directionStats.get(direction);
                                             dirObj.put("total", dirObj.getIntValue("total") + totalCount);
                                             dirObj.put("minibus", dirObj.getIntValue("minibus") + busCount);
-                                            dirObj.put("truck", dirObj.getIntValue("truck") + trackCount);
+                                            dirObj.put("track", dirObj.getIntValue("track") + trackCount);
                                             dirObj.put("totalSpeed", dirObj.getDoubleValue("totalSpeed") + totalSpeed);
                                             dirObj.put("vehicleCount", dirObj.getIntValue("vehicleCount") + vehicleCount);
                                         }

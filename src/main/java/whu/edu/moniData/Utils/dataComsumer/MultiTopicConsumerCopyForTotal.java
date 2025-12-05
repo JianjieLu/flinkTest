@@ -20,8 +20,7 @@ public class MultiTopicConsumerCopyForTotal {
         props.put("bootstrap.servers", "10.48.53.82:9092");
 //        props.put("bootstrap.servers", "100.65.38.40:9092");
 //        props.put("bootstrap.servers", "100.65.38.139:9092");
-//        props.put("bootstrap.servers", "192.168.0.7:9092");
-
+//        props.put("bootstrap.servers", "192.168.0.5:9092");
         props.put("group.id", "my-consuming-group1");
         props.put("key.deserializer", StringDeserializer.class.getName());
         props.put("value.deserializer", StringDeserializer.class.getName());
@@ -32,16 +31,16 @@ public class MultiTopicConsumerCopyForTotal {
 //            consumer.subscribe(Arrays.asList("trajectoryoutput"));
 //            consumer.subscribe(Arrays.asList("trajectoryoutput"));
 //            consumer.subscribe(Arrays.asList("specialTrafficInfo"));
-            consumer.subscribe(Arrays.asList("e1_data_XG01"));
+//            consumer.subscribe(Arrays.asList("e1_data_XG01"));
 //            consumer.subscribe(Arrays.asList("smartBS_xg"));
 //            consumer.subscribe(Arrays.asList("wd.platform.en.ex.vehicles"));
 //            consumer.subscribe(Arrays.asList("vehicle.trajectories"));
-//            consumer.subscribe(Arrays.asList("five.min.trajectories"));
+//            consumer.subscribe(Arrays.asList(".five.min.trajectories"));
 //            consumer.subscribe(Arrays.asList("UDPDecoder"));
-//            consumer.subscribe(Arrays.asList("MergedPathData"));
-            consumer.subscribe(Arrays.asList("jtkj.jga.path.1"));
+//            consumer.subscribe(Arrays.asList("MergedRampPathData"));
+            consumer.subscribe(Arrays.asList("jtkj.jga.path"));
 
-//            consumer.subscribe(Arrays.asList("speeding_events"));
+            consumer.subscribe(Arrays.asList("traffic_events"));
 //            consumer.subscribe(Arrays.asList("low_speed_events"));
 //            consumer.subscribe(Arrays.asList("jtkj.jga.path"));
 
@@ -59,11 +58,6 @@ public class MultiTopicConsumerCopyForTotal {
 //            consumer.subscribe(Arrays.asList("MergedPathData.sceneTest.2"));
 //            consumer.subscribe(Collections.singletonList("completed.pathdata"));
             // 4. 持续轮询消息
-
-
-
-
-
             while (true) {
                 ConsumerRecords<String, String> records =
                         consumer.poll(Duration.ofMillis(100));
@@ -88,7 +82,7 @@ public class MultiTopicConsumerCopyForTotal {
                                 record.value()
                         );
 //                    }
-                        
+
 
                 }
             }

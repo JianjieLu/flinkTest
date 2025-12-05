@@ -107,7 +107,8 @@ public class MoniNoCrowded10ToCar {
     private static final int WARNING_THRESHOLD_MS = 150;
     private static final int CRITICAL_THRESHOLD_MS = 180;
     private static final int MAX_DYNAMIC_ADJUST = 50;
-    private static final int IDEAL_VEHICLE_COUNT = 50;
+    //    private static final int IDEAL_VEHICLE_COUNT = 50;
+    private static final int IDEAL_VEHICLE_COUNT = 100;
     private static final double MIN_PROB = 0.05;
     private static final double MAX_PROB = 0.8;
     private static final int ADJUST_INTERVAL = 50;

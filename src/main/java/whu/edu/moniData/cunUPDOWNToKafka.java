@@ -236,7 +236,7 @@ public class cunUPDOWNToKafka {
                 laneData.put("lane", lane);
                 laneData.put("total", totalCount);
                 laneData.put("minibus", busCount);
-                laneData.put("truck", trackCount);
+                laneData.put("track", trackCount);
                 laneData.put("aveSpeed", avgSpeed); // 直接存储为double
 
                 // 添加到方向分组
@@ -256,19 +256,19 @@ public class cunUPDOWNToKafka {
 
                 int total = 0;
                 int minibus = 0;
-                int truck = 0;
+                int track = 0;
 
                 JSONArray laneList = new JSONArray();
                 for (JSONObject laneData : entry.getValue()) {
                     laneList.add(laneData);
                     total += laneData.getIntValue("total");
                     minibus += laneData.getIntValue("minibus");
-                    truck += laneData.getIntValue("truck");
+                    track += laneData.getIntValue("track");
                 }
 
                 directionDataObj.put("total", total);
                 directionDataObj.put("minibus", minibus);
-                directionDataObj.put("truck", truck);
+                directionDataObj.put("track", track);
 
                 // 计算方向平均速度
                 int totalVehicles = directionTotalVehicles.getOrDefault(direction, 0);

@@ -6,13 +6,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class test {
-
+    public static int parseStake(String stakeId) {
+        try {
+            String[] parts = stakeId.split("\\+");
+            return Integer.parseInt(parts[0]);
+        } catch (Exception e) {
+            return -1; // 无效桩号
+        }
+    }
     public static void main(String[] args) {
-        System.out.println(mainSau());
+        String endStake=null;
+
+        System.out.println(endStake.isEmpty());
     }
     public static List<Integer> mainSau(){
         List<Integer>l=new ArrayList<>();
-        l.add(0);
         l.add(0);
         l.add(1);
         l.add(2);

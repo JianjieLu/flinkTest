@@ -41,7 +41,7 @@ public class QueueLengthAnalysisJob {
 
         // ================== Kafka 配置 ==================
         String brokers = "10.48.53.82:9092"; // Kafka broker地址
-        String inputTopic = "MergedPathData"; // 输入主题
+        String inputTopic = "MergedRampPathData"; // 输入主题
         String outputTopic = "QueueLengthOutput"; // 输出主题
         String groupId = "queue-length-group"; // 消费者组ID
 

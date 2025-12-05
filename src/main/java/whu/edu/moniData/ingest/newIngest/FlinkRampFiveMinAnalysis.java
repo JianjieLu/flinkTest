@@ -44,7 +44,7 @@ public class FlinkRampFiveMinAnalysis {
         // Kafka配置
         String brokers = "10.48.53.82:9092";
         String groupId = "ramp-5min-group";
-        String topic = "MergedPathData";
+        String topic = "MergedRampPathData";
 
         // 创建Kafka源
         KafkaSource<String> kafkaSource = KafkaSource.<String>builder()

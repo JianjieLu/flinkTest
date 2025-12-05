@@ -606,9 +606,9 @@ public class FifteenAndHourlyTrafficFromTotalStatistics {
             Put put = new Put(Bytes.toBytes(rowKey));
 
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_bus"), Bytes.toBytes(String.valueOf(value.f2)));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_truck"), Bytes.toBytes(String.valueOf(value.f3)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_track"), Bytes.toBytes(String.valueOf(value.f3)));
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_bus"), Bytes.toBytes(String.valueOf(value.f4)));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_truck"), Bytes.toBytes(String.valueOf(value.f5)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_track"), Bytes.toBytes(String.valueOf(value.f5)));
 
             String upAvgSpeed = String.format("%.1f", value.f6);
             String downAvgSpeed = String.format("%.1f", value.f7);

@@ -96,7 +96,7 @@ public class CombinedTrafficProcessingJob {
         String brokers = "10.48.53.82:9092";
         String rampGroupId = "ramp-traffic-group";
         String sectionGroupId = "fifteen-min-traffic-group";
-        String rampTopic = "MergedPathData";
+        String rampTopic = "MergedRampPathData";
         String sectionTopics = "MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5 MergedPathData.sceneTest.6 MergedPathData.sceneTest.7 MergedPathData.sceneTest.8 MergedPathData.sceneTest.9 MergedPathData.sceneTest.10 MergedPathData.sceneTest.11";
 
         // 创建匝道数据源
@@ -1077,7 +1077,7 @@ public class CombinedTrafficProcessingJob {
 
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("total_vehicles"), Bytes.toBytes(String.valueOf(value.f2)));
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("bus_count"), Bytes.toBytes(String.valueOf(value.f3)));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("truck_count"), Bytes.toBytes(String.valueOf(value.f4)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("track_count"), Bytes.toBytes(String.valueOf(value.f4)));
 
             String avgSpeed = String.format("%.1f", value.f5);
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("avg_speed"), Bytes.toBytes(avgSpeed));
@@ -1186,9 +1186,9 @@ public class CombinedTrafficProcessingJob {
             Put put = new Put(Bytes.toBytes(rowKey));
 
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_bus"), Bytes.toBytes(String.valueOf(value.f2)));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_truck"), Bytes.toBytes(String.valueOf(value.f3)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_track"), Bytes.toBytes(String.valueOf(value.f3)));
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_bus"), Bytes.toBytes(String.valueOf(value.f4)));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_truck"), Bytes.toBytes(String.valueOf(value.f5)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_track"), Bytes.toBytes(String.valueOf(value.f5)));
 
             String upAvgSpeed = String.format("%.1f", value.f6);
             String downAvgSpeed = String.format("%.1f", value.f7);

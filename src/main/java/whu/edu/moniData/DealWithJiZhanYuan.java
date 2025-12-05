@@ -158,7 +158,7 @@ long st1=System.currentTimeMillis();
 //                .setBootstrapServers("100.65.38.40:9092")
 //                .setRecordSerializer(
 //                        KafkaRecordSerializationSchema.builder()
-//                                .setTopic("MergedPathData")
+//                                .setTopic("MergedRampPathData")
 //                                .setValueSerializationSchema(new SimpleStringSchema())
 //                                .build()
 //                )
@@ -171,7 +171,7 @@ long st1=System.currentTimeMillis();
                 .setBootstrapServers("10.48.53.82:9092") // 新增集群
                 .setRecordSerializer(
                         KafkaRecordSerializationSchema.builder()
-                                .setTopic("MergedPathData")
+                                .setTopic("MergedRampPathData")
                                 .setValueSerializationSchema(new SimpleStringSchema())
                                 .build()
                 )

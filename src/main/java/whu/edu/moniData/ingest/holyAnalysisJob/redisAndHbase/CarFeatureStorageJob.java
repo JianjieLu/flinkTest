@@ -8,7 +8,7 @@ import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.common.state.StateTtlConfig;
 import org.apache.flink.api.common.time.Time;
-import org.apache.flink.api.java.tuple.Tuple5;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -70,15 +70,15 @@ public class CarFeatureStorageJob {
         }
 
         // 1. 首先提取特征（无状态操作）
-        DataStream<Tuple5<String, String, Integer, Integer, Double>> featureStream =
+        DataStream<Tuple2<String, String>> featureStream =
                 unionStream.flatMap(new FeatureExtractor());
 
         // 2. 按键分区（使用rowKey作为键）
-        KeyedStream<Tuple5<String, String, Integer, Integer, Double>, String> keyedStream =
+        KeyedStream<Tuple2<String, String>, String> keyedStream =
                 featureStream.keyBy(value -> value.f0);
 
         // 3. 使用状态去重
-        DataStream<Tuple5<String, String, Integer, Integer, Double>> deduplicatedStream =
+        DataStream<Tuple2<String, String>> deduplicatedStream =
                 keyedStream.flatMap(new Deduplicator());
 
         // 4. 写入HBase
@@ -89,10 +89,11 @@ public class CarFeatureStorageJob {
 
     /**
      * 特征提取器 - 无状态操作
+     * 输出: (rowKey, 包含所有特征的JSON字符串)
      */
-    private static class FeatureExtractor implements FlatMapFunction<String, Tuple5<String, String, Integer, Integer, Double>> {
+    private static class FeatureExtractor implements FlatMapFunction<String, Tuple2<String, String>> {
         @Override
-        public void flatMap(String jsonString, Collector<Tuple5<String, String, Integer, Integer, Double>> out) {
+        public void flatMap(String jsonString, Collector<Tuple2<String, String>> out) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 JSONArray pathList = jsonObject.getJSONArray("pathList");
@@ -105,14 +106,19 @@ public class CarFeatureStorageJob {
                     long id = vehicle.getLong("id");
                     String rowKey = plateNo + id;
 
-                    // 提取特征
-                    String specialFlag = getSpecialFlagSafely(vehicle);
-                    int vehicleColor = getVehicleColorSafely(vehicle);
-                    int vehicleType = vehicle.getInt("vehicleType");
-                    double vehicleWeight = getVehicleWeightSafely(vehicle);
+                    // 提取特征并构建特征JSON对象
+                    JSONObject featureJson = new JSONObject();
+                    featureJson.put("plateNo", plateNo);
+                    featureJson.put("id", id);
+                    featureJson.put("specialFlag", getSpecialFlagSafely(vehicle));
+                    featureJson.put("vehicleColor", getVehicleColorSafely(vehicle));
+                    featureJson.put("vehicleType", vehicle.getInt("vehicleType"));
+                    featureJson.put("originalType", vehicle.getInt("originalType"));
+                    featureJson.put("vehicleWeight", getVehicleWeightSafely(vehicle));
+                    featureJson.put("eventList", new JSONArray()); // 空事件列表
 
-                    // 发送到下游
-                    out.collect(new Tuple5<>(rowKey, specialFlag, vehicleColor, vehicleType, vehicleWeight));
+                    // 发送到下游 (rowKey, 特征JSON字符串)
+                    out.collect(new Tuple2<>(rowKey, featureJson.toString()));
                 }
             } catch (JSONException e) {
                 System.err.println("JSON解析错误: " + e.getMessage());
@@ -149,8 +155,7 @@ public class CarFeatureStorageJob {
     /**
      * 去重器 - 使用键控状态实现TTL
      */
-    private static class Deduplicator extends RichFlatMapFunction<Tuple5<String, String, Integer, Integer, Double>,
-            Tuple5<String, String, Integer, Integer, Double>> {
+    private static class Deduplicator extends RichFlatMapFunction<Tuple2<String, String>, Tuple2<String, String>> {
 
         private ValueState<Boolean> processedState;
 
@@ -173,8 +178,8 @@ public class CarFeatureStorageJob {
         }
 
         @Override
-        public void flatMap(Tuple5<String, String, Integer, Integer, Double> feature,
-                            Collector<Tuple5<String, String, Integer, Integer, Double>> out) throws Exception {
+        public void flatMap(Tuple2<String, String> feature,
+                            Collector<Tuple2<String, String>> out) throws Exception {
 
             // 检查是否已处理过该车辆
             if (processedState.value() == null) {
@@ -189,13 +194,15 @@ public class CarFeatureStorageJob {
 
     /**
      * HBase Sink - 将车辆特征写入Car_Feature表
+     * 每辆车只有一列，包含所有特征数据的JSON
      */
-    private static class CarFeatureHBaseSink extends RichSinkFunction<Tuple5<String, String, Integer, Integer, Double>> {
+    private static class CarFeatureHBaseSink extends RichSinkFunction<Tuple2<String, String>> {
 
         private Connection connection;
         private Table table;
         private final String tableName = "Car_Feature";
         private final String columnFamily = "cf1";
+        private final String featureColumn = "featureData"; // 单一列名
 
         @Override
         public void open(org.apache.flink.configuration.Configuration parameters) throws Exception {
@@ -228,21 +235,19 @@ public class CarFeatureStorageJob {
         }
 
         @Override
-        public void invoke(Tuple5<String, String, Integer, Integer, Double> feature, Context context) throws Exception {
+        public void invoke(Tuple2<String, String> feature, Context context) throws Exception {
             // rowKey = 车牌号 + ID
             String rowKey = feature.f0;
+            String featureJson = feature.f1;
+
             Put put = new Put(Bytes.toBytes(rowKey));
 
-            // 添加特征数据
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("specialFlag"), Bytes.toBytes(feature.f1));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("vehicleColor"), Bytes.toBytes(feature.f2));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("vehicleType"), Bytes.toBytes(feature.f3));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("vehicleWeight"), Bytes.toBytes(feature.f4));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("event_list"), Bytes.toBytes("[]")); // 空事件列表
+            // 将所有特征数据存储在一列中
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(featureColumn), Bytes.toBytes(featureJson));
 
             // 写入HBase
             table.put(put);
-            System.out.println("写入特征数据: " + rowKey);
+            System.out.println("写入特征数据: " + rowKey + ", 数据: " + featureJson);
         }
 
         @Override

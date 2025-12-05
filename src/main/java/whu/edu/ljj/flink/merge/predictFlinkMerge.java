@@ -68,7 +68,7 @@
 //            // 配置Kafka连接信息
 //            String brokers = "100.65.38.40:9092";
 //            String groupId = "flink_consumer_group";
-////            List<String> topics = Arrays.asList("MergedPathData");
+////            List<String> topics = Arrays.asList("MergedRampPathData");
 ////            List<String> topics = Collections.singletonList("news-topic");
 //            List<String> topics = Collections.singletonList("MergedPathData.sceneTest.1");
 //            // 创建Kafka数据源

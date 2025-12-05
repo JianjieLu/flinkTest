@@ -70,7 +70,7 @@ public class FifteenMinuteTrafficFromTotalStatistics {
         String brokers = "10.48.53.82:9092";
         String groupId = "fifteen-min-traffic-group";
 //        String topics = "fiberData1 fiberData2 fiberData3 fiberData4 fiberData5 fiberData6 fiberData7 fiberData8 fiberData9 fiberData10 fiberData11";
-        String topics ="MergedPathData.sceneTest.1 MergedPathData.sceneTest.2 MergedPathData.sceneTest.3 MergedPathData.sceneTest.4 MergedPathData.sceneTest.5 MergedPathData.sceneTest.6 MergedPathData.sceneTest.7 MergedPathData.sceneTest.8 MergedPathData.sceneTest.9 MergedPathData.sceneTest.10 MergedPathData.sceneTest.11";
+        String topics ="jtkj.jga.path";
         // 使用SimpleStringSchema作为反序列化器
         KafkaSource<String> source = KafkaSource.<String>builder()
                 .setBootstrapServers(brokers)
@@ -465,9 +465,9 @@ public class FifteenMinuteTrafficFromTotalStatistics {
             Put put = new Put(Bytes.toBytes(rowKey));
 
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_bus"), Bytes.toBytes(String.valueOf(value.f2)));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_truck"), Bytes.toBytes(String.valueOf(value.f3)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("up_track"), Bytes.toBytes(String.valueOf(value.f3)));
             put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_bus"), Bytes.toBytes(String.valueOf(value.f4)));
-            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_truck"), Bytes.toBytes(String.valueOf(value.f5)));
+            put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("down_track"), Bytes.toBytes(String.valueOf(value.f5)));
 
             String upAvgSpeed = String.format("%.1f", value.f6);
             String downAvgSpeed = String.format("%.1f", value.f7);

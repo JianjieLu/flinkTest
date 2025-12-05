@@ -30,6 +30,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 完整的超速和低速检测Flink作业
@@ -45,45 +47,93 @@ public class SpeedingAndLowSpeedDetectionJob {
     // 事件最小持续时间（毫秒）
     private static final long MIN_EVENT_DURATION = 3000;
 
+    // 事件类型编码（根据《事件类型列表编码.doc》）
+    private static final int EVENT_TYPE_SPEEDING = 1001; // 超速事件编码，需根据实际文档调整
+    private static final int EVENT_TYPE_LOW_SPEED = 1002; // 低速事件编码，需根据实际文档调整
+
+    // 事件等级编码
+    private static final String EVENT_LEVEL_GENERAL = "10010001";    // 一般
+    private static final String EVENT_LEVEL_LARGER = "10010002";     // 较大
+    private static final String EVENT_LEVEL_MAJOR = "10010003";      // 重大
+    private static final String EVENT_LEVEL_EXTREME = "10010004";    // 特别重大
+
+    // 事件源编码
+    private static final String EVENT_SOURCE_VIDEO = "2"; // 视频分析
+
+    private static final AtomicLong EVENT_ID_GENERATOR = new AtomicLong(1000000000L);
+
     /**
-     * 基础事件信息类
+     * 车辆信息类（carList中的车辆信息）
      */
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
     @Setter
-    public static class BaseEvent {
-        // 主要信息
-        private String vehicleId;
-        private String plateNo;
-        private String eventType; // 事件类型: speeding 或 low_speed
+    public static class EventVehicle {
+        private Integer carId;           // 车辆id
+        private String plateNo;          // 车牌号
+        private Integer plateColor;      // 车牌颜色
+        private Integer vehicleType;     // 车型
+        private String specialFlag;      // 特殊车辆类型
 
-        // 时间信息
-        private long startTime;
-        private long endTime;
-        private long duration;
+        public JSONObject toJSONObject() {
+            JSONObject json = new JSONObject();
+            json.put("carId", carId != null ? carId : JSONObject.NULL);
+            json.put("plateNo", plateNo != null ? plateNo : JSONObject.NULL);
+            json.put("plateColor", plateColor != null ? plateColor : JSONObject.NULL);
+            json.put("vehicleType", vehicleType != null ? vehicleType : JSONObject.NULL);
+            json.put("specialFlag", specialFlag != null ? specialFlag : JSONObject.NULL);
+            return json;
+        }
+    }
+
+    /**
+     * 标准事件信息类（符合文档格式）
+     */
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    public static class StandardEvent {
+        // 主要信息
+        private Integer eventId;             // 事件id（唯一性）
+        private String timeStamp;           // 事件上报时间戳
+        private Integer eventType;          // 事件类型
 
         // 位置信息
-        private double startMileage;  // 起始桩号
-        private double endMileage;    // 结束桩号
-        private int direction;
-        private int laneNo;           // 车道号
+        private String startStake;          // 事件起始桩号
+        private String endStake;            // 事件结束桩号
+        private Integer startMileage;       // 事件范围起始里程
+        private Integer endMilage;          // 事件范围截止里程
+        private Float startLongitude;       // 事件范围起始经度
+        private Float startLatitude;        // 事件范围起始纬度
+        private Float endLongitude;         // 事件范围截止经度
+        private Float endLatitude;          // 事件范围截止纬度
 
-        // 速度信息
-        private double minSpeed;      // 最小速度（km/h）
-        private double maxSpeed;      // 最大速度（km/h）
-        private double avgSpeed;      // 平均速度（km/h）
-        private double preSpeed;      // 事件前一帧的速度
-        private double postSpeed;     // 事件后一帧的速度
+        // 事件详情
+        private String laneNo;              // 事件所在车道号
+        private Integer direction;          // 事件发生区域的行车方向
+        private JSONArray carList;          // 事件发生车辆集合
+
+        // 附加信息
+        private String eventLevel;          // 事件等级
+        private String eventDes;            // 事件概要描述
+        private String eventReason;         // 事件原因
+        private String eventPicPath;        // 事件现场图片路径
+        private String eventVideoPath;      // 事件现场视频路径
+        private String eventSource;         // 事件源
+        private String sourceRemark;        // 来源备注
+        private String waySectionId;        // 路段id
+        private String waySectionName;      // 路段名称
+        private Boolean manualAudit;        // 事件是否需要人工审核校验
+        private Integer constructionVehicles; // 施工类事件，施工车数量
+        private Integer constructionPerson;   // 施工类事件，施工人员数量
 
         @Override
         public String toString() {
-            return String.format("%s事件: 车辆ID=%s, 持续时间=%dms, 起始桩号=%.3f, 结束桩号=%.3f, " +
-                            "最小速度=%.2fkm/h, 最大速度=%.2fkm/h, 前速=%.2fkm/h, 后速=%.2fkm/h, " +
-                            "方向=%d, 车道=%d, 开始时间=%d, 结束时间=%d",
-                    eventType, vehicleId, duration, startMileage, endMileage,
-                    minSpeed, maxSpeed, preSpeed, postSpeed,
-                    direction, laneNo, startTime, endTime);
+            return String.format("标准事件: ID=%d, 类型=%d, 时间=%s, 路段=%s, 车道=%s, 方向=%d, 车辆数=%d",
+                    eventId, eventType, timeStamp, waySectionName, laneNo, direction,
+                    carList != null ? carList.length() : 0);
         }
     }
 
@@ -95,11 +145,17 @@ public class SpeedingAndLowSpeedDetectionJob {
     @Getter
     @Setter
     public static class TrajectoryPoint {
-        private double speed;        // 速度 km/h
-        private double mileage;      // 里程
-        private int laneNo;          // 车道号
-        private int direction;       // 方向
-        private long timestamp;      // 时间戳
+        private double speed;           // 速度 km/h
+        private double mileage;         // 里程
+        private int laneNo;             // 车道号
+        private int direction;          // 方向
+        private long timestamp;         // 时间戳
+        private float longitude;        // 经度
+        private float latitude;         // 纬度
+        private String stakeId;         // 桩号
+        private Integer vehicleType;    // 车型
+        private Integer plateColor;     // 车牌颜色
+        private String specialFlag;     // 特殊车辆类型
     }
 
     /**
@@ -109,6 +165,7 @@ public class SpeedingAndLowSpeedDetectionJob {
         boolean isInEvent = false;
         String vehicleId;
         String plateNo;
+        Integer carId;
 
         // 时间信息
         long startTime;
@@ -118,8 +175,19 @@ public class SpeedingAndLowSpeedDetectionJob {
         // 位置信息
         double startMileage;
         double endMileage;
+        String startStake;
+        String endStake;
         int direction;
         int laneNo;
+        float startLongitude;
+        float startLatitude;
+        float endLongitude;
+        float endLatitude;
+
+        // 车辆信息
+        Integer vehicleType;
+        Integer plateColor;
+        String specialFlag;
 
         // 速度信息
         double minSpeed;
@@ -131,6 +199,10 @@ public class SpeedingAndLowSpeedDetectionJob {
 
         // 轨迹点列表
         List<TrajectoryPoint> eventPoints;
+
+        // 路段信息
+        String waySectionId;
+        String waySectionName;
 
         abstract void reset();
     }
@@ -144,13 +216,23 @@ public class SpeedingAndLowSpeedDetectionJob {
             isInEvent = false;
             vehicleId = null;
             plateNo = null;
+            carId = null;
             startTime = 0;
             endTime = 0;
             lastSeenTime = 0;
             startMileage = 0;
             endMileage = 0;
+            startStake = null;
+            endStake = null;
             direction = -1;
             laneNo = -1;
+            startLongitude = 0;
+            startLatitude = 0;
+            endLongitude = 0;
+            endLatitude = 0;
+            vehicleType = null;
+            plateColor = null;
+            specialFlag = null;
             minSpeed = 0;
             maxSpeed = 0;
             speedSum = 0;
@@ -158,12 +240,8 @@ public class SpeedingAndLowSpeedDetectionJob {
             postSpeed = 0;
             pointCount = 0;
             eventPoints = null;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("SpeedingEventState{vehicleId=%s, isInEvent=%s, points=%d, duration=%dms}",
-                    vehicleId, isInEvent, pointCount, (endTime - startTime));
+            waySectionId = null;
+            waySectionName = null;
         }
     }
 
@@ -176,13 +254,23 @@ public class SpeedingAndLowSpeedDetectionJob {
             isInEvent = false;
             vehicleId = null;
             plateNo = null;
+            carId = null;
             startTime = 0;
             endTime = 0;
             lastSeenTime = 0;
             startMileage = 0;
             endMileage = 0;
+            startStake = null;
+            endStake = null;
             direction = -1;
             laneNo = -1;
+            startLongitude = 0;
+            startLatitude = 0;
+            endLongitude = 0;
+            endLatitude = 0;
+            vehicleType = null;
+            plateColor = null;
+            specialFlag = null;
             minSpeed = 0;
             maxSpeed = 0;
             speedSum = 0;
@@ -190,48 +278,43 @@ public class SpeedingAndLowSpeedDetectionJob {
             postSpeed = 0;
             pointCount = 0;
             eventPoints = null;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("LowSpeedEventState{vehicleId=%s, isInEvent=%s, points=%d, duration=%dms}",
-                    vehicleId, isInEvent, pointCount, (endTime - startTime));
+            waySectionId = null;
+            waySectionName = null;
         }
     }
 
     /**
      * 超速和低速检测处理器
      */
-    public static class SpeedEventDetector extends RichFlatMapFunction<String, BaseEvent> {
+    public static class SpeedEventDetector extends RichFlatMapFunction<String, StandardEvent> {
 
         private transient ValueState<SpeedingEventState> speedingState;
         private transient ValueState<LowSpeedEventState> lowSpeedState;
-        private transient ValueState<TrajectoryPoint> lastNormalPointState; // 存储上一个正常速度点
+        private transient ValueState<TrajectoryPoint> lastNormalPointState;
 
         @Override
         public void open(Configuration parameters) throws Exception {
-            // 超速状态
             ValueStateDescriptor<SpeedingEventState> speedingDescriptor =
                     new ValueStateDescriptor<>("speeding-state", SpeedingEventState.class);
             speedingState = getRuntimeContext().getState(speedingDescriptor);
 
-            // 低速状态
             ValueStateDescriptor<LowSpeedEventState> lowSpeedDescriptor =
                     new ValueStateDescriptor<>("low-speed-state", LowSpeedEventState.class);
             lowSpeedState = getRuntimeContext().getState(lowSpeedDescriptor);
 
-            // 上一个正常点状态
             ValueStateDescriptor<TrajectoryPoint> lastPointDescriptor =
                     new ValueStateDescriptor<>("last-point-state", TrajectoryPoint.class);
             lastNormalPointState = getRuntimeContext().getState(lastPointDescriptor);
         }
 
         @Override
-        public void flatMap(String jsonString, Collector<BaseEvent> out) throws Exception {
+        public void flatMap(String jsonString, Collector<StandardEvent> out) throws Exception {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String timeStamp = jsonObject.optString("timeStamp", "");
                 JSONArray pathList = jsonObject.optJSONArray("pathList");
+                String waySectionId = jsonObject.optString("waySectionId", "");
+                String waySectionName = jsonObject.optString("waySectionName", "");
 
                 if (pathList == null || timeStamp.isEmpty()) {
                     return;
@@ -246,11 +329,10 @@ public class SpeedingAndLowSpeedDetectionJob {
                 for (int i = 0; i < pathList.length(); i++) {
                     JSONObject vehicleData = pathList.getJSONObject(i);
                     if (vehicleData != null) {
-                        processVehicleData(vehicleData, batchTimestamp, out);
+                        processVehicleData(vehicleData, batchTimestamp, waySectionId, waySectionName, out);
                     }
                 }
 
-                // 检查超时车辆
                 checkTimeoutVehicles(batchTimestamp, out);
 
             } catch (Exception e) {
@@ -260,20 +342,31 @@ public class SpeedingAndLowSpeedDetectionJob {
         }
 
         private void processVehicleData(JSONObject vehicleData, long batchTimestamp,
-                                        Collector<BaseEvent> out) throws Exception {
-            String vehicleId = String.valueOf(vehicleData.optLong("id", -1));
+                                        String waySectionId, String waySectionName,
+                                        Collector<StandardEvent> out) throws Exception {
+            Integer carId = vehicleData.optInt("id", -1);
+            String vehicleId = String.valueOf(carId);
             String plateNo = vehicleData.optString("plateNo", "");
-            double speed = vehicleData.optDouble("speed", 0.0); // km/h单位
+            double speed = vehicleData.optDouble("speed", 0.0);
             int direction = vehicleData.optInt("direction", -1);
             int laneNo = vehicleData.optInt("laneNo", -1);
-            double mileage = vehicleData.optDouble("mileage", 0.0) / 1000.0; // 转换为桩号
+            double mileage = vehicleData.optDouble("mileage", 0.0);
+            float longitude = (float) vehicleData.optDouble("longitude", 0.0);
+            float latitude = (float) vehicleData.optDouble("latitude", 0.0);
+            String stakeId = vehicleData.optString("stakeId", "");
+            Integer vehicleType = vehicleData.optInt("vehicleType", 0);
+            Integer plateColor = vehicleData.optInt("plateColor", 0);
+            String specialFlag = vehicleData.optString("specialFlag", "0");
 
-            if (vehicleId.equals("-1")) {
+            if (carId == -1) {
                 return;
             }
 
             // 创建当前轨迹点
-            TrajectoryPoint currentPoint = new TrajectoryPoint(speed, mileage, laneNo, direction, batchTimestamp);
+            TrajectoryPoint currentPoint = new TrajectoryPoint(
+                    speed, mileage, laneNo, direction, batchTimestamp,
+                    longitude, latitude, stakeId, vehicleType, plateColor, specialFlag
+            );
 
             // 获取状态
             SpeedingEventState speedingStateValue = speedingState.value();
@@ -285,278 +378,281 @@ public class SpeedingAndLowSpeedDetectionJob {
                 lowSpeedStateValue = new LowSpeedEventState();
             }
 
-            // 获取上一个正常速度点
             TrajectoryPoint lastNormalPoint = lastNormalPointState.value();
 
-            // 更新最后可见时间
+            // 更新最后可见时间和路段信息
             speedingStateValue.lastSeenTime = batchTimestamp;
             lowSpeedStateValue.lastSeenTime = batchTimestamp;
+            speedingStateValue.waySectionId = waySectionId;
+            speedingStateValue.waySectionName = waySectionName;
+            lowSpeedStateValue.waySectionId = waySectionId;
+            lowSpeedStateValue.waySectionName = waySectionName;
 
             // 检测超速和低速
             if (speed > SPEED_THRESHOLD) {
-                handleSpeeding(vehicleId, plateNo, currentPoint, lastNormalPoint, speedingStateValue);
-                // 如果同时存在低速事件，结束低速事件
-                handleNormalSpeedForLowSpeed(vehicleId, currentPoint, out, lowSpeedStateValue);
+                handleSpeeding(carId, vehicleId, plateNo, currentPoint, lastNormalPoint, speedingStateValue);
+                handleNormalSpeedForLowSpeed(carId, currentPoint, out, lowSpeedStateValue);
             } else if (speed < LOW_SPEED_THRESHOLD) {
-                handleLowSpeed(vehicleId, plateNo, currentPoint, lastNormalPoint, lowSpeedStateValue);
-                // 如果同时存在超速事件，结束超速事件
-                handleNormalSpeedForSpeeding(vehicleId, currentPoint, out, speedingStateValue);
+                handleLowSpeed(carId, vehicleId, plateNo, currentPoint, lastNormalPoint, lowSpeedStateValue);
+                handleNormalSpeedForSpeeding(carId, currentPoint, out, speedingStateValue);
             } else {
-                // 正常速度范围，结束可能存在的超速或低速事件
-                handleNormalSpeedForSpeeding(vehicleId, currentPoint, out, speedingStateValue);
-                handleNormalSpeedForLowSpeed(vehicleId, currentPoint, out, lowSpeedStateValue);
+                handleNormalSpeedForSpeeding(carId, currentPoint, out, speedingStateValue);
+                handleNormalSpeedForLowSpeed(carId, currentPoint, out, lowSpeedStateValue);
             }
 
-            // 更新状态
             speedingState.update(speedingStateValue);
             lowSpeedState.update(lowSpeedStateValue);
             lastNormalPointState.update(currentPoint);
         }
 
-        private void handleSpeeding(String vehicleId, String plateNo, TrajectoryPoint currentPoint,
-                                    TrajectoryPoint lastNormalPoint, SpeedingEventState state) {
+        private void handleSpeeding(Integer carId, String vehicleId, String plateNo,
+                                    TrajectoryPoint currentPoint, TrajectoryPoint lastNormalPoint,
+                                    SpeedingEventState state) {
             if (!state.isInEvent) {
-                // 开始新的超速事件
                 System.out.println("检测到车辆超速开始: " + vehicleId + ", 速度: " + currentPoint.getSpeed() + "km/h");
 
                 state.isInEvent = true;
+                state.carId = carId;
                 state.vehicleId = vehicleId;
                 state.plateNo = plateNo;
                 state.startTime = currentPoint.getTimestamp();
                 state.endTime = currentPoint.getTimestamp();
                 state.startMileage = currentPoint.getMileage();
                 state.endMileage = currentPoint.getMileage();
+                state.startStake = currentPoint.getStakeId();
+                state.endStake = currentPoint.getStakeId();
                 state.direction = currentPoint.getDirection();
                 state.laneNo = currentPoint.getLaneNo();
+                state.startLongitude = currentPoint.getLongitude();
+                state.startLatitude = currentPoint.getLatitude();
+                state.endLongitude = currentPoint.getLongitude();
+                state.endLatitude = currentPoint.getLatitude();
+                state.vehicleType = currentPoint.getVehicleType();
+                state.plateColor = currentPoint.getPlateColor();
+                state.specialFlag = currentPoint.getSpecialFlag();
 
-                // 速度相关初始化
                 state.minSpeed = currentPoint.getSpeed();
                 state.maxSpeed = currentPoint.getSpeed();
                 state.speedSum = currentPoint.getSpeed();
                 state.pointCount = 1;
 
-                // 记录超速前一帧的速度
                 if (lastNormalPoint != null) {
                     state.preSpeed = lastNormalPoint.getSpeed();
                 } else {
                     state.preSpeed = 0.0;
                 }
 
-                // 初始化轨迹点列表
                 state.eventPoints = new ArrayList<>();
                 state.eventPoints.add(currentPoint);
 
             } else {
-                // 继续当前超速事件
                 state.endTime = currentPoint.getTimestamp();
                 state.endMileage = currentPoint.getMileage();
+                state.endStake = currentPoint.getStakeId();
+                state.endLongitude = currentPoint.getLongitude();
+                state.endLatitude = currentPoint.getLatitude();
 
-                // 更新速度统计
                 state.minSpeed = Math.min(state.minSpeed, currentPoint.getSpeed());
                 state.maxSpeed = Math.max(state.maxSpeed, currentPoint.getSpeed());
                 state.speedSum += currentPoint.getSpeed();
                 state.pointCount++;
 
-                // 更新车道号
                 state.laneNo = currentPoint.getLaneNo();
-
-                // 添加轨迹点
                 state.eventPoints.add(currentPoint);
             }
         }
 
-        private void handleLowSpeed(String vehicleId, String plateNo, TrajectoryPoint currentPoint,
-                                    TrajectoryPoint lastNormalPoint, LowSpeedEventState state) {
+        private void handleLowSpeed(Integer carId, String vehicleId, String plateNo,
+                                    TrajectoryPoint currentPoint, TrajectoryPoint lastNormalPoint,
+                                    LowSpeedEventState state) {
             if (!state.isInEvent) {
-                // 开始新的低速事件
                 System.out.println("检测到车辆低速开始: " + vehicleId + ", 速度: " + currentPoint.getSpeed() + "km/h");
 
                 state.isInEvent = true;
+                state.carId = carId;
                 state.vehicleId = vehicleId;
                 state.plateNo = plateNo;
                 state.startTime = currentPoint.getTimestamp();
                 state.endTime = currentPoint.getTimestamp();
                 state.startMileage = currentPoint.getMileage();
                 state.endMileage = currentPoint.getMileage();
+                state.startStake = currentPoint.getStakeId();
+                state.endStake = currentPoint.getStakeId();
                 state.direction = currentPoint.getDirection();
                 state.laneNo = currentPoint.getLaneNo();
+                state.startLongitude = currentPoint.getLongitude();
+                state.startLatitude = currentPoint.getLatitude();
+                state.endLongitude = currentPoint.getLongitude();
+                state.endLatitude = currentPoint.getLatitude();
+                state.vehicleType = currentPoint.getVehicleType();
+                state.plateColor = currentPoint.getPlateColor();
+                state.specialFlag = currentPoint.getSpecialFlag();
 
-                // 速度相关初始化
                 state.minSpeed = currentPoint.getSpeed();
                 state.maxSpeed = currentPoint.getSpeed();
                 state.speedSum = currentPoint.getSpeed();
                 state.pointCount = 1;
 
-                // 记录低速前一帧的速度
                 if (lastNormalPoint != null) {
                     state.preSpeed = lastNormalPoint.getSpeed();
                 } else {
                     state.preSpeed = 0.0;
                 }
 
-                // 初始化轨迹点列表
                 state.eventPoints = new ArrayList<>();
                 state.eventPoints.add(currentPoint);
 
             } else {
-                // 继续当前低速事件
                 state.endTime = currentPoint.getTimestamp();
                 state.endMileage = currentPoint.getMileage();
+                state.endStake = currentPoint.getStakeId();
+                state.endLongitude = currentPoint.getLongitude();
+                state.endLatitude = currentPoint.getLatitude();
 
-                // 更新速度统计
                 state.minSpeed = Math.min(state.minSpeed, currentPoint.getSpeed());
                 state.maxSpeed = Math.max(state.maxSpeed, currentPoint.getSpeed());
                 state.speedSum += currentPoint.getSpeed();
                 state.pointCount++;
 
-                // 更新车道号
                 state.laneNo = currentPoint.getLaneNo();
-
-                // 添加轨迹点
                 state.eventPoints.add(currentPoint);
             }
         }
 
-        private void handleNormalSpeedForSpeeding(String vehicleId, TrajectoryPoint currentPoint,
-                                                  Collector<BaseEvent> out, SpeedingEventState state) throws Exception {
-            if (state.isInEvent && state.vehicleId.equals(vehicleId)) {
-                // 超速结束，记录超速后一帧的速度
+        private void handleNormalSpeedForSpeeding(Integer carId, TrajectoryPoint currentPoint,
+                                                  Collector<StandardEvent> out, SpeedingEventState state) throws Exception {
+            if (state.isInEvent && state.carId != null && state.carId.equals(carId)) {
                 state.postSpeed = currentPoint.getSpeed();
 
-                // 检查是否满足最小持续时间
                 long duration = state.endTime - state.startTime;
                 if (duration >= MIN_EVENT_DURATION) {
-                    // 计算平均速度
-                    double avgSpeed = state.speedSum / state.pointCount;
-
-                    // 输出超速事件
-                    BaseEvent event = new BaseEvent();
-                    event.setVehicleId(state.vehicleId);
-                    event.setPlateNo(state.plateNo);
-                    event.setEventType("speeding");
-
-                    event.setDuration(duration);
-                    event.setStartMileage(state.startMileage);
-                    event.setEndMileage(state.endMileage);
-                    event.setMinSpeed(state.minSpeed);
-                    event.setMaxSpeed(state.maxSpeed);
-                    event.setPreSpeed(state.preSpeed);
-                    event.setPostSpeed(state.postSpeed);
-                    event.setDirection(state.direction);
-                    event.setLaneNo(state.laneNo);
-                    event.setStartTime(state.startTime);
-                    event.setEndTime(state.endTime);
-                    event.setAvgSpeed(avgSpeed);
-
+                    StandardEvent event = createStandardEvent(state, EVENT_TYPE_SPEEDING, "超速行驶事件");
                     out.collect(event);
                     System.out.println("输出超速事件: " + event);
                 } else {
-                    System.out.println("超速持续时间不足，忽略: " + vehicleId + ", 持续时间: " + duration + "ms");
+                    System.out.println("超速持续时间不足，忽略: " + state.vehicleId + ", 持续时间: " + duration + "ms");
                 }
 
-                // 重置状态
                 state.reset();
                 speedingState.update(state);
             }
         }
 
-        private void handleNormalSpeedForLowSpeed(String vehicleId, TrajectoryPoint currentPoint,
-                                                  Collector<BaseEvent> out, LowSpeedEventState state) throws Exception {
-            if (state.isInEvent && state.vehicleId.equals(vehicleId)) {
-                // 低速结束，记录低速后一帧的速度
+        private void handleNormalSpeedForLowSpeed(Integer carId, TrajectoryPoint currentPoint,
+                                                  Collector<StandardEvent> out, LowSpeedEventState state) throws Exception {
+            if (state.isInEvent && state.carId != null && state.carId.equals(carId)) {
                 state.postSpeed = currentPoint.getSpeed();
 
-                // 检查是否满足最小持续时间
                 long duration = state.endTime - state.startTime;
                 if (duration >= MIN_EVENT_DURATION) {
-                    // 计算平均速度
-                    double avgSpeed = state.speedSum / state.pointCount;
-
-                    // 输出低速事件
-                    BaseEvent event = new BaseEvent();
-                    event.setVehicleId(state.vehicleId);
-                    event.setPlateNo(state.plateNo);
-                    event.setEventType("low_speed");
-
-                    event.setDuration(duration);
-                    event.setStartMileage(state.startMileage);
-                    event.setEndMileage(state.endMileage);
-                    event.setMinSpeed(state.minSpeed);
-                    event.setMaxSpeed(state.maxSpeed);
-                    event.setPreSpeed(state.preSpeed);
-                    event.setPostSpeed(state.postSpeed);
-                    event.setDirection(state.direction);
-                    event.setLaneNo(state.laneNo);
-                    event.setStartTime(state.startTime);
-                    event.setEndTime(state.endTime);
-                    event.setAvgSpeed(avgSpeed);
-
+                    StandardEvent event = createStandardEvent(state, EVENT_TYPE_LOW_SPEED, "低速行驶事件");
                     out.collect(event);
                     System.out.println("输出低速事件: " + event);
                 } else {
-                    System.out.println("低速持续时间不足，忽略: " + vehicleId + ", 持续时间: " + duration + "ms");
+                    System.out.println("低速持续时间不足，忽略: " + state.vehicleId + ", 持续时间: " + duration + "ms");
                 }
 
-                // 重置状态
                 state.reset();
                 lowSpeedState.update(state);
             }
         }
 
-        private void checkTimeoutVehicles(long currentTime, Collector<BaseEvent> out) throws Exception {
-            // 检查超速事件超时
+        private StandardEvent createStandardEvent(BaseEventState state, int eventType, String eventDescription) {
+            StandardEvent event = new StandardEvent();
+
+            // 生成事件ID和时间戳
+            event.setEventId((int) EVENT_ID_GENERATOR.getAndIncrement());
+            event.setTimeStamp(formatTimestamp(System.currentTimeMillis()));
+            event.setEventType(eventType);
+
+            // 位置信息
+            event.setStartStake(state.startStake);
+            event.setEndStake(state.endStake);
+            event.setStartMileage((int) state.startMileage);
+            event.setEndMilage((int) state.endMileage);
+            event.setStartLongitude(state.startLongitude);
+            event.setStartLatitude(state.startLatitude);
+            event.setEndLongitude(state.endLongitude);
+            event.setEndLatitude(state.endLatitude);
+
+            // 事件详情
+            event.setLaneNo(String.valueOf(state.laneNo));
+            event.setDirection(state.direction);
+
+            // 创建车辆列表
+            JSONArray carList = new JSONArray();
+            EventVehicle vehicle = new EventVehicle();
+            vehicle.setCarId(state.carId);
+            vehicle.setPlateNo(state.plateNo);
+            vehicle.setPlateColor(state.plateColor);
+            vehicle.setVehicleType(state.vehicleType);
+            vehicle.setSpecialFlag(state.specialFlag);
+            carList.put(vehicle.toJSONObject());
+            event.setCarList(carList);
+
+            // 附加信息
+            event.setEventLevel(calculateEventLevel(state.maxSpeed, eventType));
+            event.setEventDes(eventDescription);
+            event.setEventReason("车辆速度异常");
+            event.setEventSource(EVENT_SOURCE_VIDEO);
+            event.setSourceRemark("视频分析自动检测");
+            event.setWaySectionId(state.waySectionId);
+            event.setWaySectionName(state.waySectionName);
+            event.setManualAudit(true); // 超速和低速事件建议人工审核
+            event.setConstructionVehicles(null);
+            event.setConstructionPerson(null);
+
+            return event;
+        }
+
+        private String calculateEventLevel(double maxSpeed, int eventType) {
+            if (eventType == EVENT_TYPE_SPEEDING) {
+                if (maxSpeed >= 140) return EVENT_LEVEL_EXTREME;
+                else if (maxSpeed >= 120) return EVENT_LEVEL_MAJOR;
+                else if (maxSpeed >= 110) return EVENT_LEVEL_LARGER;
+                else return EVENT_LEVEL_GENERAL;
+            } else if (eventType == EVENT_TYPE_LOW_SPEED) {
+                if (maxSpeed <= 20) return EVENT_LEVEL_MAJOR;
+                else if (maxSpeed <= 40) return EVENT_LEVEL_LARGER;
+                else return EVENT_LEVEL_GENERAL;
+            }
+            return EVENT_LEVEL_GENERAL;
+        }
+
+        private void checkTimeoutVehicles(long currentTime, Collector<StandardEvent> out) throws Exception {
+            // 超速事件超时检查
             SpeedingEventState speedingStateValue = speedingState.value();
             if (speedingStateValue != null && speedingStateValue.isInEvent) {
                 long timeSinceLastUpdate = currentTime - speedingStateValue.lastSeenTime;
-                if (timeSinceLastUpdate > 60000) { // 60秒超时
+                if (timeSinceLastUpdate > 60000) {
                     System.out.println("清理超时超速事件: " + speedingStateValue.vehicleId);
-                    handleTimeoutEvent(speedingStateValue, out, "speeding_timeout");
+                    if (speedingStateValue.pointCount > 0) {
+                        long duration = speedingStateValue.endTime - speedingStateValue.startTime;
+                        if (duration >= MIN_EVENT_DURATION) {
+                            StandardEvent event = createStandardEvent(speedingStateValue, EVENT_TYPE_SPEEDING, "超速行驶事件(超时结束)");
+                            out.collect(event);
+                        }
+                    }
                     speedingStateValue.reset();
                     speedingState.update(speedingStateValue);
                 }
             }
 
-            // 检查低速事件超时
+            // 低速事件超时检查
             LowSpeedEventState lowSpeedStateValue = lowSpeedState.value();
             if (lowSpeedStateValue != null && lowSpeedStateValue.isInEvent) {
                 long timeSinceLastUpdate = currentTime - lowSpeedStateValue.lastSeenTime;
-                if (timeSinceLastUpdate > 60000) { // 60秒超时
+                if (timeSinceLastUpdate > 60000) {
                     System.out.println("清理超时低速事件: " + lowSpeedStateValue.vehicleId);
-                    handleTimeoutEvent(lowSpeedStateValue, out, "low_speed_timeout");
+                    if (lowSpeedStateValue.pointCount > 0) {
+                        long duration = lowSpeedStateValue.endTime - lowSpeedStateValue.startTime;
+                        if (duration >= MIN_EVENT_DURATION) {
+                            StandardEvent event = createStandardEvent(lowSpeedStateValue, EVENT_TYPE_LOW_SPEED, "低速行驶事件(超时结束)");
+                            out.collect(event);
+                        }
+                    }
                     lowSpeedStateValue.reset();
                     lowSpeedState.update(lowSpeedStateValue);
-                }
-            }
-        }
-
-        private void handleTimeoutEvent(BaseEventState state, Collector<BaseEvent> out, String eventType) throws Exception {
-            if (state.pointCount > 0) {
-                state.postSpeed = 0.0; // 超时情况下后一帧速度设为0
-                long duration = state.endTime - state.startTime;
-
-                if (duration >= MIN_EVENT_DURATION) {
-                    double avgSpeed = state.speedSum / state.pointCount;
-
-                    BaseEvent event = new BaseEvent();
-                    event.setVehicleId(state.vehicleId);
-                    event.setPlateNo(state.plateNo);
-                    event.setEventType(eventType);
-
-                    event.setDuration(duration);
-                    event.setStartMileage(state.startMileage);
-                    event.setEndMileage(state.endMileage);
-                    event.setMinSpeed(state.minSpeed);
-                    event.setMaxSpeed(state.maxSpeed);
-                    event.setPreSpeed(state.preSpeed);
-                    event.setPostSpeed(state.postSpeed);
-                    event.setDirection(state.direction);
-                    event.setLaneNo(state.laneNo);
-                    event.setStartTime(state.startTime);
-                    event.setEndTime(state.endTime);
-                    event.setAvgSpeed(avgSpeed);
-
-                    out.collect(event);
-                    System.out.println("输出超时事件: " + event);
                 }
             }
         }
@@ -590,12 +686,18 @@ public class SpeedingAndLowSpeedDetectionJob {
                 return 0;
             }
         }
+
+        private String formatTimestamp(long timestamp) {
+            LocalDateTime dateTime = LocalDateTime.ofInstant(
+                    java.time.Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
+            return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS"));
+        }
     }
 
     /**
-     * 事件Kafka序列化器 - 支持超速和低速事件
+     * 事件Kafka序列化器 - 符合标准事件格式
      */
-    public static class EventKafkaSerializer implements KafkaRecordSerializationSchema<BaseEvent> {
+    public static class EventKafkaSerializer implements KafkaRecordSerializationSchema<StandardEvent> {
 
         @Override
         public void open(SerializationSchema.InitializationContext context, KafkaSinkContext sinkContext) {
@@ -603,45 +705,54 @@ public class SpeedingAndLowSpeedDetectionJob {
         }
 
         @Override
-        public ProducerRecord<byte[], byte[]> serialize(BaseEvent event, KafkaSinkContext context, Long timestamp) {
+        public ProducerRecord<byte[], byte[]> serialize(StandardEvent event, KafkaSinkContext context, Long timestamp) {
             try {
                 JSONObject json = new JSONObject();
 
-                // 严格按照要求的顺序添加字段
-                json.put("duration", event.getDuration());
-                json.put("startMileage", event.getStartMileage());
-                json.put("endMileage", event.getEndMileage());
-                json.put("minSpeed", event.getMinSpeed());
-                json.put("maxSpeed", event.getMaxSpeed());
-                json.put("preSpeed", event.getPreSpeed());
-                json.put("postSpeed", event.getPostSpeed());
-                json.put("direction", event.getDirection());
-                json.put("laneNo", event.getLaneNo());
-                json.put("startTime", event.getStartTime());
-                json.put("endTime", event.getEndTime());
+                // 严格按照文档要求的字段顺序和名称
+                json.put("eventId", event.getEventId());
+                json.put("timeStamp", event.getTimeStamp());
                 json.put("eventType", event.getEventType());
+                json.put("startStake", event.getStartStake() != null ? event.getStartStake() : JSONObject.NULL);
+                json.put("endStake", event.getEndStake() != null ? event.getEndStake() : JSONObject.NULL);
+                json.put("startMileage", event.getStartMileage());
+                json.put("endMilage", event.getEndMilage() != null ? event.getEndMilage() : JSONObject.NULL);
+                json.put("startLongitude", event.getStartLongitude());
+                json.put("startLatitude", event.getStartLatitude());
+                json.put("endLongitude", event.getEndLongitude() != null ? event.getEndLongitude() : JSONObject.NULL);
+                json.put("endLatitude", event.getEndLatitude() != null ? event.getEndLatitude() : JSONObject.NULL);
+                json.put("laneNo", event.getLaneNo());
+                json.put("direction", event.getDirection());
+                json.put("carList", event.getCarList() != null ? event.getCarList() : new JSONArray());
 
-                // 附加信息
-                json.put("vehicleId", event.getVehicleId());
-                json.put("plateNo", event.getPlateNo());
-                json.put("avgSpeed", event.getAvgSpeed());
-                json.put("processTime", System.currentTimeMillis());
+                // 可选字段
+                if (event.getEventLevel() != null) json.put("eventLevel", event.getEventLevel());
+                if (event.getEventDes() != null) json.put("eventDes", event.getEventDes());
+                if (event.getEventReason() != null) json.put("eventReason", event.getEventReason());
+                if (event.getEventPicPath() != null) json.put("eventPicPath", event.getEventPicPath());
+                if (event.getEventVideoPath() != null) json.put("eventVideoPath", event.getEventVideoPath());
+                if (event.getEventSource() != null) json.put("eventSource", event.getEventSource());
+                if (event.getSourceRemark() != null) json.put("sourceRemark", event.getSourceRemark());
 
-                String topic = "speeding_events";
-                if ("low_speed".equals(event.getEventType()) || "low_speed_timeout".equals(event.getEventType())) {
-                    topic = "low_speed_events";
-                }
+                json.put("waySectionId", event.getWaySectionId());
+                json.put("waySectionName", event.getWaySectionName());
 
+                if (event.getManualAudit() != null) json.put("manualAudit", event.getManualAudit());
+                if (event.getConstructionVehicles() != null) json.put("constructionVehicles", event.getConstructionVehicles());
+                if (event.getConstructionPerson() != null) json.put("constructionPerson", event.getConstructionPerson());
+
+                String topic = "wd.platform.specialEvent"; // 统一事件topic
                 String jsonString = json.toString();
+
                 return new ProducerRecord<>(
                         topic,
                         null,
-                        event.getStartTime(),
+                        System.currentTimeMillis(),
                         null,
                         jsonString.getBytes(StandardCharsets.UTF_8)
                 );
             } catch (Exception e) {
-                System.err.println("序列化事件失败: " + e.getMessage());
+                System.err.println("序列化标准事件失败: " + e.getMessage());
                 return null;
             }
         }
@@ -654,9 +765,7 @@ public class SpeedingAndLowSpeedDetectionJob {
         String brokers = "10.48.53.82:9092";
         String groupId = "speed-detection-group";
 
-        List<String> topics = Arrays.asList(
-                "jtkj.jga.path"
-        );
+        List<String> topics = Arrays.asList("jtkj.jga.path");
 
         KafkaSource<String> source = KafkaSource.<String>builder()
                 .setBootstrapServers(brokers)
@@ -673,10 +782,10 @@ public class SpeedingAndLowSpeedDetectionJob {
     /**
      * 创建Kafka Sink用于输出事件
      */
-    private static KafkaSink<BaseEvent> createKafkaSink() {
+    private static KafkaSink<StandardEvent> createKafkaSink() {
         String brokers = "10.48.53.82:9092";
 
-        return KafkaSink.<BaseEvent>builder()
+        return KafkaSink.<StandardEvent>builder()
                 .setBootstrapServers(brokers)
                 .setRecordSerializer(new EventKafkaSerializer())
                 .build();
@@ -686,7 +795,6 @@ public class SpeedingAndLowSpeedDetectionJob {
      * 主方法 - 完整的Flink作业入口
      */
     public static void main(String[] args) throws Exception {
-        // 设置执行环境
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(3);
 
@@ -695,10 +803,9 @@ public class SpeedingAndLowSpeedDetectionJob {
         // 1. 创建数据源
         DataStream<String> kafkaStream = createKafkaSource(env);
 
-        // 2. 处理数据流 - 按车辆ID分组并进行速度事件检测
-        SingleOutputStreamOperator<BaseEvent> speedEvents = kafkaStream
+        // 2. 处理数据流
+        SingleOutputStreamOperator<StandardEvent> speedEvents = kafkaStream
                 .keyBy(data -> {
-                    // 提取车辆ID作为key
                     try {
                         JSONObject json = new JSONObject(data);
                         JSONArray pathList = json.optJSONArray("pathList");
@@ -716,15 +823,13 @@ public class SpeedingAndLowSpeedDetectionJob {
                 .setParallelism(5);
 
         // 3. 输出结果
-        // 3.1 输出到Kafka（超速和低速事件会发送到不同的topic）
-        KafkaSink<BaseEvent> kafkaSink = createKafkaSink();
+        KafkaSink<StandardEvent> kafkaSink = createKafkaSink();
         speedEvents.sinkTo(kafkaSink)
-                .name("速度事件Kafka输出")
+                .name("标准事件Kafka输出")
                 .setParallelism(2);
 
-        // 3.2 输出到控制台（用于调试）
         speedEvents.print()
-                .name("速度事件控制台输出")
+                .name("标准事件控制台输出")
                 .setParallelism(1);
 
         // 4. 执行作业

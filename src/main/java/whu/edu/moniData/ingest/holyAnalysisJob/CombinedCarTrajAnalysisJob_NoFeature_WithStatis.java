@@ -61,7 +61,7 @@ public class CombinedCarTrajAnalysisJob_NoFeature_WithStatis {
                 primarySource, WatermarkStrategy.noWatermarks(), "Primary Kafka Source");
 
         // ================== 辅助数据源 (MergedPathData) ==================
-        List<String> secondaryTopics = Collections.singletonList("MergedPathData");
+        List<String> secondaryTopics = Collections.singletonList("MergedRampPathData");
 
         KafkaSource<String> secondarySource = KafkaSource.<String>builder()
                 .setBootstrapServers(secondaryBrokers)

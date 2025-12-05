@@ -347,7 +347,7 @@ public class cunUPDOWNLaneRedisZa {
         // 创建匝道数据流处理
         KafkaSource<String> rampKafkaSource = KafkaSource.<String>builder()
                 .setBootstrapServers(brokers)
-                .setTopics("MergedPathData")
+                .setTopics("MergedRampPathData")
                 .setGroupId(groupId + "_ramp")
                 .setStartingOffsets(OffsetsInitializer.latest())
                 .setProperty("auto.offset.commit", "true")
@@ -415,20 +415,20 @@ public class cunUPDOWNLaneRedisZa {
                             Tuple5<Integer, Integer, Double, Integer, Long> accumulator) {
 
                         int carCount = accumulator.f0;
-                        int truckCount = accumulator.f1;
+                        int trackCount = accumulator.f1;
                         double totalSpeed = accumulator.f2;
                         int vehicleCount = accumulator.f3;
 
                         if (value.f1 == 0) { // 客车
                             carCount++;
                         } else if (value.f1 == 1) { // 货车
-                            truckCount++;
+                            trackCount++;
                         }
 
                         totalSpeed += value.f2;
                         vehicleCount++;
 
-                        return Tuple5.of(carCount, truckCount, totalSpeed, vehicleCount, value.f3);
+                        return Tuple5.of(carCount, trackCount, totalSpeed, vehicleCount, value.f3);
                     }
 
                     // 添加的 merge() 方法
@@ -451,7 +451,7 @@ public class cunUPDOWNLaneRedisZa {
                             Tuple5<Integer, Integer, Double, Integer, Long> accumulator) {
 
                         int carCount = accumulator.f0;
-                        int truckCount = accumulator.f1;
+                        int trackCount = accumulator.f1;
                         double totalSpeed = accumulator.f2;
                         int vehicleCount = accumulator.f3;
                         long timestamp = accumulator.f4;
@@ -460,7 +460,7 @@ public class cunUPDOWNLaneRedisZa {
                         long windowStart = (timestamp / 3_600_000) * 3_600_000;
                         String rampCode = ""; // 这里无法获取匝道编号，需要在后面补充
 
-                        return Tuple7.of("", rampCode, carCount, truckCount, carCount + truckCount, totalSpeed, vehicleCount);
+                        return Tuple7.of("", rampCode, carCount, trackCount, carCount + trackCount, totalSpeed, vehicleCount);
                     }
                 }, new ProcessWindowFunction<Tuple7<String, String, Integer, Integer, Integer, Double, Integer>,
                         Tuple7<String, String, Integer, Integer, Integer, Double, Integer>, String, TimeWindow>() {
@@ -640,7 +640,7 @@ public class cunUPDOWNLaneRedisZa {
             String rowKey = stats.f0;
             String rampCode = stats.f1;
             int carCount = stats.f2;
-            int truckCount = stats.f3;
+            int trackCount = stats.f3;
             int totalCount = stats.f4;
             double totalSpeed = stats.f5;
             int vehicleCount = stats.f6;
@@ -659,7 +659,7 @@ public class cunUPDOWNLaneRedisZa {
 
                 // 添加统计信息
                 put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("carCount"), Bytes.toBytes(String.valueOf(carCount)));
-                put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("truckCount"), Bytes.toBytes(String.valueOf(truckCount)));
+                put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("trackCount"), Bytes.toBytes(String.valueOf(trackCount)));
                 put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("totalCount"), Bytes.toBytes(String.valueOf(totalCount)));
                 put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("totalSpeed"), Bytes.toBytes(String.valueOf(totalSpeed)));
                 put.addColumn(Bytes.toBytes(COLUMN_FAMILY), Bytes.toBytes("vehicleCount"), Bytes.toBytes(String.valueOf(vehicleCount)));
@@ -671,7 +671,7 @@ public class cunUPDOWNLaneRedisZa {
                 System.out.println("[RampHBaseSink] 写入数据详情: " +
                         "匝道=" + rampCode +
                         ", 客车=" + carCount +
-                        ", 货车=" + truckCount +
+                        ", 货车=" + trackCount +
                         ", 总数=" + totalCount +
                         ", 平均速度=" + avgSpeed);
             } catch (Exception e) {
@@ -714,7 +714,7 @@ public class cunUPDOWNLaneRedisZa {
             String rowKey = stats.f0;
             String rampCode = stats.f1;
             int carCount = stats.f2;
-            int truckCount = stats.f3;
+            int trackCount = stats.f3;
             int totalCount = stats.f4;
             double totalSpeed = stats.f5;
             int vehicleCount = stats.f6;
@@ -727,7 +727,7 @@ public class cunUPDOWNLaneRedisZa {
                 JSONObject rampStats = new JSONObject();
                 rampStats.put("rampCode", rampCode);
                 rampStats.put("carCount", carCount);
-                rampStats.put("truckCount", truckCount);
+                rampStats.put("trackCount", trackCount);
                 rampStats.put("totalCount", totalCount);
                 rampStats.put("totalSpeed", totalSpeed);
                 rampStats.put("vehicleCount", vehicleCount);

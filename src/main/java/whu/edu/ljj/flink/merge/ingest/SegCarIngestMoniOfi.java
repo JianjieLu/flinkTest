@@ -46,7 +46,7 @@ public class SegCarIngestMoniOfi {
         // 配置 KafkaSource
         String brokers = "100.65.38.40:9092";
         String groupId = "flink-group"; // 消费者组ID
-        String topic = "MergedPathData";
+        String topic = "MergedRampPathData";
 
 
         KafkaSource<String> kafkaSource = KafkaSource.<String>builder()

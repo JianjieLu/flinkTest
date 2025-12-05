@@ -30,6 +30,7 @@ import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
+// nohup java -cp /home/ljj/flinkTest-1.0-SNAPSHOT.jar whu.edu.moniData.ingest.holyAnalysisJob.redisAndHbase.buqua1n3HbaseWithAvgSpeed  > /dev/null 2>&1 &
 public class buqua1n3HbaseWithAvgSpeed {
 
     // 自由流速度 (120km/h -> m/s)
@@ -88,16 +89,16 @@ public class buqua1n3HbaseWithAvgSpeed {
     static class SpeedStatistics {
         private double busSpeedSum = 0;
         private int busCount = 0;
-        private double truckSpeedSum = 0;
-        private int truckCount = 0;
+        private double trackSpeedSum = 0;
+        private int trackCount = 0;
 
         public void addSpeed(int vehicleType, double speed) {
             if (isBus(vehicleType)) {
                 busSpeedSum += speed;
                 busCount++;
-            } else if (isTruck(vehicleType)) {
-                truckSpeedSum += speed;
-                truckCount++;
+            } else if (isTrack(vehicleType)) {
+                trackSpeedSum += speed;
+                trackCount++;
             }
         }
 
@@ -105,19 +106,19 @@ public class buqua1n3HbaseWithAvgSpeed {
             return busCount > 0 ? busSpeedSum / busCount : 0;
         }
 
-        public double getTruckAvgSpeed() {
-            return truckCount > 0 ? truckSpeedSum / truckCount : 0;
+        public double getTrackAvgSpeed() {
+            return trackCount > 0 ? trackSpeedSum / trackCount : 0;
         }
 
         public int getBusCount() { return busCount; }
-        public int getTruckCount() { return truckCount; }
+        public int getTrackCount() { return trackCount; }
 
         // 合并统计
         public void merge(SpeedStatistics other) {
             this.busSpeedSum += other.busSpeedSum;
             this.busCount += other.busCount;
-            this.truckSpeedSum += other.truckSpeedSum;
-            this.truckCount += other.truckCount;
+            this.trackSpeedSum += other.trackSpeedSum;
+            this.trackCount += other.trackCount;
         }
 
         // 判断客车类型的方法
@@ -126,7 +127,7 @@ public class buqua1n3HbaseWithAvgSpeed {
         }
 
         // 判断货车类型的方法
-        private static boolean isTruck(int vt) {
+        private static boolean isTrack(int vt) {
             return vt == 2 || vt == 10 || vt == 8 || vt == 11 || vt == 170 || vt == 171 || vt == 172 ||
                     vt == 173 || vt == 174 || vt == 175 || vt == 176 || vt == 177;
         }
@@ -144,14 +145,14 @@ public class buqua1n3HbaseWithAvgSpeed {
         private double delayIndex;
         private int vehicleCount;
         private double busAvgSpeed;    // 客车平均速度
-        private double truckAvgSpeed;  // 货车平均速度
+        private double trackAvgSpeed;  // 货车平均速度
         private int busCount;          // 客车数量
-        private int truckCount;        // 货车数量
+        private int trackCount;        // 货车数量
         private String calculationLog;
 
         public IndicatorResult(String timeKey, String timeType, int laneNo, int direction, int stake,
                                double occupancy, double headway, double delayIndex, int vehicleCount,
-                               double busAvgSpeed, double truckAvgSpeed, int busCount, int truckCount,
+                               double busAvgSpeed, double trackAvgSpeed, int busCount, int trackCount,
                                String calculationLog) {
             this.timeKey = timeKey;
             this.timeType = timeType;
@@ -163,9 +164,9 @@ public class buqua1n3HbaseWithAvgSpeed {
             this.delayIndex = delayIndex;
             this.vehicleCount = vehicleCount;
             this.busAvgSpeed = busAvgSpeed;
-            this.truckAvgSpeed = truckAvgSpeed;
+            this.trackAvgSpeed = trackAvgSpeed;
             this.busCount = busCount;
-            this.truckCount = truckCount;
+            this.trackCount = trackCount;
             this.calculationLog = calculationLog;
         }
 
@@ -180,9 +181,9 @@ public class buqua1n3HbaseWithAvgSpeed {
         public double getDelayIndex() { return delayIndex; }
         public int getVehicleCount() { return vehicleCount; }
         public double getBusAvgSpeed() { return busAvgSpeed; }
-        public double getTruckAvgSpeed() { return truckAvgSpeed; }
+        public double getTrackAvgSpeed() { return trackAvgSpeed; }
         public int getBusCount() { return busCount; }
-        public int getTruckCount() { return truckCount; }
+        public int getTrackCount() { return trackCount; }
         public String getCalculationLog() { return calculationLog; }
 
         @Override
@@ -190,7 +191,7 @@ public class buqua1n3HbaseWithAvgSpeed {
             return String.format("%s,%s,%d,%d,%d,%.4f,%.4f,%.4f,%d,%.2f,%.2f,%d,%d | %s",
                     timeKey, timeType, laneNo, direction, stake,
                     occupancy, headway, delayIndex, vehicleCount,
-                    busAvgSpeed, truckAvgSpeed, busCount, truckCount, calculationLog);
+                    busAvgSpeed, trackAvgSpeed, busCount, trackCount, calculationLog);
         }
     }
     // 判断客货车类型的方法
@@ -210,11 +211,11 @@ public class buqua1n3HbaseWithAvgSpeed {
         env.setParallelism(8);
 
         String brokers = "10.48.53.82:9092";
-//        List<String> topics = Arrays.asList(
-//                "fiberData1", "fiberData2", "fiberData3", "fiberData4", "fiberData5",
-//                "fiberData6", "fiberData7", "fiberData8", "fiberData9", "fiberData10", "fiberData11"
-//        );
-        List<String> topics = Arrays.asList("jtkj.jga.path.1");
+        List<String> topics = Arrays.asList(
+                "fiberData1", "fiberData2", "fiberData3", "fiberData4", "fiberData5",
+                "fiberData6", "fiberData7", "fiberData8", "fiberData9", "fiberData10", "fiberData11"
+        );
+//        List<String> topics = Arrays.asList("jtkj.jga.path.1");
 
         String groupId = "flink_consumer_group1";
 
@@ -238,6 +239,7 @@ public class buqua1n3HbaseWithAvgSpeed {
                     try {
                         PathTData data = JSON.parseObject(jsonStr, PathTData.class);
                         if (data != null && data.getPathList() != null) {
+
                             out.collect(data);
                         }
                     } catch (Exception e) {
@@ -274,7 +276,7 @@ public class buqua1n3HbaseWithAvgSpeed {
                         String minute = getMinuteFromTimestamp(timestamp);
 
                         // 如果是新的分钟，处理上一分钟的数据
-                        if (!currentProcessingMinute.equals("") && !currentProcessingMinute.equals(minute)) {
+                        if (!currentProcessingMinute.isEmpty() && !currentProcessingMinute.equals(minute)) {
                             processMinuteData(currentProcessingMinute, collector);
                         }
 
@@ -282,6 +284,9 @@ public class buqua1n3HbaseWithAvgSpeed {
 
                         // 处理每个路径点
                         for (PathPoint point : pathList) {
+
+                            if(point.getVehicleType()==null)point.setVehicleType(point.getOriginalType());
+                            if(point.getOriginalType()==null)point.setOriginalType(point.getVehicleType());
                             int laneNo = point.getLaneNo();
                             int direction = point.getDirection();
                             int vehicleType = point.getVehicleType(); // 获取车辆类型
@@ -297,11 +302,7 @@ public class buqua1n3HbaseWithAvgSpeed {
                                 List<Pair<Long, Long>> timePairs = timeDataMap.getOrDefault(key, new ArrayList<>());
 
                                 // 更新时间段范围
-                                Pair<Long, Long> timeRange = timeRangeMap.get(key);
-                                if (timeRange == null) {
-                                    timeRange = new Pair<>(Long.MAX_VALUE, Long.MIN_VALUE);
-                                    timeRangeMap.put(key, timeRange);
-                                }
+                                Pair<Long, Long> timeRange = timeRangeMap.computeIfAbsent(key, k -> new Pair<>(Long.MAX_VALUE, Long.MIN_VALUE));
 
                                 // 更新最小和最大时间戳
                                 if (timestamp < timeRange.getKey()) {
@@ -319,10 +320,9 @@ public class buqua1n3HbaseWithAvgSpeed {
 
                                 // 计算占用时间 = 检测区长度 / 速度 (转换为毫秒)
                                 long occupancyTime = (long) ((DETECTION_LENGTH / speed) * 1000);
-                                long enterTime = timestamp;
-                                long exitTime = enterTime + occupancyTime;
+                                long exitTime = timestamp + occupancyTime;
 
-                                timePairs.add(new Pair<>(enterTime, exitTime));
+                                timePairs.add(new Pair<>(timestamp, exitTime));
                                 timeDataMap.put(key, timePairs);
 
                                 // 更新速度统计
@@ -356,24 +356,24 @@ public class buqua1n3HbaseWithAvgSpeed {
 
                                 // 获取速度统计
                                 double busAvgSpeed = speedStats.getBusAvgSpeed();
-                                double truckAvgSpeed = speedStats.getTruckAvgSpeed();
+                                double trackAvgSpeed = speedStats.getTrackAvgSpeed();
                                 int busCount = speedStats.getBusCount();
-                                int truckCount = speedStats.getTruckCount();
+                                int trackCount = speedStats.getTrackCount();
 
                                 // 创建计算过程日志
                                 String log = String.format(
-                                        "Occupancy: %dms/%dms=%.4f | Headway: %dms/%d=%.4f | Delay: %dms/(%dms*%d)=%.4f | Vehicles: %d | BusSpeed: %.2f(%d) | TruckSpeed: %.2f(%d)",
+                                        "Occupancy: %dms/%dms=%.4f | Headway: %dms/%d=%.4f | Delay: %dms/(%dms*%d)=%.4f | Vehicles: %d | BusSpeed: %.2f(%d) | TrackSpeed: %.2f(%d)",
                                         result.totalOccupancy, result.timeRangeMs, result.occupancy,
                                         result.timeRangeMs, result.vehicleCount, result.headway,
                                         result.totalActualTime, result.freeFlowTimePerVehicle, result.vehicleCount, result.delayIndex,
-                                        timePairs.size(), busAvgSpeed, busCount, truckAvgSpeed, truckCount
+                                        timePairs.size(), busAvgSpeed, busCount, trackAvgSpeed, trackCount
                                 );
 
                                 // 发出指标结果
                                 collector.collect(new IndicatorResult(
                                         key.getTimeKey(), "minute", key.getLaneNo(), key.getDirection(), key.getStake(),
                                         result.occupancy, result.headway, result.delayIndex, timePairs.size(),
-                                        busAvgSpeed, truckAvgSpeed, busCount, truckCount, log
+                                        busAvgSpeed, trackAvgSpeed, busCount, trackCount, log
                                 ));
 
                                 // 清空已处理的数据
@@ -513,23 +513,23 @@ public class buqua1n3HbaseWithAvgSpeed {
                             if (hourData != null && !hourData.isEmpty()) {
                                 // 计算小时平均值（加权平均速度）
                                 double totalBusSpeedWeighted = 0;
-                                double totalTruckSpeedWeighted = 0;
+                                double totalTrackSpeedWeighted = 0;
                                 int totalBusCount = 0;
-                                int totalTruckCount = 0;
+                                int totalTrackCount = 0;
 
                                 for (IndicatorResult minuteResult : hourData) {
                                     if (minuteResult.getBusCount() > 0) {
                                         totalBusSpeedWeighted += minuteResult.getBusAvgSpeed() * minuteResult.getBusCount();
                                         totalBusCount += minuteResult.getBusCount();
                                     }
-                                    if (minuteResult.getTruckCount() > 0) {
-                                        totalTruckSpeedWeighted += minuteResult.getTruckAvgSpeed() * minuteResult.getTruckCount();
-                                        totalTruckCount += minuteResult.getTruckCount();
+                                    if (minuteResult.getTrackCount() > 0) {
+                                        totalTrackSpeedWeighted += minuteResult.getTrackAvgSpeed() * minuteResult.getTrackCount();
+                                        totalTrackCount += minuteResult.getTrackCount();
                                     }
                                 }
 
                                 double avgBusSpeed = totalBusCount > 0 ? totalBusSpeedWeighted / totalBusCount : 0;
-                                double avgTruckSpeed = totalTruckCount > 0 ? totalTruckSpeedWeighted / totalTruckCount : 0;
+                                double avgTrackSpeed = totalTrackCount > 0 ? totalTrackSpeedWeighted / totalTrackCount : 0;
 
                                 // 计算其他指标的平均值
                                 double avgOccupancy = hourData.stream().mapToDouble(IndicatorResult::getOccupancy).average().orElse(0);
@@ -544,14 +544,14 @@ public class buqua1n3HbaseWithAvgSpeed {
                                         .append(", AvgDelayIndex=").append(avgDelayIndex)
                                         .append(", TotalVehicles=").append(totalVehicleCount)
                                         .append(", BusSpeed=").append(avgBusSpeed).append("(").append(totalBusCount).append(")")
-                                        .append(", TruckSpeed=").append(avgTruckSpeed).append("(").append(totalTruckCount).append(")")
+                                        .append(", TrackSpeed=").append(avgTrackSpeed).append("(").append(totalTrackCount).append(")")
                                         .append(" | From ").append(hourData.size()).append(" minute records");
 
                                 // 发出指标结果
                                 collector.collect(new IndicatorResult(
                                         key.getTimeKey(), "hour", key.getLaneNo(), key.getDirection(), key.getStake(),
                                         avgOccupancy, avgHeadway, avgDelayIndex, totalVehicleCount,
-                                        avgBusSpeed, avgTruckSpeed, totalBusCount, totalTruckCount, log.toString()
+                                        avgBusSpeed, avgTrackSpeed, totalBusCount, totalTrackCount, log.toString()
                                 ));
 
                                 // 清空已处理的数据
@@ -619,23 +619,23 @@ public class buqua1n3HbaseWithAvgSpeed {
                             if (dayData != null && !dayData.isEmpty()) {
                                 // 计算天平均值（加权平均速度）
                                 double totalBusSpeedWeighted = 0;
-                                double totalTruckSpeedWeighted = 0;
+                                double totalTrackSpeedWeighted = 0;
                                 int totalBusCount = 0;
-                                int totalTruckCount = 0;
+                                int totalTrackCount = 0;
 
                                 for (IndicatorResult hourResult : dayData) {
                                     if (hourResult.getBusCount() > 0) {
                                         totalBusSpeedWeighted += hourResult.getBusAvgSpeed() * hourResult.getBusCount();
                                         totalBusCount += hourResult.getBusCount();
                                     }
-                                    if (hourResult.getTruckCount() > 0) {
-                                        totalTruckSpeedWeighted += hourResult.getTruckAvgSpeed() * hourResult.getTruckCount();
-                                        totalTruckCount += hourResult.getTruckCount();
+                                    if (hourResult.getTrackCount() > 0) {
+                                        totalTrackSpeedWeighted += hourResult.getTrackAvgSpeed() * hourResult.getTrackCount();
+                                        totalTrackCount += hourResult.getTrackCount();
                                     }
                                 }
 
                                 double avgBusSpeed = totalBusCount > 0 ? totalBusSpeedWeighted / totalBusCount : 0;
-                                double avgTruckSpeed = totalTruckCount > 0 ? totalTruckSpeedWeighted / totalTruckCount : 0;
+                                double avgTrackSpeed = totalTrackCount > 0 ? totalTrackSpeedWeighted / totalTrackCount : 0;
 
                                 // 计算其他指标的平均值
                                 double avgOccupancy = dayData.stream().mapToDouble(IndicatorResult::getOccupancy).average().orElse(0);
@@ -650,14 +650,14 @@ public class buqua1n3HbaseWithAvgSpeed {
                                         .append(", AvgDelayIndex=").append(avgDelayIndex)
                                         .append(", TotalVehicles=").append(totalVehicleCount)
                                         .append(", BusSpeed=").append(avgBusSpeed).append("(").append(totalBusCount).append(")")
-                                        .append(", TruckSpeed=").append(avgTruckSpeed).append("(").append(totalTruckCount).append(")")
+                                        .append(", TrackSpeed=").append(avgTrackSpeed).append("(").append(totalTrackCount).append(")")
                                         .append(" | From ").append(dayData.size()).append(" hour records");
 
                                 // 发出指标结果
                                 collector.collect(new IndicatorResult(
                                         key.getTimeKey(), "day", key.getLaneNo(), key.getDirection(), key.getStake(),
                                         avgOccupancy, avgHeadway, avgDelayIndex, totalVehicleCount,
-                                        avgBusSpeed, avgTruckSpeed, totalBusCount, totalTruckCount, log.toString()
+                                        avgBusSpeed, avgTrackSpeed, totalBusCount, totalTrackCount, log.toString()
                                 ));
 
                                 // 清空已处理的数据
@@ -725,23 +725,23 @@ public class buqua1n3HbaseWithAvgSpeed {
                             if (monthData != null && !monthData.isEmpty()) {
                                 // 计算月平均值（加权平均速度）
                                 double totalBusSpeedWeighted = 0;
-                                double totalTruckSpeedWeighted = 0;
+                                double totalTrackSpeedWeighted = 0;
                                 int totalBusCount = 0;
-                                int totalTruckCount = 0;
+                                int totalTrackCount = 0;
 
                                 for (IndicatorResult dayResult : monthData) {
                                     if (dayResult.getBusCount() > 0) {
                                         totalBusSpeedWeighted += dayResult.getBusAvgSpeed() * dayResult.getBusCount();
                                         totalBusCount += dayResult.getBusCount();
                                     }
-                                    if (dayResult.getTruckCount() > 0) {
-                                        totalTruckSpeedWeighted += dayResult.getTruckAvgSpeed() * dayResult.getTruckCount();
-                                        totalTruckCount += dayResult.getTruckCount();
+                                    if (dayResult.getTrackCount() > 0) {
+                                        totalTrackSpeedWeighted += dayResult.getTrackAvgSpeed() * dayResult.getTrackCount();
+                                        totalTrackCount += dayResult.getTrackCount();
                                     }
                                 }
 
                                 double avgBusSpeed = totalBusCount > 0 ? totalBusSpeedWeighted / totalBusCount : 0;
-                                double avgTruckSpeed = totalTruckCount > 0 ? totalTruckSpeedWeighted / totalTruckCount : 0;
+                                double avgTrackSpeed = totalTrackCount > 0 ? totalTrackSpeedWeighted / totalTrackCount : 0;
 
                                 // 计算其他指标的平均值
                                 double avgOccupancy = monthData.stream().mapToDouble(IndicatorResult::getOccupancy).average().orElse(0);
@@ -756,14 +756,14 @@ public class buqua1n3HbaseWithAvgSpeed {
                                         .append(", AvgDelayIndex=").append(avgDelayIndex)
                                         .append(", TotalVehicles=").append(totalVehicleCount)
                                         .append(", BusSpeed=").append(avgBusSpeed).append("(").append(totalBusCount).append(")")
-                                        .append(", TruckSpeed=").append(avgTruckSpeed).append("(").append(totalTruckCount).append(")")
+                                        .append(", TrackSpeed=").append(avgTrackSpeed).append("(").append(totalTrackCount).append(")")
                                         .append(" | From ").append(monthData.size()).append(" day records");
 
                                 // 发出指标结果
                                 collector.collect(new IndicatorResult(
                                         key.getTimeKey(), "month", key.getLaneNo(), key.getDirection(), key.getStake(),
                                         avgOccupancy, avgHeadway, avgDelayIndex, totalVehicleCount,
-                                        avgBusSpeed, avgTruckSpeed, totalBusCount, totalTruckCount, log.toString()
+                                        avgBusSpeed, avgTrackSpeed, totalBusCount, totalTrackCount, log.toString()
                                 ));
 
                                 // 清空已处理的数据
@@ -782,7 +782,7 @@ public class buqua1n3HbaseWithAvgSpeed {
         Connection connection = ConnectionFactory.createConnection(hbaseConf);
 
         // 确保表存在
-//        createTableIfNotExists(connection, "traffic_indicators", "cf");
+        createTableIfNotExists(connection, "traffic_indicators", "cf");
 
         // 修改 Sink 创建，增强HBase存储
         hourIndicatorStream.addSink(new EnhancedIndicatorHBaseSink("hour"));
@@ -834,11 +834,11 @@ public class buqua1n3HbaseWithAvgSpeed {
             // 添加基础指标数据
 
             table.put(put);
-            put.addColumn(Bytes.toBytes("cf"),Bytes.toBytes("IndicatorsOfTime") ,Bytes.toBytes(JSON.toJSONString(  new IndicatorsOfTime(result.getTimeType(),result.getOccupancy(),result.getTruckCount(),result.getHeadway(),result.getDelayIndex(),
-                    result.getVehicleCount(),result.getBusAvgSpeed(),result.getTruckAvgSpeed(),result.getBusCount(),result.getTruckCount()))));
+            put.addColumn(Bytes.toBytes("cf"),Bytes.toBytes("IndicatorsOfTime") ,Bytes.toBytes(JSON.toJSONString(  new IndicatorsOfTime(result.getTimeType(),result.getOccupancy(),result.getTrackCount(),result.getHeadway(),result.getDelayIndex(),
+                    result.getVehicleCount(),result.getBusAvgSpeed(),result.getTrackAvgSpeed(),result.getBusCount(),result.getTrackCount()))));
             // 写入HBase
             table.put(put);
-            System.out.println("存储增强指标数据: " + rowKey + " | 客车速度: " + result.getBusAvgSpeed() + " | 货车速度: " + result.getTruckAvgSpeed());
+            System.out.println("存储增强指标数据: " + rowKey + " | 客车速度: " + result.getBusAvgSpeed() + " | 货车速度: " + result.getTrackAvgSpeed());
         }
 
         @Override
@@ -889,14 +889,14 @@ public class buqua1n3HbaseWithAvgSpeed {
     public static class IndicatorsOfTime{
         private String time_type;
         private Double occupancy;
-        private Integer truckCount;
+        private Integer trackCount;
         private Double headway;
         private Double delay_index;
         private Integer vehicle_count;
         private Double bus_avg_speed;
-        private Double truck_avg_speed;
+        private Double track_avg_speed;
         private Integer bus_count;
-        private Integer truck_count;
+        private Integer track_count;
 
     }
 

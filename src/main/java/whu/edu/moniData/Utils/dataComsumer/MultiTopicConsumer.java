@@ -32,7 +32,7 @@ public class MultiTopicConsumer {
 //                    "fiberData10", "fiberData11"
 //            ));
 //            consumer.subscribe(Arrays.asList("specialTrafficInfo"));
-            consumer.subscribe(Arrays.asList("MergedPathData"));
+            consumer.subscribe(Arrays.asList("MergedRampPathData"));
             consumer.subscribe(Arrays.asList("e1_data_XG01"));
 
             System.out.println("开始监控车辆信息（车牌号 + 里程）...");

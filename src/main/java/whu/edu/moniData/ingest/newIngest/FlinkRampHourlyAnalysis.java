@@ -49,7 +49,7 @@ public class FlinkRampHourlyAnalysis {
         // Kafka配置
         String brokers = "10.48.53.82:9092";
         String groupId = "ramp-hourly-group";
-        List<String> topics = Arrays.asList("MergedPathData");
+        List<String> topics = Arrays.asList("MergedRampPathData");
 
         // 创建Kafka源
         KafkaSource<String> kafkaSource = KafkaSource.<String>builder()

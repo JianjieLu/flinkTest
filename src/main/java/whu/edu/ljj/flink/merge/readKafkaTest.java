@@ -48,7 +48,7 @@
 //
 //            // 配置Kafka连接信息
 //            String brokers = "100.65.38.40:9092";
-//            String topic = "MergedPathData";
+//            String topic = "MergedRampPathData";
 //            String groupId = "flink_consumer_group";
 //
 //            // 创建Kafka数据源

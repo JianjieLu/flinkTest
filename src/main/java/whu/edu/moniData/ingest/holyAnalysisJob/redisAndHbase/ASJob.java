@@ -80,7 +80,7 @@ public class ASJob {
                 primarySource, WatermarkStrategy.noWatermarks(), "Primary Kafka Source");
 
         // ================== 辅助数据源 (MergedPathData) ==================
-        List<String> secondaryTopics = Collections.singletonList("MergedPathData");
+        List<String> secondaryTopics = Collections.singletonList("MergedRampPathData");
 
         KafkaSource<String> secondarySource = KafkaSource.<String>builder()
                 .setBootstrapServers(secondaryBrokers)
@@ -161,7 +161,45 @@ public class ASJob {
         private final Map<String, Long> lastSeenTime = new ConcurrentHashMap<>();
         private final Map<String, Long> lastSampleTime = new ConcurrentHashMap<>();
         private final ReentrantLock stateLock = new ReentrantLock();
+        // 添加查询方法
+        public List<TrajectoryPoint> queryTrajectoryByPlateNo(String plateNo) {
+            List<TrajectoryPoint> result = new ArrayList<>();
 
+            for (Map.Entry<String, String> entry : mapTimeSeg.entrySet()) {
+                String timeSeg = entry.getValue();
+                // timeSeg格式: timestamp-plateNo-id
+                String[] parts = timeSeg.split("-");
+                if (parts.length >= 2 && parts[1].equals(plateNo)) {
+                    String id = entry.getKey();
+                    List<Tuple5<Double, Double, Integer, Integer, Double>> points = map.get(id);
+                    if (points != null) {
+                        for (Tuple5<Double, Double, Integer, Integer, Double> point : points) {
+                            result.add(new TrajectoryPoint(
+                                    point.f0, point.f1, point.f2, point.f3, point.f4
+                            ));
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        // 根据ID查询
+        public List<TrajectoryPoint> queryTrajectoryById(String id) {
+            List<Tuple5<Double, Double, Integer, Integer, Double>> points = map.get(id);
+            if (points == null) return new ArrayList<>();
+
+            List<TrajectoryPoint> result = new ArrayList<>();
+            for (Tuple5<Double, Double, Integer, Integer, Double> point : points) {
+                result.add(new TrajectoryPoint(point.f0, point.f1, point.f2, point.f3, point.f4));
+            }
+            return result;
+        }
+
+        // 获取所有活跃车辆
+        public Map<String, String> getAllActiveVehicles() {
+            return new HashMap<>(mapTimeSeg);
+        }
         @Override
         public void flatMap(String jsonString, Collector<String> out) {
             stateLock.lock();
